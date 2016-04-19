@@ -20,8 +20,8 @@ During installation, the PCF operator will configure which services they want to
 
 The current version supports the following services:
 
-RDS for PostgreSQL - Amazon RDS supports DB instances running several versions of PostgreSQL. 
-
+* RDS for PostgreSQL - Amazon RDS supports DB instances running several versions of PostgreSQL. 
+* S3 - Create and manage Amazon S3 buckets
 
 ##Apps Manager
 Note: Apps Manager does not yet support the Asynchronous Provisioning capability of Cloud Foundry so it can NOT be used to Create or Delete service instances. You can view the Marketplace services, the Service Plans for each service and their plan features. However, the Create, Delete, Bind and Unbind must be done via the CF CLI.  
@@ -29,8 +29,8 @@ Note: Apps Manager does not yet support the Asynchronous Provisioning capability
 <img src="images/aws-sb-appsmgr-serviceplans.png"  />
 
 
-##Creating Service Instances
-You can list the services in the Marketplaces:
+##RDS for PostgreSQL
+As with all PCF Services, you can list the services in the Marketplaces:
 
     cf marketplace
     Getting services from marketplace in org system / space iaas-brokers as admin...
@@ -72,19 +72,19 @@ The following command shows the syntax for each setting, you can omit settings y
     cf create-service aws-rds-postgres basic postgresdb -c '{ "CreateInstance": { "EngineVersion": "9.4.1", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 10, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
 
 
-##Binding to an Application
+###Binding to an Application
 This step grants the application with access to the database and provides credentials (in the environment variables) for access. 
 The access permissions are set at the least privilege required.  
 
     cf bind-service myapp mydb
 
 
-##Unbinding an Application
+###Unbinding an Application
 This step removes application access to the database and removes the database credentials from the environment variables. 
 
     cf unbind-service myapp mydb
 
-##Deleting Service Instances
+###Deleting Service Instances
 To delete the service instance, ensure that there are no apps bound to the service instance.  
 
     cf delete-service mydb
@@ -94,9 +94,20 @@ To delete the service instance, ensure that there are no apps bound to the servi
      Delete in progress. Use 'cf services' or 'cf service mydb1' to check operation status.
 
 
+##S3
+Creating an S3 bucket is simple. It will utilize default region and tags settings configured by the PCF operator:
+
+    cf cs aws-s3 standard bucket1
+
+You can create a bucket in a specific region, very useful for ensuring lower latency for end users. The following example creates a bucket in the Tokyo region:
+
+    cf cs aws-s3 standard tokyobucket -c '{ "CreateBucket": { "CreateBucketConfiguration": { "LocationConstraint": "ap-northeast-1"} } }'
+
+
 
 ##Troubleshooting Problems
 1. As a PCF operator, when deploying the tile by clicking "Apply Changes" I get an error "A client error (InvalidClientTokenId) occurred when calling the GetUser operation: The security token included in the request is invalid." Reason: The AWS credentials are not valid, please recheck them or recreate the credentials. 
+2. As a PCF operator, when deleting the product tile, I get an error "Can not remove brokers that have associated service instances". Reason: Your service broker currently has service instances that are active. They must be deleted before the tile can be deleted. 
 2. As an App developer, when trying to create a service, I get an error "Service broker error: InvalidClientTokenId: The security token included in the request is invalid." Reason: The AWS credentials are not valid, please ask your PCF operator to recheck them or recreate the credentials.
 
 
