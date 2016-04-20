@@ -12,7 +12,7 @@ This topic describes how to install the Service Broker for AWS by configuring yo
 
 ##<a id="setup"></a>Step 1: Set up AWS
 
-To use the Service Broker for AWS to create and manage AWS resources, complete the following steps:
+Complete the following steps to configure your AWS account to allow the Service Broker for AWS to create and manage AWS resources:
 
 1. Create a new policy in the AWS IAM console called `PCFInstallationPolicy` with the following policy document text:
 
@@ -111,18 +111,15 @@ To install the Service Broker for AWS tile in Ops Manager, complete the followin
 1. Click **Installation Dashboard** to return to the Ops Manager Installation Dashboard.
 1. Click **Apply Changes** to install the product.
 
+##<a id="confirm"></a>Step 3: Confirm Installation
+
+<p class="note"><strong>Note</strong>: The Service Broker for AWS installs an app called <code>aws-services-broker</code> in the <code>iaas-brokers</code> space of the <code>system</code> org.</p> 
+
+1. After Ops Manager finishes the installation, the **Service Broker for AWS** appears as a green tile in the **Installation Dashboard**.
+
     <%= image_tag("images/aws-sb-install.png") %>
+1. In Apps Manager, all orgs and spaces show the new services in the Services Marketplace. Users can create instances of these services through Apps Manager or via the cf CLI. Review the [Creating and Managing Service Instances](creating.html) topic for more information.
 
---
-
-###The Marketplace
-At this point, all orgs and spaces will have visibility of the new services in the Marketplace and can create service instances based on these services. 
-
-<img src="images/aws-sb-marketplace.png"  /> 
-
-
-###Service Broker for AWS
-The Service Broker for AWS installs in the “system” org in a space called “iaas-brokers”. The app is called “aws-services-broker”. 
-
+    <%= image_tag("images/aws-sb-marketplace.png") %>
 
 
