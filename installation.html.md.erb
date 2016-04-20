@@ -1,0 +1,128 @@
+---
+breadcrumb: PCF Services
+title: Installing the Service Broker
+---
+
+This topic describes how to install the Service Broker for AWS by configuring your AWS account and importing the product file into Ops Manager.
+
+##Installation Prerequisites
+
+* Pivotal Cloud Foundry&reg; version 1.6 or later.
+* An Amazon Web Services (AWS) account.
+
+##<a id="setup"></a>Step 1: Set up AWS
+
+To use the Service Broker for AWS to create and manage AWS resources, complete the following steps:
+
+1. Create a new policy in the AWS IAM console called `PCFInstallationPolicy` with the following policy document text:
+
+    ```
+    {
+        "AttachedPolicies": [
+            {
+                "PolicyName": "AmazonRDSFullAccess",
+                "PolicyArn": "arn:aws:iam::aws:policy/AmazonRDSFullAccess"
+            },
+            {
+                "PolicyName": "IAMFullAccess",
+                "PolicyArn": "arn:aws:iam::aws:policy/IAMFullAccess"
+            }
+        ]
+    }
+    ```
+
+1. Create a new IAM user for the PCF cluster in the AWS IAM console. If you have more than one PCF deployments, you must create an IAM user for each one. Note the AWS Access Key ID and Secret Access Key for each of your PCF IAM accounts. 
+
+1. In the AWS RDS console, create an RDS PostgreSQL database for production purposes, with the smallest DB instance class (db.t2.micro), Multi-AZ, SSD Storage and 5GB of Allocated Storage. Use `pcf-aws-services` for the DB Instance Identifier. The Service Broker for AWS stores configuration information in this database. Note the Database IP, Database Port, Admin user, Admin password and Database Name. 
+
+##<a id="install"></a>Step 2: Install in Ops Manager
+
+To install the Service Broker for AWS tile in Ops Manager, complete the following steps:
+
+1. Download the Service Broker for AWS product file from [Pivotal Network](https://network.pivotal.io/products/p-aws-services).
+
+1. From the Ops Manager Installation Dashboard, click **Import a Product** to upload the product file.
+
+1. Click **Add** next to the uploaded product description in the **Available Products** view to add this product to your staging area.
+
+1. Click on the newly added tile to configure the sections as described below.
+
+###<a id="aws-config"></a>AWS Config
+
+1. Click **AWS Config**.
+    <%= image_tag("images/aws-sb-awsconfig.png") %>
+1. Enter the **AWS Access Key ID** and the **Secret Access Key** from [Step 1](#setup).
+2. For **Default Region**, enter the AWS region to use as the default. You can change this later for a particular service. 
+3. For **Default Availability Zone**, enter the AWS Availability Zone to use as the default. You can specify a default Availability Zone only if Multi-AZ is not selected.
+4. The broker automatically creates AWS tags for the service plan GUID and the org-space GUID. You can also configure default tags to add for each AWS resource by entering them in the **Default Tags** text box, separated by a space. For example, `owner=operations env=production app=payroll`.
+1. Click **Save**.
+
+###<a id="broker-config"></a>Broker Config
+1. Click **Broker Config**.
+    <%= image_tag("images/aws-sb-brokerconfig.png") %>
+1. For **App Instances**, enter the number of instances of the service broker you want to run. The default is `2`.
+1. For **Database Host**, enter the IP address of the PostgreSQL database where the Service Broker for AWS will store configuration information. You can use the database you created in the AWS RDS console in [Step 1](#setup), or choose to use an existing internal database.
+1. For **Database Port**, enter the port number of your database. The default for PostgreSQL is 5432.
+1. For **Database Username** and **Database Password**, enter your database credentials.
+1. For **Database Name**, enter the name of the database where the Service Broker for AWS can store configuration information.
+1. Under **Database SSL Connection**, select **Enabled** if you want to encrypt traffic to your database and add your SSL certificate in the **Root Certificate** text box. Otherwise, select **Disabled**. 
+1. Click **Save**.
+
+###<a id="rds-config"></a>RDS Config
+1. Click **RDS Config**.
+    <%= image_tag("images/aws-sb-rdsconfig.png") %>
+
+1. Under **Override Default AWS Region** select the default AWS region.  
+
+1. Under **Override Default AWS Availability Zone** select the default Availability Zone for RDS database instances.
+
+1. Under **PostgreSQL Plans**, the Service Broker for AWS includes several default plans for use by developers. 
+    * **basic**: For small projects and during development.
+    * **standard**: For a small production database (multi-AZ, 2vCPU, 7.5GB).
+    * **premium**: For a mid-sized database (multi-AZ, 4 vCPU, 15GB).
+    * **enterprise**: For a large database (multi-AZ, 8 vCPU, 32GB).
+
+1. You can view and edit the configuration of existing plans by clicking the arrow next to their names. 
+    <%= image_tag("images/aws-sb-editplan.png") %>
+    <p class="note"><strong>Note</strong>: If you edit an existing service plan, only future instances of that services plan will be changed. Ask your Admin to modify existing instances.</p> 
+1. You can also create a new custom plan by clicking the **Add** button and completing the following fields:
+    - **Plan Name**: The name of the plan in the Services Marketplace.
+    - **Plan Description**: The description of the plan in the Services Marketplace. 
+    - **Plan Features**: The list of features displayed in Apps Manager.
+    - **Engine**: This must be `postgres`.
+    - **Engine Version**: The version of PostgreSQL your database uses.
+    - **DB Instance Class**: The hardware that runs the database.
+    - **Allocated Storage (GB)**: The amount of storage allocated to the database.
+    - **Storage Type**: This can be Magnetic, SSD or Provisioned IOPS (`io1`).
+    - **IOPS**: The IOPS rate for the database instance. Only required if your **Storage Type** is `io1`.
+    - **Backup Retention Period**: How long to retain backups (typically 7 days).
+    - **Copy Tags to Snapshot**: Whether to tag the database snapshots.
+    - **Multi AZ**: Whether to automatically run in multiple Availability Zones.
+
+    <%= image_tag("images/aws-sb-addplan.png") %>
+
+1. Click **Save**.
+
+###<a id="s3-config"></a>S3 Config
+1. Click **S3 Config**.
+    <%= image_tag("images/aws-sb-s3config.png") %>
+1. Under **Override Default AWS Region**, select the default AWS region for this service.
+1. Select **Enable in Marketplace** to enable the S3 service in the Services Marketplace.
+1. Click **Installation Dashboard** to return to the Ops Manager Installation Dashboard.
+1. Click **Apply Changes** to install the product.
+
+    <%= image_tag("images/aws-sb-install.png") %>
+
+--
+
+###The Marketplace
+At this point, all orgs and spaces will have visibility of the new services in the Marketplace and can create service instances based on these services. 
+
+<img src="images/aws-sb-marketplace.png"  /> 
+
+
+###Service Broker for AWS
+The Service Broker for AWS installs in the “system” org in a space called “iaas-brokers”. The app is called “aws-services-broker”. 
+
+
+

@@ -1,9 +1,7 @@
 ---
-title: Service Broker for AWS (BETA)
+breadcrumb: PCF Services
+title: Release Notes
 ---
-
-
-
 
 ###0.1.1
 
