@@ -84,25 +84,24 @@ To create an S3 bucket with custom settings, use `cf create-service SERVICE PLAN
 
 ##<a id="bind"></a>Bind or Unbind a Service Instance
 
-Developers can only bind RDS for PostgreSQL service instances, and not S3 service instances, to an app. Binding an `aws-rds-postgres` instance to an app grants the app access to the database and provides credentials in the environment variables. The access permissions are set at the least privilege required.  
-
+Binding a RDS for PostgreSQL or S3 service instance to an app grants the app access to the RDS database or S3 bucket, and provides credentials in the environment variables. The access permissions are set at the least privilege required.  
 Run the following command to bind a service instance to an app:
-<pre class="terminal">$ cf bind-service YOUR-APP YOUR-AWS-RDS-POSTGRES-INSTANCE</pre>
+<pre class="terminal">$ cf bind-service YOUR-APP YOUR-SERVICE-INSTANCE</pre>
 
 Unbinding a service instance from an app removes access to the database and removes database credentials from the environment variables. 
 
 Run the following command to unbind a service instance to an app:
-<pre class="terminal">$ cf unbind-service YOUR-APP YOUR-AWS-RDS-POSTGRES-INSTANCE</pre>
+<pre class="terminal">$ cf unbind-service YOUR-APP YOUR-SERVICE-INSTANCE</pre>
 
 ##<a id="delete"></a>Delete a Service Instance
 
 <p class="note"><strong>Note</strong>: Before deleting a service instance, ensure there are no apps bound to the service instance.</p> 
 Run the following command to delete a service instance: 
-<pre class="terminal">$ cf delete-service mydb
-    Really delete the service mydb> y
-     Deleting service mydb in org system / space dev1 as appdev1...
+<pre class="terminal">$ cf delete-service YOUR-SERVICE-INSTANCE
+    Really delete the service YOUR-SERVICE-INSTANCE> y
+     Deleting service YOUR-SERVICE-INSTANCE in org system / space dev1 as appdev1...
      OK
-     Delete in progress. Use 'cf services' or 'cf service mydb1' to check operation status.
+     Delete in progress. Use 'cf services' or 'cf service YOUR-SERVICE-INSTANCE' to check operation status.
 </pre>
 
 ##<a id="troubleshooting"></a>Troubleshooting
