@@ -85,6 +85,7 @@ To create an S3 bucket with custom settings, use `cf create-service SERVICE PLAN
 ##<a id="bind"></a>Bind or Unbind a Service Instance
 
 Binding a RDS for PostgreSQL or S3 service instance to an app grants the app access to the RDS database or S3 bucket, and provides credentials in the environment variables. The access permissions are set at the least privilege required.  
+
 Run the following command to bind a service instance to an app:
 <pre class="terminal">$ cf bind-service YOUR-APP YOUR-SERVICE-INSTANCE</pre>
 
