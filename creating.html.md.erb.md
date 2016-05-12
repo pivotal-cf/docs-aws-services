@@ -5,7 +5,7 @@ title: Creating and Managing Service Instances
 
 ##<a id="overview"></a>Overview
 
-This topic describes how developers set up, operate, and scale Amazon Web Services (AWS) resources from Pivotal Cloud Foundry&reg; (PCF) by creating and managing service instances of the Service Broker for AWS.
+This topic describes how developers set up, operate, and scale Amazon Web Services (AWS) resources from Pivotal Cloud Foundry&reg; (PCF) by creating and managing service instances using the Service Broker for AWS.
 
 PCF operators must follow the instructions in the [Installing the Service Broker](installation.html) topic to install the Service Broker for AWS before developers can use it. During installation, operators configure which AWS services they want to make available to developers in the Services Marketplace. They can also set up pre-defined service plans with specific resource configurations and securely manage their AWS credentials. 
 
@@ -13,6 +13,7 @@ The current version of the Service Broker for AWS supports the following service
 
 * RDS for PostgreSQL: Create and manage Amazon RDS database instances running several versions of PostgreSQL. 
 * S3: Create and manage Amazon S3 buckets.
+* RDS for MySQL: Deploy scalable MySQL deployments in minutes
 
 Developers create and manage service instances of the Service Broker for AWS through the cf CLI. Developers cannot use Apps Manager to create or manage instances of the Service Broker for AWS because it does not support the asynchronous provisioning capability of PCF. However, they can use Apps Manager to view service information in the Marketplace Services, including service plans and plan features. 
 
@@ -27,8 +28,9 @@ To perform the following procedures for creating and managing service instances,
     OK
     service            plans                                  description   
     app-autoscaler     bronze, gold                           Scales bound applications in response to load   
-    aws-rds-postgres   basic, standard, premium, enterprise   Create and manage AWS RDS PostgreSQL deployments 
-    aws-s3             standard                               Create and manage AWS S3 buckets  
+    aws-rds-mysql      basic, standard, premium, enterprise   Create and manage AWS RDS MySQL deployments   
+    aws-rds-postgres   basic, standard, premium, enterprise   Create and manage AWS RDS PostgreSQL deployments   
+    aws-s3             standard                               Create and manage Amazon S3 buckets   
 </pre>
 1. View descriptions for the plans of a service with `cf marketplace -s SERVICE`.
 <pre class="terminal">
@@ -63,8 +65,28 @@ To create an instance of `aws-rds-postgres` with custom settings, use `cf create
     * AvailabilityZone
 
 The following example shows the syntax for each setting. You can omit settings you don't want to explicitly set:
-<pre class="terminal">$ cf create-service aws-rds-postgres basic postgresdb -c '{ "CreateInstance": { "EngineVersion": "9.4.1", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 10, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
+<pre class="terminal">$ cf create-service aws-rds-postgres basic postgresdb -c '{ "CreateDbInstance": { "EngineVersion": "9.4.1", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 10, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
 </pre>
+
+###<a id="rds"></a>RDS for MySQL
+
+To create a service instance of the RDS for MySQL service, use `cf create-service` to create an instance of `aws-rds-mysql` with or without custom settings.
+
+To create an instance of `aws-rds-mysql` without custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE`. The following example creates an instance named `mysqldb1` with the `standard` plan:
+<pre class="terminal">$ cf create-service aws-rds-mysql standard mysqldb1
+</pre>
+
+To create an instance of `aws-rds-mysql` with custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE` with the `-c` flag and provide custom settings for the following elements:
+    * Engine Version
+    * Multi-AZ
+    * Storage Type
+    * AllocatedStorage
+    * AvailabilityZone
+
+The following example shows the syntax for each setting. You can omit settings you don't want to explicitly set:
+<pre class="terminal">$ cf create-service aws-rds-mysql basic mysqldb2 -c '{ "CreateDbInstance": { "EngineVersion": "5.6.27", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
+</pre>
+
 
 ###<a id="rds"></a>S3
 
@@ -84,7 +106,7 @@ To create an S3 bucket with custom settings, use `cf create-service SERVICE PLAN
 
 ##<a id="bind"></a>Bind or Unbind a Service Instance
 
-Binding a RDS for PostgreSQL or S3 service instance to an app grants the app access to the RDS database or S3 bucket, and provides credentials in the environment variables. The access permissions are set at the least privilege required.  
+Binding a RDS database or S3 service instance to an app grants the app access to the RDS database or S3 bucket, and provides credentials in the environment variables. The access permissions are set at the least privilege required.  
 
 Run the following command to bind a service instance to an app:
 <pre class="terminal">$ cf bind-service YOUR-APP YOUR-SERVICE-INSTANCE</pre>
