@@ -13,7 +13,7 @@ The current version of the Service Broker for AWS supports the following service
 
 * RDS for PostgreSQL: Create and manage Amazon RDS database instances running several versions of PostgreSQL. 
 * S3: Create and manage Amazon S3 buckets.
-* RDS for MySQL: Deploy scalable MySQL deployments in minutes
+* RDS for MySQL: Deploy scalable MySQL deployments in minutes.
 
 Developers create and manage service instances of the Service Broker for AWS through the cf CLI. Developers cannot use Apps Manager to create or manage instances of the Service Broker for AWS because it does not support the asynchronous provisioning capability of PCF. However, they can use Apps Manager to view service information in the Marketplace Services, including service plans and plan features. 
 
