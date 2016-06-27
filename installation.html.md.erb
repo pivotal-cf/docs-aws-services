@@ -19,8 +19,12 @@ These steps configure your AWS account to allow the Service Broker for AWS to cr
 
 1. Create a new IAM user for the PCF cluster in the AWS IAM console. If you have more than one PCF deployment, you must create an IAM user for each one. Write down the AWS Access Key ID and Secret Access Key for each of your PCF IAM accounts, you will need it later. For each IAM user, click on the user name, then the Permissions tab and "Attach Policy" then select these policies to be added: IAMFullAccess, AmazonRDSFullAccess, AmazonS3FullAccess. Click "Attach Policy" and check that the user has those policies listed. 
 
-1. This database must be created BEFORE installing the Service Broker for AWS.  In the AWS RDS console, create an RDS PostgreSQL database for production purposes, with the smallest DB instance class (db.t2.micro), Multi-AZ, SSD Storage and 5GB of Allocated Storage. Use `pcf-aws-services` for the DB Instance Identifier. The Service Broker for AWS stores configuration information in this database. Note the Database IP, Database Port, Admin user, Admin password and Database Name. 
-2. To access the RDS database from an external IP address, modify your AWS VPC settings to allow the appropriate ports to be accessed. For more information, see the [Accessing a DB Instance in a VPC](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Scenarios.html) topic in the AWS documentation.
+1. This database must be created BEFORE installing the Service Broker for AWS.  In the AWS RDS console, create an RDS PostgreSQL database for production purposes, with the smallest DB instance class (db.t2.micro), Multi-AZ, SSD Storage and 5GB of Allocated Storage. Use `pcf-aws-services` for the DB Instance Identifier. The Service Broker for AWS stores configuration information in this database. Note the Database IP, Database Port, Admin user, Admin password and Database Name.
+
+1. To access the RDS database from an external IP address, modify your AWS VPC settings to allow the appropriate ports to be accessed. For more information, see the [Accessing a DB Instance in a VPC](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Scenarios.html) topic in the AWS documentation.
+
+###<a id="security-groups"></a>Step 1a: Configure Security Groups
+To use the Service Broker, you will need to ensure your Application Security Group allows TCP traffic to RDS databases. In addition to allowing the default traffic, you should also [add rules to enable inbound and outbound TCP traffic](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html#adding-security-group-rule) on the following ports : `5432, 1521, 1433, 3306`
 
 
 ##<a id="install"></a>Step 2: Install in Ops Manager
