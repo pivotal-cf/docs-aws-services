@@ -87,6 +87,43 @@ The following example shows the syntax for each setting. You can omit settings y
 <pre class="terminal">$ cf create-service aws-rds-mysql basic mysqldb2 -c '{ "CreateDbInstance": { "EngineVersion": "5.6.27", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
 </pre>
 
+###<a id="rds"></a>RDS for MariaDB
+
+To create a service instance of the RDS for MariaDB service, use `cf create-service` to create an instance of `aws-rds-mariadb` with or without custom settings.
+
+To create an instance of `aws-rds-mariadb` without custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE`. The following example creates an instance named `mariadbdb1` with the `standard` plan:
+<pre class="terminal">$ cf create-service aws-rds-mariadb standard mariadbdb1
+</pre>
+
+To create an instance of `aws-rds-mariadb` with custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE` with the `-c` flag and provide custom settings for the following elements:
+    * Engine Version
+    * Multi-AZ
+    * Storage Type
+    * AllocatedStorage
+    * AvailabilityZone
+
+The following example shows the syntax for each setting. You can omit settings you don't want to explicitly set:
+<pre class="terminal">$ cf create-service aws-rds-mariadb basic mariadbdb2 -c '{ "CreateDbInstance": { "EngineVersion": "10.0.24", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
+</pre>
+
+
+###<a id="rds"></a>RDS for Aurora
+
+To create a service instance of the RDS for Aurora service, use `cf create-service` to create an instance of `aws-rds-aurora` with or without custom settings.
+
+To create an instance of `aws-rds-aurora` without custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE`. The following example creates an instance named `auroradb1` with the `standard` plan:
+<pre class="terminal">$ cf create-service aws-rds-aurora standard auroradb1
+</pre>
+
+To create an instance of `aws-rds-aurora` with custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE` with the `-c` flag and provide custom settings for the following elements:
+    * Multi-AZ
+    * AvailabilityZone
+
+The following example shows the syntax for each setting. You can omit settings you don't want to explicitly set:
+<pre class="terminal">$ cf create-service aws-rds-aurora basic auroradb2 -c '{ "CreateDbInstance": { "MultiAZ": false, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
+</pre>
+
+
 ###<a id="rds"></a>RDS for SQL Server
 
 To create a service instance of the RDS for SQL Server service, use `cf create-service` to create an instance of `aws-rds-sqlserver` with or without custom settings.
