@@ -146,6 +146,39 @@ The following example shows the syntax for each setting. You can omit settings y
 
 <p class="note"><strong>Note</strong>: For SQL Server setting Multi-AZ to true will enable Multi-AZ database mirroring. See the AWS documentation on [Multi-AZ Deployments for Microsoft SQL Server with Database Mirroring](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_SQLServerMultiAZ.html) for more details.</p> 
 
+
+###<a id="rds"></a>DynamoDB
+
+To create a service instance of the RDS for MySQL service, use `cf create-service` to create an instance of `aws-dynamodb`.
+
+To create an instance of `aws-dynamodb` without custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE`. The following example creates an instance named `mydynamodb` with the `standard` plan:
+<pre class="terminal">$ cf create-service aws-dynamodb standard mydynamodb</pre>
+
+Binding an app to a DynamoDB service instance will create an IAM User with the ability to create tables with a prefix corresponding to the guid of the service instance. Credentials for creating DynamoDB tables programatically will be provided in the VCAP_SERVICES environment variable of the app to which the service is bound, along with the table prefix and region. eg.
+
+<pre class="json">
+{
+ "VCAP_SERVICES": {
+  "aws-dynamodb": [
+   {
+    "credentials": {
+     "access_key_id": "AKIAIOSFODNN7EXAMPLE",
+     "prefix": "0110c45b-e0be-4b05-8aa5-7bafd5866dff_",
+     "region": "us-east-1",
+     "secret_access_key": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+    },
+    "label": "aws-dynamodb",
+    "name": "mydynamodb",
+    "plan": "standard",
+    "provider": null,
+   }
+  ]
+ }
+}
+</pre>
+
+Since a service instance binding is only able to create and access tables under a defined prefix, these tables will only be accessible from the app which the service instance is bound to. On each binding an IAM user is created with full DynamoDB on only the prefixed tables. eg. "arn:aws:dynamodb:REGION:ACCOUNT_ID:table/PREFIX_*"
+
 ###<a id="rds"></a>S3
 
 To create a S3 bucket, use `cf create-service` to create an instance of `aws-s3` with or without custom settings.
