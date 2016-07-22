@@ -1,7 +1,6 @@
 ---
 breadcrumb: PCF Services
 title: Release Notes
-owner: London Services Enablement
 ---
 
 ###0.1.2
