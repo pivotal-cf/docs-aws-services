@@ -147,6 +147,26 @@ The following example shows the syntax for each setting. You can omit settings y
 <p class="note"><strong>Note</strong>: For SQL Server setting Multi-AZ to true will enable Multi-AZ database mirroring. See the AWS documentation on [Multi-AZ Deployments for Microsoft SQL Server with Database Mirroring](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_SQLServerMultiAZ.html) for more details.</p> 
 
 
+###<a id="rds"></a>RDS for Oracle Database
+
+To create a service instance of the RDS for SQL Server service, use `cf create-service` to create an instance of `aws-rds-oracle` with or without custom settings.
+
+To create an instance of `aws-rds-oracle` without custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE`. The following example creates an instance named `oracledb1` with the `standard` plan:
+<pre class="terminal">$ cf create-service aws-rds-oracle standard oracledb1
+</pre>
+
+To create an instance of `aws-rds-oracle` with custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE` with the `-c` flag and provide custom settings for the following elements:
+    * Engine Version
+    * Multi-AZ
+    * Storage Type
+    * AllocatedStorage
+    * AvailabilityZone
+
+The following example shows the syntax for each setting. You can omit settings you don't want to explicitly set:
+<pre class="terminal">$ cf create-service aws-rds-oracle basic oracledb1 -c '{ "CreateDbInstance": { "EngineVersion": "12.1.0.2.v3", "MultiAZ": true, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
+</pre>
+
+
 ###<a id="rds"></a>DynamoDB
 
 To create a service instance of the RDS for MySQL service, use `cf create-service` to create an instance of `aws-dynamodb`.
