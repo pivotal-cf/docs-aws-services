@@ -167,7 +167,7 @@ The following example shows the syntax for each setting. You can omit settings y
 </pre>
 
 
-###<a id="rds"></a>DynamoDB
+###<a id="dynamodb"></a>DynamoDB
 
 To create a service instance of the RDS for MySQL service, use `cf create-service` to create an instance of `aws-dynamodb`.
 
@@ -199,7 +199,7 @@ Binding an app to a DynamoDB service instance will create an IAM User with the a
 
 Since a service instance binding is only able to create and access tables under a defined prefix, these tables will only be accessible from the app which the service instance is bound to. On each binding an IAM user is created with full DynamoDB on only the prefixed tables. eg. "arn:aws:dynamodb:REGION:ACCOUNT_ID:table/PREFIX_*"
 
-###<a id="rds"></a>S3
+###<a id="s3"></a>S3
 
 To create a S3 bucket, use `cf create-service` to create an instance of `aws-s3` with or without custom settings.
 
@@ -214,6 +214,20 @@ To create an S3 bucket with custom settings, use `cf create-service SERVICE PLAN
     cf cs aws-s3 standard tokyobucket -c '{ "CreateBucket": { "CreateBucketConfiguration": { "LocationConstraint": "ap-northeast-1"} } }'
 
 <p class="note"><strong>Note</strong>: Developers can supply additional configuration parameters to service instances at update and bind times.</p>
+
+###<a id="sqs"></a>SQS
+
+To create an SQS queue, use `cf create-service` to create an instance of `aws-sqs` with or without custom settings.
+
+To create an SQS bucket without custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE`. The following example creates an instance named `queue1` with the `standard` plan:
+<pre class="terminal">$ cf create-service aws-sqs standard queue1
+</pre>
+
+<p class="note"><strong>Note</strong>: SQS queue instances use default region and property settings configured by the PCF operator during the installation of the Service Broker for AWS.</p>
+
+To create an SQS queue with custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE` with the `-c` flag. For instance, you can use custom settings to create a queue with a specific name and maximum message size. The following example creates a queue named "kb-queue" with a 1kb max message size:
+
+    cf cs aws-sqs standard kbqueue -c '{ "CreateQueue": {  "QueueName": "kb-queue", "Attributes": { "MaximumMessageSize": "1024"} } }'
 
 ##<a id="bind"></a>Bind or Unbind a Service Instance
 
