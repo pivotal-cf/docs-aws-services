@@ -19,11 +19,106 @@ These steps configure your AWS account to allow the Service Broker for AWS to cr
 
 1. Create a new IAM user for the PCF cluster in the AWS IAM console. If you have more than one PCF deployment, you must create an IAM user for each one. Write down the AWS Access Key ID and Secret Access Key for each of your PCF IAM accounts, you will need it later. For each IAM user, click on the user name, then the Permissions tab and "Attach Policy" then select these policies to be added: IAMFullAccess, AmazonRDSFullAccess, AmazonS3FullAccess. Click "Attach Policy" and check that the user has those policies listed. 
 
-1. This database must be created BEFORE installing the Service Broker for AWS.  In the AWS RDS console, create an RDS PostgreSQL database for production purposes, with the smallest DB instance class (db.t2.micro), Multi-AZ, SSD Storage and 5GB of Allocated Storage. Use `pcf-aws-services` for the DB Instance Identifier. The Service Broker for AWS stores configuration information in this database. Note the Database IP, Database Port, Admin user, Admin password and Database Name. 
-2. To access the RDS database from an external IP address, modify your AWS VPC settings to allow the appropriate ports to be accessed. For more information, see the [Accessing a DB Instance in a VPC](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Scenarios.html) topic in the AWS documentation.
+1. This database must be created BEFORE installing the Service Broker for AWS.  In the AWS RDS console, create an RDS PostgreSQL database for production purposes, with the smallest DB instance class (db.t2.micro), Multi-AZ, SSD Storage and 5GB of Allocated Storage. Use `pcf-aws-services` for the DB Instance Identifier. The Service Broker for AWS stores configuration information in this database. Note the Database IP, Database Port, Admin user, Admin password and Database Name.
+
+1. To access the RDS database from an external IP address, modify your AWS VPC settings to allow the appropriate ports to be accessed. For more information, see the [Accessing a DB Instance in a VPC](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Scenarios.html) topic in the AWS documentation.
+
+##<a id="ASGs"></a>Step 2: Application Security Groups
+
+To allow this service to have network access you will need to create
+[Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html) (ASGs).
+
+<p class="note"><strong>Note</strong>: Without Application Security Groups the service will not be usable.</p>
+
+### <a id="service-container-network-connections"></a> Service Container Network Connections ###
+
+This service is deployed as an application to the `iaas-brokers` space in the
+`system` org, and requires the following outbound network connections:
+
+|Destination        |Ports       |Protocol   |Reason
+|---                |---         |---        |---
+|`AWS_IP_RANGE`     |443         |tcp        |This service will access RDS/S3
+|`ASSIGNED_NETWORK` |5432, 1521, 1433, 3306        |tcp        |This service requires access to RDS databases. `ASSIGNED_NETWORK` is the CIDR of the network assigned to this service.
 
 
-##<a id="install"></a>Step 2: Install in Ops Manager
+
+
+
+<p class="note"><strong>Note</strong>: The AWS IP range is available from <a href="http://docs.aws.amazon.com/general/latest/gr/aws-ip-ranges.html#aws-ip-download">Amazon</a>. You may choose to use <a href="https://curl.haxx.se/">curl</a> and <a href="https://stedolan.github.io/jq/">jq</a> to convert the IP range as downloaded from Amazon into ASG rules:
+      </p>
+
+    curl -s https://ip-ranges.amazonaws.com/ip-ranges.json | \
+    jq '[
+      {
+        ports: "443",
+        protocol: "tcp",
+        destination: .prefixes[] | .ip_prefix
+      }
+    ] | .' > public-networks-amazon-aws.json
+
+
+Add the `ASSIGNED_NETWORK` entry to the aws-service-broker.json file created above:
+
+```
+[
+  {
+      "ports": "443",
+      "protocol": "all",
+      "destination": "23.20.0.0/14"
+  },
+  {
+      "ports": "443",
+      "protocol": "all",
+      "destination": "27.0.0.0/22"
+  },
+  ...rest of AWS IPs elided...
+  {
+      "protocol": "tcp",
+      "destination": "ASSIGNED_NETWORK",
+      "ports": "5432, 1521, 1433, 3306"
+  }
+]
+```
+
+ Log in as an administrator and create an ASG called `aws-service-broker`, binding it to the `iaas-brokers` space in the `system` org:
+
+    # after logging in as an administrator
+    $ cf create-security-group aws-service-broker aws-service-broker.json
+    $ cf bind-security-group aws-service-broker system iaas-brokers
+
+### <a id="application-container-network-connections"></a> Application Container Network Connections ###
+
+Application containers that use instances of this service require the following outbound network connections:
+
+|Destination        |Ports       |Protocol   |Reason
+|---                |---         |---        |---
+|`AWS_IP_RANGE`     |443         |tcp        |Application containers may access S3/RDS
+|`ASSIGNED_NETWORK` |5432, 1521, 1433, 3306       |tcp        |Application containers may access RDS Databases
+
+Create an ASG called `aws-service-broker-app-containers` with the above configuration and bind it to the appropriate space or, to give all started apps access, the `default-running` ASG set. Example:
+
+```
+[
+  {
+      "ports": "443",
+      "protocol": "all",
+      "destination": "23.20.0.0/14"
+  },
+  {
+      "ports": "443",
+      "protocol": "all",
+      "destination": "27.0.0.0/22"
+  },
+  ...rest of AWS IPs elided...
+  {
+      "protocol": "tcp",
+      "destination": "ASSIGNED_NETWORK",
+      "ports": "5432, 1521, 1433, 3306"
+  }
+]
+```
+
+##<a id="install"></a>Step 3: Install in Ops Manager
 
 To install the Service Broker for AWS tile in Ops Manager, complete the following steps:
 
@@ -115,7 +210,27 @@ Note: in the following sections that configure AWS Services, if you don't want t
 1. Click **Installation Dashboard** to return to the Ops Manager Installation Dashboard.
 1. Click **Apply Changes** to install the product.
 
-##<a id="confirm"></a>Step 3: Confirm Installation
+
+###<a id="sqs-config"></a>SQS Config
+1. Click **SQS Config**.
+    <%= image_tag("images/aws-sb-sqsconfig.png") %>
+1. Under **Override Default AWS Region**, select the default AWS region for this service.
+2.  For **Queue Prefix**, enter the queue name prefix that will be used for filtering list results.
+3.  For **Default Visibility Timeout**, enter the length of time during which the queue will be unavailable once a message is delivered from the queue.
+4.  For **Message Retention Period**, enter the number of seconds Amazon SQS retains a message.
+5.  For **Max Message Size**, enter the limit of how many bytes a message can contain before Amazon SQS rejects it.
+6.  For **Delivery Delay**, enter the time in seconds that the delivery of all messages in the queue will be delayed.
+7.  For **Rx Message Wait Time**, enter the duration, in seconds, that the reciever action waits until a message is in the queue.
+8.  The **Redrive Policy** specifies an existing dead letter queue to receive messages after the source queue fails to process a message a specified number of times.  If enabled, this policy includes the following properties:
+    - **Dead Letter Queue**: The Amazon Resource Name (ARN) of the dead letter queue.
+    - **Max Recieves**: The maximum number of times a message is delivered to the source queue before being sent to the dead letter queue.
+1. Select **Enable in Marketplace** to enable the SQS service in the Services Marketplace.
+1. Click **Installation Dashboard** to return to the Ops Manager Installation Dashboard.
+1. Click **Apply Changes** to install the product.
+
+More information on AWS SQS queue properties is available [here](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-queues.html). For more information on SQS Redrive Policy, refer to the documentation on [Using Amazon SQS Dead Letter Queues](http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/SQSDeadLetterQueue.html)
+
+##<a id="confirm"></a>Step 4: Confirm Installation
 
 <p class="note"><strong>Note</strong>: The Service Broker for AWS installs an app called <code>aws-services-broker</code> in the <code>iaas-brokers</code> space of the <code>system</code> org.</p> 
 

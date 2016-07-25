@@ -87,8 +87,119 @@ The following example shows the syntax for each setting. You can omit settings y
 <pre class="terminal">$ cf create-service aws-rds-mysql basic mysqldb2 -c '{ "CreateDbInstance": { "EngineVersion": "5.6.27", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
 </pre>
 
+###<a id="rds"></a>RDS for MariaDB
 
-###<a id="rds"></a>S3
+To create a service instance of the RDS for MariaDB service, use `cf create-service` to create an instance of `aws-rds-mariadb` with or without custom settings.
+
+To create an instance of `aws-rds-mariadb` without custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE`. The following example creates an instance named `mariadbdb1` with the `standard` plan:
+<pre class="terminal">$ cf create-service aws-rds-mariadb standard mariadbdb1
+</pre>
+
+To create an instance of `aws-rds-mariadb` with custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE` with the `-c` flag and provide custom settings for the following elements:
+    * Engine Version
+    * Multi-AZ
+    * Storage Type
+    * AllocatedStorage
+    * AvailabilityZone
+
+The following example shows the syntax for each setting. You can omit settings you don't want to explicitly set:
+<pre class="terminal">$ cf create-service aws-rds-mariadb basic mariadbdb2 -c '{ "CreateDbInstance": { "EngineVersion": "10.0.24", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
+</pre>
+
+
+###<a id="rds"></a>RDS for Aurora
+
+To create a service instance of the RDS for Aurora service, use `cf create-service` to create an instance of `aws-rds-aurora` with or without custom settings.
+
+To create an instance of `aws-rds-aurora` without custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE`. The following example creates an instance named `auroradb1` with the `standard` plan:
+<pre class="terminal">$ cf create-service aws-rds-aurora standard auroradb1
+</pre>
+
+To create an instance of `aws-rds-aurora` with custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE` with the `-c` flag and provide custom settings for the following elements:
+    * Multi-AZ
+    * AvailabilityZone
+
+The following example shows the syntax for each setting. You can omit settings you don't want to explicitly set:
+<pre class="terminal">$ cf create-service aws-rds-aurora basic auroradb2 -c '{ "CreateDbInstance": { "MultiAZ": false, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
+</pre>
+
+
+###<a id="rds"></a>RDS for SQL Server
+
+To create a service instance of the RDS for SQL Server service, use `cf create-service` to create an instance of `aws-rds-sqlserver` with or without custom settings.
+
+To create an instance of `aws-rds-sqlserver` without custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE`. The following example creates an instance named `sqlserverdb1` with the `standard` plan:
+<pre class="terminal">$ cf create-service aws-rds-sqlserver standard sqlserverdb1
+</pre>
+
+To create an instance of `aws-rds-sqlserver` with custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE` with the `-c` flag and provide custom settings for the following elements:
+    * Engine Version
+    * Multi-AZ
+    * Storage Type
+    * AllocatedStorage
+    * AvailabilityZone
+
+The following example shows the syntax for each setting. You can omit settings you don't want to explicitly set:
+<pre class="terminal">$ cf create-service aws-rds-sqlserver basic sqlserverdb2 -c '{ "CreateDbInstance": { "EngineVersion": "12.00.4422.0.v1", "MultiAZ": true, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
+</pre>
+
+
+<p class="note"><strong>Note</strong>: For SQL Server setting Multi-AZ to true will enable Multi-AZ database mirroring. See the AWS documentation on [Multi-AZ Deployments for Microsoft SQL Server with Database Mirroring](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_SQLServerMultiAZ.html) for more details.</p> 
+
+
+###<a id="rds"></a>RDS for Oracle Database
+
+To create a service instance of the RDS for SQL Server service, use `cf create-service` to create an instance of `aws-rds-oracle` with or without custom settings.
+
+To create an instance of `aws-rds-oracle` without custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE`. The following example creates an instance named `oracledb1` with the `standard` plan:
+<pre class="terminal">$ cf create-service aws-rds-oracle standard oracledb1
+</pre>
+
+To create an instance of `aws-rds-oracle` with custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE` with the `-c` flag and provide custom settings for the following elements:
+    * Engine Version
+    * Multi-AZ
+    * Storage Type
+    * AllocatedStorage
+    * AvailabilityZone
+
+The following example shows the syntax for each setting. You can omit settings you don't want to explicitly set:
+<pre class="terminal">$ cf create-service aws-rds-oracle basic oracledb1 -c '{ "CreateDbInstance": { "EngineVersion": "12.1.0.2.v3", "MultiAZ": true, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
+</pre>
+
+
+###<a id="dynamodb"></a>DynamoDB
+
+To create a service instance of the RDS for MySQL service, use `cf create-service` to create an instance of `aws-dynamodb`.
+
+To create an instance of `aws-dynamodb` without custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE`. The following example creates an instance named `mydynamodb` with the `standard` plan:
+<pre class="terminal">$ cf create-service aws-dynamodb standard mydynamodb</pre>
+
+Binding an app to a DynamoDB service instance will create an IAM User with the ability to create tables with a prefix corresponding to the guid of the service instance. Credentials for creating DynamoDB tables programatically will be provided in the VCAP_SERVICES environment variable of the app to which the service is bound, along with the table prefix and region. eg.
+
+<pre class="json">
+{
+ "VCAP_SERVICES": {
+  "aws-dynamodb": [
+   {
+    "credentials": {
+     "access_key_id": "AKIAIOSFODNN7EXAMPLE",
+     "prefix": "0110c45b-e0be-4b05-8aa5-7bafd5866dff_",
+     "region": "us-east-1",
+     "secret_access_key": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+    },
+    "label": "aws-dynamodb",
+    "name": "mydynamodb",
+    "plan": "standard",
+    "provider": null,
+   }
+  ]
+ }
+}
+</pre>
+
+Since a service instance binding is only able to create and access tables under a defined prefix, these tables will only be accessible from the app which the service instance is bound to. On each binding an IAM user is created with full DynamoDB on only the prefixed tables. eg. "arn:aws:dynamodb:REGION:ACCOUNT_ID:table/PREFIX_*"
+
+###<a id="s3"></a>S3
 
 To create a S3 bucket, use `cf create-service` to create an instance of `aws-s3` with or without custom settings.
 
@@ -104,6 +215,20 @@ To create an S3 bucket with custom settings, use `cf create-service SERVICE PLAN
 
 <p class="note"><strong>Note</strong>: Developers can supply additional configuration parameters to service instances at update and bind times.</p>
 
+###<a id="sqs"></a>SQS
+
+To create an SQS queue, use `cf create-service` to create an instance of `aws-sqs` with or without custom settings.
+
+To create an SQS bucket without custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE`. The following example creates an instance named `queue1` with the `standard` plan:
+<pre class="terminal">$ cf create-service aws-sqs standard queue1
+</pre>
+
+<p class="note"><strong>Note</strong>: SQS queue instances use default region and property settings configured by the PCF operator during the installation of the Service Broker for AWS.</p>
+
+To create an SQS queue with custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE` with the `-c` flag. For instance, you can use custom settings to create a queue with a specific name and maximum message size. The following example creates a queue named "kb-queue" with a 1kb max message size:
+
+    cf cs aws-sqs standard kbqueue -c '{ "CreateQueue": {  "QueueName": "kb-queue", "Attributes": { "MaximumMessageSize": "1024"} } }'
+
 ##<a id="bind"></a>Bind or Unbind a Service Instance
 
 Binding a RDS database or S3 service instance to an app grants the app access to the RDS database or S3 bucket, and provides credentials in the environment variables. The access permissions are set at the least privilege required.  
@@ -111,10 +236,13 @@ Binding a RDS database or S3 service instance to an app grants the app access to
 Run the following command to bind a service instance to an app:
 <pre class="terminal">$ cf bind-service YOUR-APP YOUR-SERVICE-INSTANCE</pre>
 
+<p class="note"><strong>Note</strong>: When binding to an RDS database, a new user and password will be created for the binding. Oracle is an exception to this rule, where bound apps will be provided with the master username and password. </p> 
+
 Unbinding a service instance from an app removes access to the database and removes database credentials from the environment variables. 
 
 Run the following command to unbind a service instance to an app:
 <pre class="terminal">$ cf unbind-service YOUR-APP YOUR-SERVICE-INSTANCE</pre>
+
 
 ##<a id="delete"></a>Delete a Service Instance
 
