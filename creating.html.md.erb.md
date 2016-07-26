@@ -144,7 +144,7 @@ The following example shows the syntax for each setting. You can omit settings y
 </pre>
 
 
-<p class="note"><strong>Note</strong>: For SQL Server setting Multi-AZ to true will enable Multi-AZ database mirroring. See the AWS documentation on [Multi-AZ Deployments for Microsoft SQL Server with Database Mirroring](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_SQLServerMultiAZ.html) for more details.</p> 
+<p class="note"><strong>Note</strong>: For SQL Server setting Multi-AZ to true will enable Multi-AZ database mirroring. See the AWS documentation on <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_SQLServerMultiAZ.html">Multi-AZ Deployments for Microsoft SQL Server with Database Mirroring</a> for more details.</p> 
 
 
 ###<a id="rds"></a>RDS for Oracle Database
