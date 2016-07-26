@@ -5,32 +5,32 @@ title: Creating and Managing Service Instances
 
 ##<a id="overview"></a>Overview
 
-This topic describes how developers set up, operate, and scale Amazon Web Services (AWS) resources from Pivotal Cloud Foundry&reg; (PCF) by creating and managing service instances using the Service Broker for AWS.
+This topic describes how developers set up, operate, and scale Amazon Web Services (AWS) resources from Pivotal Cloud Foundry (PCF) by creating and managing service instances using the Service Broker for AWS.
 
-PCF operators must follow the instructions in the [Installing the Service Broker](installation.html) topic to install the Service Broker for AWS before developers can use it. During installation, operators configure which AWS services they want to make available to developers in the Services Marketplace. They can also set up pre-defined service plans with specific resource configurations and securely manage their AWS credentials. 
+PCF operators must follow the instructions in the [Installing the Service Broker](installation.html) topic to install the Service Broker for AWS before developers can use it. During installation, operators configure which AWS services they want to make available to developers in the Services Marketplace. They can also set up pre-defined service plans with specific resource configurations and securely manage their AWS credentials.
 
 The current version of the Service Broker for AWS supports the following services:
 
-* RDS for PostgreSQL: Create and manage Amazon RDS database instances running several versions of PostgreSQL. 
+* RDS for PostgreSQL: Create and manage Amazon RDS database instances running several versions of PostgreSQL.
 * S3: Create and manage Amazon S3 buckets.
 * RDS for MySQL: Deploy scalable MySQL deployments in minutes.
 
-Developers create and manage service instances of the Service Broker for AWS through the cf CLI. Developers cannot use Apps Manager to create or manage instances of the Service Broker for AWS because it does not support the asynchronous provisioning capability of PCF. However, they can use Apps Manager to view service information in the Marketplace Services, including service plans and plan features. 
+Developers create and manage service instances of the Service Broker for AWS through the cf CLI. Developers cannot use Apps Manager to create or manage instances of the Service Broker for AWS because it does not support the asynchronous provisioning capability of PCF. However, they can use Apps Manager to view service information in the Marketplace Services, including service plans and plan features.
 
 To perform the following procedures for creating and managing service instances, a developer must be logged in to the PCF deployment via the cf CLI.
 
 ##<a id="view"></a>View Services
 
-1. List available Marketplace Services with `cf marketplace` to show information about the Service Broker for AWS services `aws-rds-postgres` and `aws-s3`. 
+1. List available Marketplace Services with `cf marketplace` to show information about the Service Broker for AWS services `aws-rds-postgres` and `aws-s3`.
 <pre class="terminal">
     $ cf marketplace
     Getting services from marketplace in org system / space iaas-brokers as admin...
     OK
-    service            plans                                  description   
-    app-autoscaler     bronze, gold                           Scales bound applications in response to load   
-    aws-rds-mysql      basic, standard, premium, enterprise   Create and manage AWS RDS MySQL deployments   
-    aws-rds-postgres   basic, standard, premium, enterprise   Create and manage AWS RDS PostgreSQL deployments   
-    aws-s3             standard                               Create and manage Amazon S3 buckets   
+    service            plans                                  description
+    app-autoscaler     bronze, gold                           Scales bound applications in response to load
+    aws-rds-mysql      basic, standard, premium, enterprise   Create and manage AWS RDS MySQL deployments
+    aws-rds-postgres   basic, standard, premium, enterprise   Create and manage AWS RDS PostgreSQL deployments
+    aws-s3             standard                               Create and manage Amazon S3 buckets
 </pre>
 1. View descriptions for the plans of a service with `cf marketplace -s SERVICE`.
 <pre class="terminal">
@@ -38,10 +38,10 @@ To perform the following procedures for creating and managing service instances,
     Getting service plan information for service aws-rds-postgres as admin...
     OK
 
-    service plan   description                                               free or paid   
-    basic          For small projects and during development.                free   
-    standard       For a small production database, multi-AZ, 2vCPU, 7.5GB   free   
-    premium        For a mid-sized database, multi-AZ, 4 vCPU, 15GB          free   
+    service plan   description                                               free or paid
+    basic          For small projects and during development.                free
+    standard       For a small production database, multi-AZ, 2vCPU, 7.5GB   free
+    premium        For a mid-sized database, multi-AZ, 4 vCPU, 15GB          free
     enterprise     For a large database, multi-AZ, 8 vCPU, 32GB              free
 </pre>
 
@@ -144,7 +144,7 @@ The following example shows the syntax for each setting. You can omit settings y
 </pre>
 
 
-<p class="note"><strong>Note</strong>: For SQL Server setting Multi-AZ to true will enable Multi-AZ database mirroring. See the AWS documentation on <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_SQLServerMultiAZ.html">Multi-AZ Deployments for Microsoft SQL Server with Database Mirroring</a> for more details.</p> 
+<p class="note"><strong>Note</strong>: For SQL Server setting Multi-AZ to true will enable Multi-AZ database mirroring. See the AWS documentation on <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_SQLServerMultiAZ.html">Multi-AZ Deployments for Microsoft SQL Server with Database Mirroring</a> for more details.</p>
 
 
 ###<a id="rds"></a>RDS for Oracle Database
@@ -231,14 +231,14 @@ To create an SQS queue with custom settings, use `cf create-service SERVICE PLAN
 
 ##<a id="bind"></a>Bind or Unbind a Service Instance
 
-Binding a RDS database or S3 service instance to an app grants the app access to the RDS database or S3 bucket, and provides credentials in the environment variables. The access permissions are set at the least privilege required.  
+Binding a RDS database or S3 service instance to an app grants the app access to the RDS database or S3 bucket, and provides credentials in the environment variables. The access permissions are set at the least privilege required.
 
 Run the following command to bind a service instance to an app:
 <pre class="terminal">$ cf bind-service YOUR-APP YOUR-SERVICE-INSTANCE</pre>
 
-<p class="note"><strong>Note</strong>: When binding to an RDS database, a new user and password will be created for the binding. Oracle is an exception to this rule, where bound apps will be provided with the master username and password. </p> 
+<p class="note"><strong>Note</strong>: When binding to an RDS database, a new user and password will be created for the binding. Oracle is an exception to this rule, where bound apps will be provided with the master username and password. </p>
 
-Unbinding a service instance from an app removes access to the database and removes database credentials from the environment variables. 
+Unbinding a service instance from an app removes access to the database and removes database credentials from the environment variables.
 
 Run the following command to unbind a service instance to an app:
 <pre class="terminal">$ cf unbind-service YOUR-APP YOUR-SERVICE-INSTANCE</pre>
@@ -246,8 +246,8 @@ Run the following command to unbind a service instance to an app:
 
 ##<a id="delete"></a>Delete a Service Instance
 
-<p class="note"><strong>Note</strong>: Before deleting a service instance, ensure there are no apps bound to the service instance.</p> 
-Run the following command to delete a service instance: 
+<p class="note"><strong>Note</strong>: Before deleting a service instance, ensure there are no apps bound to the service instance.</p>
+Run the following command to delete a service instance:
 <pre class="terminal">$ cf delete-service YOUR-SERVICE-INSTANCE
     Really delete the service YOUR-SERVICE-INSTANCE> y
      Deleting service YOUR-SERVICE-INSTANCE in org system / space dev1 as appdev1...
@@ -262,19 +262,19 @@ Run the following command to delete a service instance:
 As a PCF operator, when deploying the tile by clicking **Apply Changes**, I get the following error: "A client error (InvalidClientTokenId) occurred when calling the GetUser operation: The security token included in the request is invalid."
 
 ###Reason
-The AWS credentials are not valid, please recheck them or recreate the credentials. 
+The AWS credentials are not valid, please recheck them or recreate the credentials.
 
 ###Problem
 
-As a PCF operator, when deleting the product tile, I get the following error: "Can not remove brokers that have associated service instances". 
+As a PCF operator, when deleting the product tile, I get the following error: "Can not remove brokers that have associated service instances".
 
 ###Reason
 
-Your service broker currently has service instances that are active. They must be deleted before the tile can be deleted. 
+Your service broker currently has service instances that are active. They must be deleted before the tile can be deleted.
 
 ###Problem
 
-As a developer, when trying to create a service, I get the following error: "Service broker error: InvalidClientTokenId: The security token included in the request is invalid." 
+As a developer, when trying to create a service, I get the following error: "Service broker error: InvalidClientTokenId: The security token included in the request is invalid."
 
 ###Reason
 The AWS credentials are not valid, please ask your PCF operator to recheck them or recreate the credentials.
