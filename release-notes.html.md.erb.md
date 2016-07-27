@@ -3,6 +3,17 @@ breadcrumb: PCF Services
 title: Release Notes
 ---
 
+###0.1.3
+
+* Supports additional AWS RDS services: MariaDB, Aurora, SQL Server, Oracle
+* Supports AWS services DynamoDB, SQS
+* Supports Floating Stemcells for manageability
+* Uses an AWS IAM policy (PCFInstallationPolicy) for permissions
+* Quotas to limit number of instances per service
+* Creating an S3 bucket supports logging to another S3 bucket
+* Supports PCF 1.8.x
+
+
 ###0.1.2
 
 
