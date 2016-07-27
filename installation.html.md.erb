@@ -85,7 +85,7 @@ This service is deployed as an application to the `iaas-brokers` space in the
 
 |Destination        |Ports       |Protocol   |Reason
 |---                |---         |---        |---
-|`AWS_IP_RANGE`     |443, 5432, 1521, 1433, 3306         |tcp        |This service will access RDS/S3
+|`AWS_IP_RANGE`     |443, 5432, 1521, 1433, 3306         |tcp        |This service accesses RDS/S3
 
 <p class="note"><strong>Note</strong>: The AWS IP range is available from <a href="http://docs.aws.amazon.com/general/latest/gr/aws-ip-ranges.html#aws-ip-download">Amazon</a>. You may choose to use <a href="https://curl.haxx.se/">curl</a> and <a href="https://stedolan.github.io/jq/">jq</a> to convert the IP range as downloaded from Amazon into ASG rules:
       </p>
@@ -103,10 +103,11 @@ This service is deployed as an application to the `iaas-brokers` space in the
 ```
 
  Log in as an administrator and create an ASG called `aws-service-broker`, binding it to the `iaas-brokers` space in the `system` org:
+<pre class="terminal">
+$ cf create-security-group aws-service-broker aws-service-broker.json
+$ cf bind-security-group aws-service-broker system iaas-brokers
+</pre>
 
-    # after logging in as an administrator
-    $ cf create-security-group aws-service-broker aws-service-broker.json
-    $ cf bind-security-group aws-service-broker system iaas-brokers
 
 ### <a id="application-container-network-connections"></a> Application Container Network Connections ###
 

@@ -28,24 +28,25 @@ To perform the following procedures for creating and managing service instances,
 ##<a id="view"></a>View Services
 
 1. List available Marketplace Services with `cf marketplace` to show information about the Service Broker for AWS services. 
-<pre class="terminal">
+    <pre class="terminal">
     $ cf marketplace
     Getting services from marketplace in org system / space iaas-brokers as admin...
     OK
     service             plans                                      description   
-    app-autoscaler      bronze, gold                               Scales bound applications in response to     load   
-    aws-dynamodb        standard*                                  Create and manage Amazon DynamoDB tables   
-    aws-rds-aurora      basic*, standard*, premium*, enterprise*   Create and manage AWS RDS Aurora deployments   
-    aws-rds-mariadb     basic*, standard*, premium*, enterprise*   Create and manage AWS RDS MariaDB deployments   
-    aws-rds-mysql       basic*, standard*, premium*, enterprise*   Create and manage AWS RDS MySQL deployments   
-    aws-rds-oracle      basic*, standard*, premium*, enterprise*   Create and manage AWS RDS Oracle deployments   
-    aws-rds-postgres    basic*, standard*, premium*, enterprise*   Create and manage AWS RDS PostgreSQL deployments   
-    aws-rds-sqlserver   basic*, standard*, premium*, enterprise*   Create and manage AWS RDS SQL Server deployments   
-    aws-s3              standard*                                  Create and manage Amazon S3 buckets   
-    aws-sqs             standard*                                  Create and manage Amazon SQS queues   
+    app-autoscaler      bronze, gold                               Scales bound applications in response to load   
+    aws-dynamodb        standard\*                                  Create and manage Amazon DynamoDB tables   
+    aws-rds-aurora      basic\*, standard\*, premium\*, enterprise\*       Create and manage AWS RDS Aurora deployments   
+    aws-rds-mariadb     basic\*, standard\*, premium\*, enterprise\*       Create and manage AWS RDS MariaDB deployments   
+    aws-rds-mysql       basic\*, standard\*, premium\*, enterprise\*       Create and manage AWS RDS MySQL deployments   
+    aws-rds-oracle      basic\*, standard\*, premium\*, enterprise\*       Create and manage AWS RDS Oracle deployments   
+    aws-rds-postgres    basic\*, standard\*, premium\*, enterprise\*       Create and manage AWS RDS PostgreSQL deployments   
+    aws-rds-sqlserver   basic\*, standard\*, premium\*, enterprise\*       Create and manage AWS RDS SQL Server deployments   
+    aws-s3              standard\*                                  Create and manage Amazon S3 buckets   
+    aws-sqs             standard\*                                  Create and manage Amazon SQS queues   
+    </pre>
 
-    * These service plans have an associated cost. Creating a service instance will incur this cost.  
-</pre>
+    <p class="note"><strong>Note</strong>: These service plans have an associated cost. Creating a service instance will incur this cost.</p>
+
 1. View descriptions for the plans of a service with `cf marketplace -s SERVICE`.
 <pre class="terminal">
     $ cf marketplace -s aws-rds-postgres
@@ -111,12 +112,11 @@ To create an instance of `aws-rds-mariadb` without custom settings, use `cf crea
 </pre>
 
 To create an instance of `aws-rds-mariadb` with custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE` with the `-c` flag and provide custom settings for the following elements:
-
-* Engine Version
-* Multi-AZ
-* Storage Type
-* AllocatedStorage
-* AvailabilityZone
+    * Engine Version
+    * Multi-AZ
+    * Storage Type
+    * AllocatedStorage
+    * AvailabilityZone
 
 The following example shows the syntax for each setting. You can omit settings you don't want to explicitly set:
 <pre class="terminal">$ cf create-service aws-rds-mariadb basic mariadbdb2 -c '{ "CreateDbInstance": { "EngineVersion": "10.0.24", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
@@ -187,14 +187,14 @@ The following example shows the syntax for each setting. You can omit settings y
 
 ###<a id="dynamodb"></a>DynamoDB
 
-DynamoDB enables you to create NoSQL tables and add items to those tables. You can do this programmatically or via the [AWS DynamoDB console](https://console.aws.amazon.com/dynamodb/home?region=us-east-1). To facilitate this, our approach is (at bind time) to create an IAM user and allow access (create table, add item, etc.) to a set of prefixed tables. 
+You can create and add items to NoSQL tables with DynamoDB. You can do this programmatically or through the [AWS DynamoDB console](https://console.aws.amazon.com/dynamodb/home?region=us-east-1). Pivotal recommends creating an IAM user at bind time and configuring access to a set of prefixed tables for operations such as creating a table and adding an item. 
 
 To create a service instance of the AWS DynamoDB service, use `cf create-service` to create an instance of `aws-dynamodb`.
 
-To create an instance of `aws-dynamodb` use `cf create-service SERVICE PLAN SERVICE_INSTANCE`. The following example creates an instance named `mydynamodb` with the `standard` plan:
-<pre class="terminal">$ cf create-service aws-dynamodb standard mydynamodb</pre>
+To create an instance of `aws-dynamodb`, use `cf create-service SERVICE PLAN SERVICE_INSTANCE`. The following example creates an instance named `mydynamodb` with the `standard` plan:
+<pre class="terminal">$ cf create-service aws-dynamodb standard MYDYNAMODB</pre>
 
-Binding an app to a DynamoDB service instance will create an IAM User with the ability to create tables with a prefix corresponding to the guid of the service instance. Credentials for creating DynamoDB tables programatically will be provided in the VCAP_SERVICES environment variable of the app to which the service is bound, along with the table prefix and region. eg.
+Binding an app to a DynamoDB service instance creates an IAM User that can create tables with a prefix corresponding to the guid of the service instance. You can find the credentials to create DynamoDB tables programatically in the `VCAP_SERVICES` environment variable of the app that service is bound to, along with the table prefix and region. For example:
 
 <pre class="json">
 {
@@ -217,7 +217,7 @@ Binding an app to a DynamoDB service instance will create an IAM User with the a
 }
 </pre>
 
-Since a service instance binding is only able to create and access tables under a defined prefix, these tables will only be accessible from the app which the service instance is bound to. On each binding an IAM user is created with full DynamoDB on only the prefixed tables. eg. "arn:aws:dynamodb:REGION:ACCOUNT_ID:table/PREFIX_*"
+The tables you create are only accessible from the app that service is bound to. Each bind creates an IAM user with full DynamoDB permissions on only the prefixed tables, for example `arn:aws:dynamodb:REGION:ACCOUNT_ID:table/PREFIX_*`.
 
 ###<a id="s3"></a>S3
 
