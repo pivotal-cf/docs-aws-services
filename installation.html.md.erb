@@ -73,6 +73,13 @@ These steps configure your AWS account to allow the Service Broker for AWS to cr
     1. Click **Create Policy**. This creates an AWS policy that you must apply to every IAM user you create for the Service Broker for AWS. 
     1. For each IAM user, click the user name > **Permissions** tab > **Attach Policy** and select **PCFInstallationPolicy**. 
 
+##<a id="setup"></a>Step 1b: Create Service Broker Database
+
+
+2. This database must be created BEFORE installing the Service Broker for AWS.  In the AWS RDS console, create an RDS PostgreSQL database for production purposes, with the smallest DB instance class (db.t2.micro), Multi-AZ, SSD Storage and 5GB of Allocated Storage. Use `pcf-aws-services` for the DB Instance Identifier. The Service Broker for AWS stores configuration information in this database. Note the Database IP, Database Port, Admin user, Admin password and Database Name.
+
+1. To access the RDS database from an external IP address, modify your AWS VPC settings to allow the appropriate ports to be accessed. For more information, see the [Accessing a DB Instance in a VPC](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Scenarios.html) topic in the AWS documentation.
+
 ##<a id="ASGs"></a>Step 2: Application Security Groups
 
 To allow this service to have network access you will need to create
