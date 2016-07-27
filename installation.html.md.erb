@@ -37,47 +37,21 @@ This service is deployed as an application to the `iaas-brokers` space in the
 
 |Destination        |Ports       |Protocol   |Reason
 |---                |---         |---        |---
-|`AWS_IP_RANGE`     |443         |tcp        |This service will access RDS/S3
-|`ASSIGNED_NETWORK` |5432, 1521, 1433, 3306        |tcp        |This service requires access to RDS databases. `ASSIGNED_NETWORK` is the CIDR of the network assigned to this service.
-
-
-
-
+|`AWS_IP_RANGE`     |443, 5432, 1521, 1433, 3306         |tcp        |This service will access RDS/S3
 
 <p class="note"><strong>Note</strong>: The AWS IP range is available from <a href="http://docs.aws.amazon.com/general/latest/gr/aws-ip-ranges.html#aws-ip-download">Amazon</a>. You may choose to use <a href="https://curl.haxx.se/">curl</a> and <a href="https://stedolan.github.io/jq/">jq</a> to convert the IP range as downloaded from Amazon into ASG rules:
       </p>
 
+```
     curl -s https://ip-ranges.amazonaws.com/ip-ranges.json | \
     jq '[
       {
-        ports: "443",
+        ports: "443, 5432, 1521, 1433, 3306",
         protocol: "tcp",
         destination: .prefixes[] | .ip_prefix
       }
-    ] | .' > public-networks-amazon-aws.json
+    ] | .' > aws-service-broker.json
 
-
-Add the `ASSIGNED_NETWORK` entry to the aws-service-broker.json file created above:
-
-```
-[
-  {
-      "ports": "443",
-      "protocol": "all",
-      "destination": "23.20.0.0/14"
-  },
-  {
-      "ports": "443",
-      "protocol": "all",
-      "destination": "27.0.0.0/22"
-  },
-  ...rest of AWS IPs elided...
-  {
-      "protocol": "tcp",
-      "destination": "ASSIGNED_NETWORK",
-      "ports": "5432, 1521, 1433, 3306"
-  }
-]
 ```
 
  Log in as an administrator and create an ASG called `aws-service-broker`, binding it to the `iaas-brokers` space in the `system` org:
@@ -92,29 +66,23 @@ Application containers that use instances of this service require the following 
 
 |Destination        |Ports       |Protocol   |Reason
 |---                |---         |---        |---
-|`AWS_IP_RANGE`     |443         |tcp        |Application containers may access S3/RDS
-|`ASSIGNED_NETWORK` |5432, 1521, 1433, 3306       |tcp        |Application containers may access RDS Databases
+|`AWS_IP_RANGE`     |443, 5432, 1521, 1433, 3306         |tcp        |Application containers may access S3/RDS
 
 Create an ASG called `aws-service-broker-app-containers` with the above configuration and bind it to the appropriate space or, to give all started apps access, the `default-running` ASG set. Example:
 
 ```
 [
   {
-      "ports": "443",
+      "ports": "443, 5432, 1521, 1433, 3306",
       "protocol": "all",
       "destination": "23.20.0.0/14"
   },
   {
-      "ports": "443",
+      "ports": "443, 5432, 1521, 1433, 3306",
       "protocol": "all",
       "destination": "27.0.0.0/22"
   },
   ...rest of AWS IPs elided...
-  {
-      "protocol": "tcp",
-      "destination": "ASSIGNED_NETWORK",
-      "ports": "5432, 1521, 1433, 3306"
-  }
 ]
 ```
 
