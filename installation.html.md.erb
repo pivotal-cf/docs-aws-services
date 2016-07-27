@@ -13,74 +13,90 @@ This topic describes how to install the Service Broker for AWS by configuring yo
 
 ##<a id="setup"></a>Step 1: Set up AWS
 
-<p class="note"><strong>Note</strong>: Complete the following steps prior to installing the Service Broker for AWS.
-</p> 
-These steps configure your AWS account to allow the Service Broker for AWS to create and manage AWS resources:
+In this step you configure your AWS account to allow the Service Broker for AWS to create and manage AWS resources. Create a new IAM user for the PCF cluster in the AWS Identity & Access Management console by following the procedure below that corresponds to your version. 
+<p class="note"><strong>Note</strong>: If you have more than one PCF deployment, you must create an IAM user for each one.</p> 
 
+### v0.1.2
 
-1. Create a new IAM user for the PCF cluster in the AWS IAM console. If you have more than one PCF deployment, you must create an IAM user for each one. Record the AWS Access Key ID and Secret Access Key for each of your PCF IAM accounts for later use.
-	1. For v0.1.2: This version used high level AWS policies. For each IAM user, click on the user name > **Permissions** tab > **Attach Policy** and select these policies: **IAMFullAccess**, **AmazonRDSFullAccess**, **AmazonS3FullAccess**. Click **Attach Policy** and check that the user has the policies.
-	
-	1. For v0.1.3: This version uses detailed permissions. Create a new policy in the AWS IAM console called `PCFInstallationPolicy`. In the AWS console, select **IAM** > **Policies** and click **Create Policy**. Click Select for **Create Your Own Policy**, enter `PCFInstallationPolicy` for **Policy Name** and `Installation Policy for PCF` as the **Description**. Copy the following text into the policy document section:
+This version uses high level AWS policies. 
 
-        ```
-        {
-            "Version": "2012-10-17",
-            "Statement": [
-                {
-                    "Action": [
-                        "s3:CreateBucket",
-                        "s3:DeleteBucket",
-                        "s3:PutBucketAcl",
-                        "s3:PutBucketLogging",
-                        "s3:PutBucketTagging",
-                        "s3:GetObject",
-                        "s3:ListBucket",
-                        "iam:CreateAccessKey",
-                        "iam:CreateUser",
-                        "iam:GetUser",
-                        "iam:DeleteAccessKey",
-                        "iam:DeleteUser",
-                        "iam:DeleteUserPolicy",
-                        "iam:ListAccessKeys",
-                        "iam:ListAttachedUserPolicies",
-                        "iam:PutUserPolicy",
-                        "rds:CreateDBCluster",
-                        "rds:CreateDBInstance",
-                        "rds:DeleteDBCluster",
-                        "rds:DeleteDBInstance",
-                        "rds:DescribeDBClusters",
-                        "rds:DescribeDBInstances",
-                        "rds:DescribeDBSnapshots",
-                        "rds:DeleteDBSnapshot",
-                        "rds:CreateDBParameterGroup",
-                        "rds:ModifyDBParameterGroup",
-                        "rds:DeleteDBParameterGroup",
-                        "dynamodb:ListTables",
-                        "dynamodb:DeleteTable",
-                        "dynamodb:DescribeTable",
-                        "sqs:CreateQueue",
-                        "sqs:DeleteQueue"
-                    ],
-                    "Effect": "Allow",
-                    "Resource": "*"
-                }
-            ]
-        }
-        ```
+1. For each IAM user, click the **User Name** followed by the **Permissions**.
+1. Click **Attach Policy** and select these policies: **IAMFullAccess**, **AmazonRDSFullAccess**, **AmazonS3FullAccess**. 
+1. Click **Attach Policy** and check that the user has the policies you selected.
+1. Record the **AWS Access Key ID** and **Secret Access Key** for each of your PCF IAM accounts for later use.
 
-    1. Click **Validate Policy** to check for errors. 
-    1. Click **Create Policy**. This creates an AWS policy that you must apply to every IAM user you create for the Service Broker for AWS. 
-    1. For each IAM user, click the user name > **Permissions** tab > **Attach Policy** and select **PCFInstallationPolicy**. 
+### v0.1.3
+This version uses detailed permissions. 
 
-##<a id="setup"></a>Step 1b: Create Service Broker Database
+1. Select **Policies** and click **Create Policy**. 
+1. Choose **Create Your Own Policy**. 
+1. Enter `PCFInstallationPolicy` for **Policy Name** and `Installation Policy for PCF` for  **Description**. 
+1. Copy the following text into the **Policy Document** section:
 
+            ```
+            {
+                "Version": "2012-10-17",
+                "Statement": [
+                    {
+                        "Action": [
+                            "s3:CreateBucket",
+                            "s3:DeleteBucket",
+                            "s3:PutBucketAcl",
+                            "s3:PutBucketLogging",
+                            "s3:PutBucketTagging",
+                            "s3:GetObject",
+                            "s3:ListBucket",
+                            "iam:CreateAccessKey",
+                            "iam:CreateUser",
+                            "iam:GetUser",
+                            "iam:DeleteAccessKey",
+                            "iam:DeleteUser",
+                            "iam:DeleteUserPolicy",
+                            "iam:ListAccessKeys",
+                            "iam:ListAttachedUserPolicies",
+                            "iam:PutUserPolicy",
+                            "rds:CreateDBCluster",
+                            "rds:CreateDBInstance",
+                            "rds:DeleteDBCluster",
+                            "rds:DeleteDBInstance",
+                            "rds:DescribeDBClusters",
+                            "rds:DescribeDBInstances",
+                            "rds:DescribeDBSnapshots",
+                            "rds:DeleteDBSnapshot",
+                            "rds:CreateDBParameterGroup",
+                            "rds:ModifyDBParameterGroup",
+                            "rds:DeleteDBParameterGroup",
+                            "dynamodb:ListTables",
+                            "dynamodb:DeleteTable",
+                            "dynamodb:DescribeTable",
+                            "sqs:CreateQueue",
+                            "sqs:DeleteQueue"
+                        ],
+                        "Effect": "Allow",
+                        "Resource": "*"
+                    }
+                ]
+            }
+            ```
+1. Click **Validate Policy** to check for errors. 
+1. Click **Create Policy**. This creates an AWS policy that you must apply to every IAM user you create for the Service Broker for AWS. 
+1. For each IAM user, click the user name > **Permissions** tab > **Attach Policy** and select **PCFInstallationPolicy**. 
+1. Record the **AWS Access Key ID** and **Secret Access Key** for each of your PCF IAM accounts for later use.
 
-2. This database must be created BEFORE installing the Service Broker for AWS.  In the AWS RDS console, create an RDS PostgreSQL database for production purposes, with the smallest DB instance class (db.t2.micro), Multi-AZ, SSD Storage and 5GB of Allocated Storage. Use `pcf-aws-services` for the DB Instance Identifier. The Service Broker for AWS stores configuration information in this database. Note the Database IP, Database Port, Admin user, Admin password and Database Name.
+##<a id="setup"></a>Step 2: Create Service Broker Database
 
-1. To access the RDS database from an external IP address, modify your AWS VPC settings to allow the appropriate ports to be accessed. For more information, see the [Accessing a DB Instance in a VPC](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Scenarios.html) topic in the AWS documentation.
+1. In the AWS RDS console, create a RDS PostgreSQL database:
+    * Choose the smallest DB instance class, `db.t2.micro`. 
+    * Select `yes` for **Multi-AZ Deployment**. 
+    * Choose `Provisioned IOPS (SSD) for **Storage Type**. For development purposes, you can choose `General Purpose (SSD)`.
+    * Enter `5` GB of **Allocated Storage**. 
+    * Enter `pcf-aws-services` for the **DB Instance Identifier**.
 
-##<a id="ASGs"></a>Step 2: Application Security Groups
+1. Record the Database IP, Database Port, Admin user, Admin password and Database Name. The Service Broker for AWS stores configuration information in this database. 
+
+1. Modify your AWS VPC settings to allow access to the RDS database from an external IP address. For more information, see the [Accessing a DB Instance in a VPC](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Scenarios.html) topic in the AWS documentation.
+
+##<a id="ASGs"></a>Step 3: Application Security Groups
 
 To allow this service to have network access you will need to create
 [Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html) (ASGs).
@@ -144,7 +160,7 @@ Create an ASG called `aws-service-broker-app-containers` with the above configur
 ]
 ```
 
-##<a id="install"></a>Step 3: Install in Ops Manager
+##<a id="install"></a>Step 4: Install in Ops Manager
 
 To install the Service Broker for AWS tile in Ops Manager, complete the following steps:
 
@@ -256,7 +272,7 @@ Note: in the following sections that configure AWS Services, if you don't want t
 
 More information on AWS SQS queue properties is available [here](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-queues.html). For more information on SQS Redrive Policy, refer to the documentation on [Using Amazon SQS Dead Letter Queues](http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/SQSDeadLetterQueue.html)
 
-##<a id="confirm"></a>Step 4: Confirm Installation
+##<a id="confirm"></a>Step 5: Confirm Installation
 
 <p class="note"><strong>Note</strong>: The Service Broker for AWS installs an app called <code>aws-services-broker</code> in the <code>iaas-brokers</code> space of the <code>system</code> org.</p>
 
