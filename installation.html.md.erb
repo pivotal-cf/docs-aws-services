@@ -7,17 +7,17 @@ This topic describes how to install the Service Broker for AWS by configuring yo
 
 ##Installation Prerequisites
 
-* Pivotal Cloud Foundry&reg; version 1.7 or later.
+* Pivotal Cloud Foundry version 1.7 or later.
 * An Amazon Web Services (AWS) account.
 * An available PostgreSQL database
 
 ##<a id="setup"></a>Step 1: Set up AWS
 
-Complete the following steps PRIOR to installing the Service Broker for AWS. 
+Complete the following steps PRIOR to installing the Service Broker for AWS.
 These steps configure your AWS account to allow the Service Broker for AWS to create and manage AWS resources:
 
 
-1. Create a new IAM user for the PCF cluster in the AWS IAM console. If you have more than one PCF deployment, you must create an IAM user for each one. Write down the AWS Access Key ID and Secret Access Key for each of your PCF IAM accounts, you will need it later. For each IAM user, click on the user name, then the Permissions tab and "Attach Policy" then select these policies to be added: IAMFullAccess, AmazonRDSFullAccess, AmazonS3FullAccess. Click "Attach Policy" and check that the user has those policies listed. 
+1. Create a new IAM user for the PCF cluster in the AWS IAM console. If you have more than one PCF deployment, you must create an IAM user for each one. Write down the AWS Access Key ID and Secret Access Key for each of your PCF IAM accounts, you will need it later. For each IAM user, click on the user name, then the Permissions tab and "Attach Policy" then select these policies to be added: IAMFullAccess, AmazonRDSFullAccess, AmazonS3FullAccess. Click "Attach Policy" and check that the user has those policies listed.
 
 1. This database must be created BEFORE installing the Service Broker for AWS.  In the AWS RDS console, create an RDS PostgreSQL database for production purposes, with the smallest DB instance class (db.t2.micro), Multi-AZ, SSD Storage and 5GB of Allocated Storage. Use `pcf-aws-services` for the DB Instance Identifier. The Service Broker for AWS stores configuration information in this database. Note the Database IP, Database Port, Admin user, Admin password and Database Name.
 
@@ -99,12 +99,12 @@ To install the Service Broker for AWS tile in Ops Manager, complete the followin
 1. Click on the newly added tile to configure the sections as described below.
 
 ###<a id="aws-config"></a>AWS Config
-The setup in Step 1 must be successfully completed before beginning this configuration. You will need the AWS and database parameters from that step to successfully configure the broker. 
+The setup in Step 1 must be successfully completed before beginning this configuration. You will need the AWS and database parameters from that step to successfully configure the broker.
 
 1. Click **AWS Config**.
     <%= image_tag("images/aws-sb-awsconfig.png") %>
 1. Enter the **AWS Access Key ID** and the **Secret Access Key** from [Step 1](#setup).
-2. For **Default Region**, enter the AWS region to use as the default. You can change this later for a particular service. 
+2. For **Default Region**, enter the AWS region to use as the default. You can change this later for a particular service.
 3. For **Default Availability Zone**, enter the AWS Availability Zone to use as the default. This default Availability Zone will only be used where Multi-AZ is not selected.
 4. The broker automatically creates AWS tags for the service plan GUID and the org-space GUID. You can also configure default tags to add for each AWS resource by entering them in the **Default Tags** text box, separated by a space. For example, `owner=operations env=production app=payroll`.
 1. Click **Save**.
@@ -117,7 +117,7 @@ The setup in Step 1 must be successfully completed before beginning this configu
 1. For **Database Port**, enter the port number of your database. The default for PostgreSQL is 5432.
 1. For **Database Username** and **Database Password**, enter your database credentials.
 1. For **Database Name**, enter the name of the database where the Service Broker for AWS can store configuration information.
-1. Under **Database SSL Connection**, select **Enabled** if you want to encrypt traffic to your database and add your custom root certificate in the **Root Certificate** text box. Otherwise, select **Disabled**. 
+1. Under **Database SSL Connection**, select **Enabled** if you want to encrypt traffic to your database and add your custom root certificate in the **Root Certificate** text box. Otherwise, select **Disabled**.
 1. Click **Save**.
 
 Note: in the following sections that configure AWS Services, if you don't want to offer that specific service in your PCF Marketplace then simply uncheck the box **Enable in Marketplace**
@@ -127,7 +127,7 @@ Note: in the following sections that configure AWS Services, if you don't want t
 1. Click **DynamoDB Config**.
     <%= image_tag("images/aws-sb-dynamodbconfig.png") %>
 
-1. Under **Override Default AWS Region** select the default AWS region.  
+1. Under **Override Default AWS Region** select the default AWS region.
 
 
 
@@ -135,25 +135,25 @@ Note: in the following sections that configure AWS Services, if you don't want t
 1. Click **RDS Config**.
     <%= image_tag("images/aws-sb-rdsconfig.png") %>
 
-1. Under **Override Default AWS Region** select the default AWS region.  
+1. Under **Override Default AWS Region** select the default AWS region.
 
 1. Under **Override Default AWS Availability Zone** select the default Availability Zone for RDS database instances.
 2. The setting **Enable Storage Encryption** is off by default. You can enable RDS encryption for a database instance. However, not all regions and DB instance classes support encryption so if you enable this option, you will need to change the default plans to remove those that don't support encryption. More information is available [here.](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Encryption.html#d0e21710)
 
 2. Select the checkboxes to enable the RDS Services that you want to show in Marketplace
 
-1. Under **Plans**, for each RDS Database, the Service Broker for AWS includes several default plans for use. 
+1. Under **Plans**, for each RDS Database, the Service Broker for AWS includes several default plans for use.
     * **basic**: For small projects and during development.
     * **standard**: For a small production database (multi-AZ, 2vCPU, 7.5GB).
     * **premium**: For a mid-sized database (multi-AZ, 4 vCPU, 15GB).
     * **enterprise**: For a large database (multi-AZ, 8 vCPU, 32GB).
 
-1. You can view and edit the configuration of existing plans by clicking the arrow next to their names. 
+1. You can view and edit the configuration of existing plans by clicking the arrow next to their names.
     <%= image_tag("images/aws-sb-editplan.png") %>
-    <p class="note"><strong>Note</strong>: If you edit an existing service plan, only future instances of that services plan will be changed. Ask your Admin to modify existing instances.</p> 
+    <p class="note"><strong>Note</strong>: If you edit an existing service plan, only future instances of that services plan will be changed. Ask your Admin to modify existing instances.</p>
 1. You can also create a new custom plan by clicking the **Add** button and completing the following fields:
     - **Plan Name**: The name of the plan in the Services Marketplace.
-    - **Plan Description**: The description of the plan in the Services Marketplace. 
+    - **Plan Description**: The description of the plan in the Services Marketplace.
     - **Plan Features**: The list of features displayed in Apps Manager.
     - **Engine**: This must be `postgres` or 'mysql'.
     - **Engine Version**: The version that your database uses.
@@ -200,7 +200,7 @@ More information on AWS SQS queue properties is available [here](http://docs.aws
 
 ##<a id="confirm"></a>Step 4: Confirm Installation
 
-<p class="note"><strong>Note</strong>: The Service Broker for AWS installs an app called <code>aws-services-broker</code> in the <code>iaas-brokers</code> space of the <code>system</code> org.</p> 
+<p class="note"><strong>Note</strong>: The Service Broker for AWS installs an app called <code>aws-services-broker</code> in the <code>iaas-brokers</code> space of the <code>system</code> org.</p>
 
 1. After Ops Manager finishes the installation, the **Service Broker for AWS** appears as a green tile in the **Installation Dashboard**.
 
