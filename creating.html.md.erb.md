@@ -35,12 +35,12 @@ To perform the following procedures for creating and managing service instances,
     service             plans                                      description   
     app-autoscaler      bronze, gold                               Scales bound applications in response to load   
     aws-dynamodb        standard\*                                  Create and manage Amazon DynamoDB tables   
-    aws-rds-aurora      basic\*, standard\*, premium\*, enterprise\*       Create and manage AWS RDS Aurora deployments   
-    aws-rds-mariadb     basic\*, standard\*, premium\*, enterprise\*       Create and manage AWS RDS MariaDB deployments   
-    aws-rds-mysql       basic\*, standard\*, premium\*, enterprise\*       Create and manage AWS RDS MySQL deployments   
-    aws-rds-oracle      basic\*, standard\*, premium\*, enterprise\*       Create and manage AWS RDS Oracle deployments   
-    aws-rds-postgres    basic\*, standard\*, premium\*, enterprise\*       Create and manage AWS RDS PostgreSQL deployments   
-    aws-rds-sqlserver   basic\*, standard\*, premium\*, enterprise\*       Create and manage AWS RDS SQL Server deployments   
+    aws-rds-aurora      basic\*, standard\*, premium\*, enterprise\*    Create and manage AWS RDS Aurora deployments   
+    aws-rds-mariadb     basic\*, standard\*, premium\*, enterprise\*    Create and manage AWS RDS MariaDB deployments   
+    aws-rds-mysql       basic\*, standard\*, premium\*, enterprise\*    Create and manage AWS RDS MySQL deployments   
+    aws-rds-oracle      basic\*, standard\*, premium\*, enterprise\*    Create and manage AWS RDS Oracle deployments   
+    aws-rds-postgres    basic\*, standard\*, premium\*, enterprise\*    Create and manage AWS RDS PostgreSQL deployments   
+    aws-rds-sqlserver   basic\*, standard\*, premium\*, enterprise\*    Create and manage AWS RDS SQL Server deployments   
     aws-s3              standard\*                                  Create and manage Amazon S3 buckets   
     aws-sqs             standard\*                                  Create and manage Amazon SQS queues   
     </pre>
