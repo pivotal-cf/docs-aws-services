@@ -275,6 +275,37 @@ Run the following command to delete a service instance:
      Delete in progress. Use 'cf services' or 'cf service YOUR-SERVICE-INSTANCE' to check operation status.
 </pre>
 
+##<a id="service-keys"></a>Using Service Keys for Other Commands
+Creating service keys for a service instance allows app developers to perform additional operations against the underlying resources in AWS. 
+
+Run the following command to create a service key for a service instance:
+<pre class="terminal">$ cf create-service-key YOUR-SERVICE-INSTANCE SERVICE_KEY_NAME</pre>
+
+This command creates a service key for "YOUR-SERVICE-INSTANCE" named "SERVICE_KEY_NAME".
+
+To view the corresponding credentials, run the following command:
+<pre class="terminal">$ cf service-key YOUR-SERVICE-INSTANCE SERVICE_KEY_NAME</pre>
+
+This returns credentials in JSON format, containing the Access Key ID and Secret, and the ARN for the underlying resource in AWS. For example, service key credentials for an S3 bucket would return the following:
+
+<pre class="terminal">
+{
+ "access_key_id": "AKIAIOSFODNN7EXAMPLE",
+ "arn": "arn:aws:s3:::bucket-name",
+ "secret_access_key": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+}
+</pre>
+
+<p class="note"><strong>Note</strong>: When creating a service key, a new IAM user will be created with a policy defined by the Operator. This policy can be configured to optionally time out after a time period specified by the Operator</p>
+
+App developers can use these keys to perform one-off tasks (creating RDS Snapshots, modifying parameter groups, adding permissions, etc.) against the underlying resource using the AWS CLI. The actions permitted are defined by the Operator using service key policy templates.
+
+Run the following command to delete the service key:
+<pre class="terminal">$ cf delete-service-key YOUR-SERVICE-INSTANCE SERVICE_KEY_NAME</pre>
+
+Deleting a service key removes access to the service instance, and deletes the underlying IAM user.
+
+
 ##<a id="troubleshooting"></a>Troubleshooting
 
 ###Problem
