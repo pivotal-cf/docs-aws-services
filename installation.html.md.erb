@@ -33,7 +33,6 @@ This version uses detailed permissions.
 1. Enter `PCFInstallationPolicy` for **Policy Name** and `Installation Policy for PCF` for  **Description**. 
 1. Copy the following text into the **Policy Document** section:
 
-            ```
             {
                 "Version": "2012-10-17",
                 "Statement": [
@@ -77,11 +76,111 @@ This version uses detailed permissions.
                     }
                 ]
             }
-            ```
 1. Click **Validate Policy** to check for errors. 
 1. Click **Create Policy**. This creates an AWS policy that you must apply to every IAM user you create for the Service Broker for AWS. 
 1. For each IAM user, click the user name > **Permissions** tab > **Attach Policy** and select **PCFInstallationPolicy**. 
 1. Record the **AWS Access Key ID** and **Secret Access Key** for each of your PCF IAM accounts for later use.
+
+
+### v1.0.0
+This version allows a custom name for the `PCFInstallationPolicy`. Follow the steps for configuring the policy for v0.1.3 and optionally provide a custom name for the `PCFInstallationPolicy`
+
+
+#### Service Key Policies
+v1.0.0 of the Service Broker for AWS allows App Developers to create service keys for their service instances. Creating a service key creates an IAM user with a templated policy, and provides the App Developer with Access Key credentials.
+
+To create the policy templates for each service, log into the AWS console, and do the following:
+
+1. Select **Policies** and click **Create Policy**. 
+1. Choose **Create Your Own Policy**. 
+1. Enter `PCFAppDeveloperPolicy-s3` for **Policy Name** and `Service Broker for AWS Service Key policy for S3` for  **Description**.
+1. Enter the following text in the **Policy Document** section, or create your own policy template
+
+            {
+                "Version": "2012-10-17",
+                "Statement": [
+                    {
+                        "Sid": "allowtagging",
+                        "Effect": "Allow",
+                        "Action": [
+                            "s3:GetBucketTagging",
+                            "s3:PutBucketTagging"
+                        ],
+                        "Resource": [
+                            "arn:aws:broker:resource::"
+                        ]
+                     }
+                 ]
+             }
+
+1. Click **Validate Policy** to check for errors. 
+1. Click **Create Policy**. This creates an AWS policy that you must apply to every IAM user you create for the Service Broker for AWS. 
+1. Repeat steps 1-6 for `PCFAppDeveloperPolicy-sqs` `PCFAppDeveloperPolicy-dynamodb` and `PCFAppDeveloperPolicy-rds`; using or modifying the examples below.
+
+<strong>`PCFAppDeveloperPolicy-sqs` Example</strong>
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Stmt1471890189000",
+            "Effect": "Allow",
+            "Action": [
+                "sqs:ListQueues",
+                "sqs:PurgeQueue",
+                "sqs:ReceiveMessage",
+                "sqs:SendMessage"
+            ],
+            "Resource": [
+                "arn:aws:broker:resource::"
+            ]
+        }
+    ]
+}
+```
+
+<strong>`PCFAppDeveloperPolicy-dynamodb` Example</strong>
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Stmt1471873911000",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:*"
+            ],
+            "Resource": [
+                "arn:aws:broker:resource::"
+            ]
+        }
+    ]
+}
+```
+
+<strong>`PCFAppDeveloperPolicy-rds` Example</strong>
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Stmt1471636048000",
+            "Effect": "Allow",
+            "Action": [
+                "rds:ListTagsForResource",
+                "rds:DescribeDbInstances"
+            ],
+            "Resource": [
+                "arn:aws:broker:resource::"
+            ]
+        }
+    ]
+}
+```
+
 
 ##<a id="setup"></a>Step 2: Create Service Broker Database
 
@@ -121,11 +220,13 @@ This service is deployed as an application to the `iaas-brokers` space in the
       {
         ports: "443, 5432, 1521, 1433, 3306",
         protocol: "tcp",
-        destination: .prefixes[] | .ip_prefix
+        destination: .prefixes | map(select(.service == "AMAZON")) | .[] | .ip_prefix
       }
     ] | .' > aws-service-broker.json
 
 ```
+
+<p class="note"><strong>Note</strong>: This creates a configuration which allows traffic for all AWS Regions. You may wish to further filter the list of entries in the Application Security Group config to a specific set of AWS Regions by adding additional `jq` `map(select(.region == "REGION_NAME"))` statements for each region.</p>
 
  Log in as an administrator and create an ASG called `aws-service-broker`, binding it to the `iaas-brokers` space in the `system` org:
 <pre class="terminal">
