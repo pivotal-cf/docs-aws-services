@@ -68,11 +68,11 @@ To perform the following procedures for creating and managing service instances,
 
 To create a service instance of the RDS for PostgreSQL service, use `cf create-service` to create an instance of `aws-rds-postgres` with or without custom settings.
 
-To create an instance of `aws-rds-postgres` without custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE`. The following example creates an instance named `mypostgres1` with the `standard` plan:
+To create an instance of `aws-rds-postgres` without custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE`. The following example creates an instance named `mypostgres1` with the `standard` plan:
 <pre class="terminal">$ cf create-service aws-rds-postgres standard mypostgres1
 </pre>
 
-To create an instance of `aws-rds-postgres` with custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE` with the `-c` flag and provide custom settings for the following elements:
+To create an instance of `aws-rds-postgres` with custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE` with the `-c` flag and provide custom settings for the following elements:
     * Engine Version
     * Multi-AZ
     * Storage Type
@@ -87,11 +87,11 @@ The following example shows the syntax for each setting. You can omit settings y
 
 To create a service instance of the RDS for MySQL service, use `cf create-service` to create an instance of `aws-rds-mysql` with or without custom settings.
 
-To create an instance of `aws-rds-mysql` without custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE`. The following example creates an instance named `mysqldb1` with the `standard` plan:
+To create an instance of `aws-rds-mysql` without custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE`. The following example creates an instance named `mysqldb1` with the `standard` plan:
 <pre class="terminal">$ cf create-service aws-rds-mysql standard mysqldb1
 </pre>
 
-To create an instance of `aws-rds-mysql` with custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE` with the `-c` flag and provide custom settings for the following elements:
+To create an instance of `aws-rds-mysql` with custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE` with the `-c` flag and provide custom settings for the following elements:
 
 * Engine Version
 * Multi-AZ
@@ -107,11 +107,11 @@ The following example shows the syntax for each setting. You can omit settings y
 
 To create a service instance of the RDS for MariaDB service, use `cf create-service` to create an instance of `aws-rds-mariadb` with or without custom settings.
 
-To create an instance of `aws-rds-mariadb` without custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE`. The following example creates an instance named `mariadbdb1` with the `standard` plan:
+To create an instance of `aws-rds-mariadb` without custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE`. The following example creates an instance named `mariadbdb1` with the `standard` plan:
 <pre class="terminal">$ cf create-service aws-rds-mariadb standard mariadbdb1
 </pre>
 
-To create an instance of `aws-rds-mariadb` with custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE` with the `-c` flag and provide custom settings for the following elements:
+To create an instance of `aws-rds-mariadb` with custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE` with the `-c` flag and provide custom settings for the following elements:
     * Engine Version
     * Multi-AZ
     * Storage Type
@@ -127,11 +127,11 @@ The following example shows the syntax for each setting. You can omit settings y
 
 To create a service instance of the RDS for Aurora service, use `cf create-service` to create an instance of `aws-rds-aurora` with or without custom settings.
 
-To create an instance of `aws-rds-aurora` without custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE`. The following example creates an instance named `auroradb1` with the `standard` plan:
+To create an instance of `aws-rds-aurora` without custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE`. The following example creates an instance named `auroradb1` with the `standard` plan:
 <pre class="terminal">$ cf create-service aws-rds-aurora standard auroradb1
 </pre>
 
-To create an instance of `aws-rds-aurora` with custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE` with the `-c` flag and provide custom settings for the following elements:
+To create an instance of `aws-rds-aurora` with custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE` with the `-c` flag and provide custom settings for the following elements:
     * Multi-AZ
     * AvailabilityZone
 
@@ -144,11 +144,11 @@ The following example shows the syntax for each setting. You can omit settings y
 
 To create a service instance of the RDS for SQL Server service, use `cf create-service` to create an instance of `aws-rds-sqlserver` with or without custom settings.
 
-To create an instance of `aws-rds-sqlserver` without custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE`. The following example creates an instance named `sqlserverdb1` with the `standard` plan:
+To create an instance of `aws-rds-sqlserver` without custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE`. The following example creates an instance named `sqlserverdb1` with the `standard` plan:
 <pre class="terminal">$ cf create-service aws-rds-sqlserver standard sqlserverdb1
 </pre>
 
-To create an instance of `aws-rds-sqlserver` with custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE` with the `-c` flag and provide custom settings for the following elements:
+To create an instance of `aws-rds-sqlserver` with custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE` with the `-c` flag and provide custom settings for the following elements:
 
 * Engine Version
 * Multi-AZ
@@ -168,11 +168,11 @@ The following example shows the syntax for each setting. You can omit settings y
 
 To create a service instance of the RDS for Oracle service, use `cf create-service` to create an instance of `aws-rds-oracle` with or without custom settings.
 
-To create an instance of `aws-rds-oracle` without custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE`. The following example creates an instance named `oracledb1` with the `standard` plan:
+To create an instance of `aws-rds-oracle` without custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE`. The following example creates an instance named `oracledb1` with the `standard` plan:
 <pre class="terminal">$ cf create-service aws-rds-oracle standard oracledb1
 </pre>
 
-To create an instance of `aws-rds-oracle` with custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE` with the `-c` flag and provide custom settings for the following elements:
+To create an instance of `aws-rds-oracle` with custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE` with the `-c` flag and provide custom settings for the following elements:
 
 * Engine Version
 * Multi-AZ
@@ -191,7 +191,7 @@ You can create and add items to NoSQL tables with DynamoDB. You can do this prog
 
 To create a service instance of the AWS DynamoDB service, use `cf create-service` to create an instance of `aws-dynamodb`.
 
-To create an instance of `aws-dynamodb`, use `cf create-service SERVICE PLAN SERVICE_INSTANCE`. The following example creates an instance named `mydynamodb` with the `standard` plan:
+To create an instance of `aws-dynamodb`, use `cf create-service SERVICE PLAN SERVICE-INSTANCE`. The following example creates an instance named `mydynamodb` with the `standard` plan:
 <pre class="terminal">$ cf create-service aws-dynamodb standard MYDYNAMODB</pre>
 
 Binding an app to a DynamoDB service instance creates an IAM User that can create tables with a prefix corresponding to the guid of the service instance. You can find the credentials to create DynamoDB tables programatically in the `VCAP_SERVICES` environment variable of the app that service is bound to, along with the table prefix and region. For example:
@@ -223,13 +223,13 @@ The tables you create are only accessible from the app that service is bound to.
 
 To create a S3 bucket, use `cf create-service` to create an instance of `aws-s3` with or without custom settings.
 
-To create an S3 bucket without custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE`. The following example creates an instance named `bucket1` with the `standard` plan:
+To create an S3 bucket without custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE`. The following example creates an instance named `bucket1` with the `standard` plan:
 <pre class="terminal">$ cf create-service aws-s3 standard bucket1
 </pre>
 
 <p class="note"><strong>Note</strong>: S3 service instances use default region and tags settings configured by the PCF operator during the installation of the Service Broker for AWS.</p>
 
-To create an S3 bucket with custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE` with the `-c` flag. For instance, you can use custom settings to create a bucket in a specific region to lower latency for users. The following example  creates a bucket in the Tokyo region:
+To create an S3 bucket with custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE` with the `-c` flag. For instance, you can use custom settings to create a bucket in a specific region to lower latency for users. The following example  creates a bucket in the Tokyo region:
 
     cf cs aws-s3 standard tokyobucket -c '{ "CreateBucket": { "CreateBucketConfiguration": { "LocationConstraint": "ap-northeast-1"} } }'
 
@@ -239,13 +239,13 @@ To create an S3 bucket with custom settings, use `cf create-service SERVICE PLAN
 
 To create an SQS queue, use `cf create-service` to create an instance of `aws-sqs` with or without custom settings.
 
-To create an SQS bucket without custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE`. The following example creates an instance named `queue1` with the `standard` plan:
+To create an SQS bucket without custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE`. The following example creates an instance named `queue1` with the `standard` plan:
 <pre class="terminal">$ cf create-service aws-sqs standard queue1
 </pre>
 
 <p class="note"><strong>Note</strong>: SQS queue instances use default region and property settings configured by the PCF operator during the installation of the Service Broker for AWS.</p>
 
-To create an SQS queue with custom settings, use `cf create-service SERVICE PLAN SERVICE_INSTANCE` with the `-c` flag. For instance, you can use custom settings to create a queue with a specific name and maximum message size. The following example creates a queue named "kb-queue" with a 1kb max message size:
+To create an SQS queue with custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE` with the `-c` flag. For instance, you can use custom settings to create a queue with a specific name and maximum message size. The following example creates a queue named "kb-queue" with a 1kb max message size:
 
     cf cs aws-sqs standard kbqueue -c '{ "CreateQueue": {  "QueueName": "kb-queue", "Attributes": { "MaximumMessageSize": "1024"} } }'
 
@@ -279,12 +279,12 @@ Run the following command to delete a service instance:
 Creating service keys for a service instance allows app developers to perform additional operations against the underlying resources in AWS. 
 
 Run the following command to create a service key for a service instance:
-<pre class="terminal">$ cf create-service-key YOUR-SERVICE-INSTANCE SERVICE_KEY_NAME</pre>
+<pre class="terminal">$ cf create-service-key YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME</pre>
 
-This command creates a service key for "YOUR-SERVICE-INSTANCE" named "SERVICE_KEY_NAME".
+This command creates a service key for "YOUR-SERVICE-INSTANCE" named "SERVICE-KEY-NAME".
 
 To view the corresponding credentials, run the following command:
-<pre class="terminal">$ cf service-key YOUR-SERVICE-INSTANCE SERVICE_KEY_NAME</pre>
+<pre class="terminal">$ cf service-key YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME</pre>
 
 This returns credentials in JSON format, containing the Access Key ID and Secret, and the ARN for the underlying resource in AWS. For example, service key credentials for an S3 bucket would return the following:
 
@@ -301,7 +301,7 @@ This returns credentials in JSON format, containing the Access Key ID and Secret
 App developers can use these keys to perform one-off tasks (creating RDS Snapshots, modifying parameter groups, adding permissions, etc.) against the underlying resource using the AWS CLI. The actions permitted are defined by the Operator using service key policy templates.
 
 Run the following command to delete the service key:
-<pre class="terminal">$ cf delete-service-key YOUR-SERVICE-INSTANCE SERVICE_KEY_NAME</pre>
+<pre class="terminal">$ cf delete-service-key YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME</pre>
 
 Deleting a service key removes access to the service instance, and deletes the underlying IAM user.
 
