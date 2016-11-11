@@ -11,15 +11,15 @@ PCF operators must follow the instructions in the [Installing the Service Broker
 
 The current version of the Service Broker for AWS supports the following services:
 
-* AWS RDS for PostgreSQL
-* AWS S3
-* AWS RDS for MySQL
-* AWS RDS for Aurora
-* AWS RDS for SQL Server
-* AWS DynamoDB
-* AWS RDS for Oracle
-* AWS RDS for MariaDB
-* AWS SQS
+  * AWS RDS for PostgreSQL
+  * AWS S3
+  * AWS RDS for MySQL
+  * AWS RDS for Aurora
+  * AWS RDS for SQL Server
+  * AWS DynamoDB
+  * AWS RDS for Oracle
+  * AWS RDS for MariaDB
+  * AWS SQS
 
 Developers create and manage service instances of the Service Broker for AWS through the cf CLI. Developers cannot use Apps Manager to create or manage instances of the Service Broker for AWS because it does not support the asynchronous provisioning capability of PCF. However, they can use Apps Manager to view service information in the Marketplace Services, including service plans and plan features.
 
@@ -73,11 +73,12 @@ To create an instance of `aws-rds-postgres` without custom settings, use `cf cre
 </pre>
 
 To create an instance of `aws-rds-postgres` with custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE` with the `-c` flag and provide custom settings for the following elements:
-    * Engine Version
-    * Multi-AZ
-    * Storage Type
-    * AllocatedStorage
-    * AvailabilityZone
+
+  * Engine Version
+  * Multi-AZ
+  * Storage Type
+  * AllocatedStorage
+  * AvailabilityZone
 
 The following example shows the syntax for each setting. You can omit settings you don't want to explicitly set:
 <pre class="terminal">$ cf create-service aws-rds-postgres basic postgresdb -c '{ "CreateDbInstance": { "EngineVersion": "9.4.1", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 10, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
@@ -93,11 +94,11 @@ To create an instance of `aws-rds-mysql` without custom settings, use `cf create
 
 To create an instance of `aws-rds-mysql` with custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE` with the `-c` flag and provide custom settings for the following elements:
 
-* Engine Version
-* Multi-AZ
-* Storage Type
-* AllocatedStorage
-* AvailabilityZone
+  * Engine Version
+  * Multi-AZ
+  * Storage Type
+  * AllocatedStorage
+  * AvailabilityZone
 
 The following example shows the syntax for each setting. You can omit settings you don't want to explicitly set:
 <pre class="terminal">$ cf create-service aws-rds-mysql basic mysqldb2 -c '{ "CreateDbInstance": { "EngineVersion": "5.6.27", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
@@ -112,11 +113,12 @@ To create an instance of `aws-rds-mariadb` without custom settings, use `cf crea
 </pre>
 
 To create an instance of `aws-rds-mariadb` with custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE` with the `-c` flag and provide custom settings for the following elements:
-    * Engine Version
-    * Multi-AZ
-    * Storage Type
-    * AllocatedStorage
-    * AvailabilityZone
+
+  * Engine Version
+  * Multi-AZ
+  * Storage Type
+  * AllocatedStorage
+  * AvailabilityZone
 
 The following example shows the syntax for each setting. You can omit settings you don't want to explicitly set:
 <pre class="terminal">$ cf create-service aws-rds-mariadb basic mariadbdb2 -c '{ "CreateDbInstance": { "EngineVersion": "10.0.24", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
@@ -132,8 +134,9 @@ To create an instance of `aws-rds-aurora` without custom settings, use `cf creat
 </pre>
 
 To create an instance of `aws-rds-aurora` with custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE` with the `-c` flag and provide custom settings for the following elements:
-    * Multi-AZ
-    * AvailabilityZone
+
+  * Multi-AZ
+  * AvailabilityZone
 
 The following example shows the syntax for each setting. You can omit settings you don't want to explicitly set:
 <pre class="terminal">$ cf create-service aws-rds-aurora basic auroradb2 -c '{ "CreateDbInstance": { "MultiAZ": false, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
@@ -150,11 +153,11 @@ To create an instance of `aws-rds-sqlserver` without custom settings, use `cf cr
 
 To create an instance of `aws-rds-sqlserver` with custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE` with the `-c` flag and provide custom settings for the following elements:
 
-* Engine Version
-* Multi-AZ
-* Storage Type
-* AllocatedStorage
-* AvailabilityZone
+  * Engine Version
+  * Multi-AZ
+  * Storage Type
+  * AllocatedStorage
+  * AvailabilityZone
 
 The following example shows the syntax for each setting. You can omit settings you don't want to explicitly set:
 <pre class="terminal">$ cf create-service aws-rds-sqlserver basic sqlserverdb2 -c '{ "CreateDbInstance": { "EngineVersion": "12.00.4422.0.v1", "MultiAZ": true, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
@@ -174,11 +177,11 @@ To create an instance of `aws-rds-oracle` without custom settings, use `cf creat
 
 To create an instance of `aws-rds-oracle` with custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE` with the `-c` flag and provide custom settings for the following elements:
 
-* Engine Version
-* Multi-AZ
-* Storage Type
-* AllocatedStorage
-* AvailabilityZone
+  * Engine Version
+  * Multi-AZ
+  * Storage Type
+  * AllocatedStorage
+  * AvailabilityZone
 
 The following example shows the syntax for each setting. You can omit settings you don't want to explicitly set:
 <pre class="terminal">$ cf create-service aws-rds-oracle basic oracledb1 -c '{ "CreateDbInstance": { "EngineVersion": "12.1.0.2.v3", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
@@ -230,8 +233,7 @@ To create an S3 bucket without custom settings, use `cf create-service SERVICE P
 <p class="note"><strong>Note</strong>: S3 service instances use default region and tags settings configured by the PCF operator during the installation of the Service Broker for AWS.</p>
 
 To create an S3 bucket with custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE` with the `-c` flag. For instance, you can use custom settings to create a bucket in a specific region to lower latency for users. The following example  creates a bucket in the Tokyo region:
-
-    cf cs aws-s3 standard tokyobucket -c '{ "CreateBucket": { "CreateBucketConfiguration": { "LocationConstraint": "ap-northeast-1"} } }'
+<pre class="terminal">$ cf cs aws-s3 standard tokyobucket -c '{ "CreateBucket": { "CreateBucketConfiguration": { "LocationConstraint": "ap-northeast-1"} } }'</pre>
 
 <p class="note"><strong>Note</strong>: Developers can supply additional configuration parameters to service instances at update and bind times.</p>
 
@@ -247,7 +249,8 @@ To create an SQS bucket without custom settings, use `cf create-service SERVICE 
 
 To create an SQS queue with custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE` with the `-c` flag. For instance, you can use custom settings to create a queue with a specific name and maximum message size. The following example creates a queue named "kb-queue" with a 1kb max message size:
 
-    cf cs aws-sqs standard kbqueue -c '{ "CreateQueue": {  "QueueName": "kb-queue", "Attributes": { "MaximumMessageSize": "1024"} } }'
+<pre class="terminal">$ cf cs aws-sqs standard kbqueue -c '{ "CreateQueue": {  "QueueName": "kb-queue", "Attributes": { "MaximumMessageSize": "1024"} } }'</pre>
+
 
 ##<a id="bind"></a>Bind or Unbind a Service Instance
 
@@ -269,10 +272,10 @@ Run the following command to unbind a service instance to an app:
 <p class="note"><strong>Note</strong>: Before deleting a service instance, ensure there are no apps bound to the service instance.</p>
 Run the following command to delete a service instance:
 <pre class="terminal">$ cf delete-service YOUR-SERVICE-INSTANCE
-    Really delete the service YOUR-SERVICE-INSTANCE> y
-     Deleting service YOUR-SERVICE-INSTANCE in org system / space dev1 as appdev1...
-     OK
-     Delete in progress. Use 'cf services' or 'cf service YOUR-SERVICE-INSTANCE' to check operation status.
+Really delete the service YOUR-SERVICE-INSTANCE> y
+Deleting service YOUR-SERVICE-INSTANCE in org system / space dev1 as appdev1...
+OK
+Delete in progress. Use 'cf services' or 'cf service YOUR-SERVICE-INSTANCE' to check operation status.
 </pre>
 
 ##<a id="service-keys"></a>Using Service Keys for Other Commands
