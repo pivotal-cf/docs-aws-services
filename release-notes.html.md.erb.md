@@ -3,6 +3,16 @@ breadcrumb: PCF Services
 title: Release Notes
 ---
 
+###1.0.0
+
+* Broker configuration database can be MySQL or PostgreSQL. 
+* Supports service keys, App developers can get a service key for their service instance and perform permitted actions (in AppDeveloperPolicy) via the AWS CLI. These credentials may have an expiry time.
+* Added ALTER privilege to RDS MySQL bind credentials
+* AWS endpoint is configurable, to support C2S
+* Broker Config IAM Policy name is now configurable
+* Updated stemcell to 3263
+
+
 ###0.1.3
 
 * Supports additional AWS RDS services: MariaDB, Aurora, SQL Server, Oracle
