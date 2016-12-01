@@ -7,13 +7,13 @@ This topic describes how to install the Service Broker for AWS by configuring yo
 
 ##Installation Prerequisites
 
-* Pivotal Cloud Foundry version 1.7 or later.
-* An Amazon Web Services (AWS) account.
-* Pivotal MySQL or an already-created MySQL or PostgreSQL database.
+* Pivotal Cloud Foundry version 1.7 or higher
+* An Amazon Web Services (AWS) account
+* Pivotal MySQL, or an already-created MySQL or PostgreSQL database
 
 ##<a id="setup"></a>Step 1: Set up AWS
 
-In this step you configure your AWS account to allow the Service Broker for AWS to create and manage AWS resources. Create a new IAM user for the PCF cluster in the AWS Identity & Access Management console by following the procedure below that corresponds to your version. 
+In this step you configure your AWS account to allow the Service Broker for AWS to create and manage AWS resources. Create a new IAM user for the PCF cluster in the **AWS Identity & Access Management** console by following the procedure below that corresponds to your version. 
 <p class="note"><strong>Note</strong>: If you have more than one PCF deployment, you must create an IAM user for each one.</p> 
 
 ### v0.1.2
@@ -279,7 +279,7 @@ Create an ASG called `aws-service-broker-app-containers` with the above configur
 
 To install the Service Broker for AWS tile in Ops Manager, complete the following steps:
 
-1. Download the Service Broker for AWS product file from [Pivotal Network](https://network.pivotal.io/products/p-aws-services).
+1. Download the Service Broker for AWS product file from [Pivotal Network](https://network.pivotal.io/products/pcf-service-broker-for-aws).
 
 1. From the Ops Manager Installation Dashboard, click **Import a Product** to upload the product file.
 
@@ -385,10 +385,10 @@ Note: in the following sections that configure AWS Services, if you don't want t
 4.  For **Message Retention Period**, enter the number of seconds Amazon SQS retains a message.
 5.  For **Max Message Size**, enter the limit of how many bytes a message can contain before Amazon SQS rejects it.
 6.  For **Delivery Delay**, enter the time in seconds that the delivery of all messages in the queue will be delayed.
-7.  For **Rx Message Wait Time**, enter the duration, in seconds, that the reciever action waits until a message is in the queue.
+7.  For **Rx Message Wait Time**, enter the duration, in seconds, that the receiver action waits until a message is in the queue.
 8.  The **Redrive Policy** specifies an existing dead letter queue to receive messages after the source queue fails to process a message a specified number of times.  If enabled, this policy includes the following properties:
     - **Dead Letter Queue**: The Amazon Resource Name (ARN) of the dead letter queue.
-    - **Max Recieves**: The maximum number of times a message is delivered to the source queue before being sent to the dead letter queue.
+    - **Max Receives**: The maximum number of times a message is delivered to the source queue before being sent to the dead letter queue.
 1. Select **Enable in Marketplace** to enable the SQS service in the Services Marketplace.
 1. Click **Installation Dashboard** to return to the Ops Manager Installation Dashboard.
 1. Click **Apply Changes** to install the product.

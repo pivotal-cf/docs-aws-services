@@ -19,9 +19,9 @@ title: Pivotal Cloud Foundry Service Broker for AWS
 </dl>
 
 
-The [Service Broker for AWS](https://network.pivotal.io/products/p-aws-services) provides [Pivotal Cloud Foundry](https://network.pivotal.io/products/pivotal-cf) users with the ability to create and manage Amazon Web Services (AWS) resources from the cf CLI.
+The [Service Broker for AWS](https://network.pivotal.io/products/pcf-service-broker-for-aws) provides [Pivotal Cloud Foundry](https://network.pivotal.io/products/pivotal-cf) users with the ability to create and manage Amazon Web Services (AWS) resources from the Cloud Foundry Command Line Interface (cf CLI).
 
-The Service Broker for AWS is installed once and exposes the selected AWS services in the Marketplace. App developers can then create and manage a service instance by using the CF CLI commands (create service, bind service, unbind service and delete service). By obtaining a service key (create-service-key, delete-service-key) they can use the key with the AWS CLI to perform additional operations as permitted by their PCF operator. 
+The PCF Service Broker for AWS is installed once and exposes the selected AWS services in the Marketplace. App developers can then create and manage a service instance by using the cf CLI commands `create service`, `bind service`, `unbind service`, and `delete service`. After obtaining a service key using the `create-service-key` command, developers can use the key with the AWS CLI to perform additional operations as permitted by their PCF operator. 
 
 AWS Services currently supported include:
 
