@@ -15,20 +15,9 @@ This topic describes how to install the Service Broker for AWS by configuring yo
 
 In this step you configure your AWS account to allow the Service Broker for AWS to create and manage AWS resources. 
 
-Create a new IAM user for the PCF cluster in the **AWS Identity & Access Management** console by following the procedure below that corresponds to your version. 
+Create a new IAM user for the PCF cluster in the **AWS Identity & Access Management** console by following the procedure below. 
 <p class="note"><strong>Note</strong>: If you have more than one PCF deployment, you must create an IAM user for each deployment. Create a new IAM user in your AWS account (do not use the same IAM user that installed PCF on AWS as it has different policy restrictions).</p> 
 
-### v0.1.2
-
-This version uses high level AWS policies. 
-
-1. For each IAM user, click the **User Name** followed by the **Permissions**.
-1. Click **Attach Policy** and select these policies: **IAMFullAccess**, **AmazonRDSFullAccess**, **AmazonS3FullAccess**. 
-1. Click **Attach Policy** and check that the user has the policies you selected.
-1. Record the **AWS Access Key ID** and **Secret Access Key** for each of your PCF IAM accounts for later use.
-
-### v0.1.3
-This version uses detailed permissions. 
 
 1. Select **Policies** and click **Create Policy**. 
 1. Choose **Create Your Own Policy**. 
@@ -87,16 +76,17 @@ This version uses detailed permissions.
 1. Record the **AWS Access Key ID** and **Secret Access Key** for each of your PCF IAM accounts for later use.
 
 
-### v1.0.0
-v1.0.0 of the Service Broker for AWS allows a custom name for the `PCFInstallationPolicy`. 
+Note: The Service Broker for AWS also allows a custom name for the `PCFInstallationPolicy`. 
 
-To use the default name: follow the steps above for configuring the `PCFInstallationPolicy` policy for v0.1.3. 
+To use the default name: follow the steps above for configuring the `PCFInstallationPolicy` policy. 
 
 To use a custom name: In the steps above, use a custom name instead of `PCFInstallationPolicy`. Later, during Broker Configuration, you will need to enter this custom name. 
 
 
 #### Service Key Policies
-v1.0.0 of the Service Broker for AWS allows App Developers to create service keys for their service instances. Creating a service key creates an IAM user with a templated policy, and provides the App Developer with Access Key credentials to the actions listed in the policies below.
+The Service Broker for AWS allows App Developers to create service keys for their service instances. Creating a service key creates an IAM user with a templated policy, and provides the App Developer with Access Key credentials to the actions listed in the policies below.
+
+In V1.1.0, the service key Policy names are configurable. You can choose your own policy name and configure that name in each service by updating the Service Key Policy Name field. The default names are used below. 
 
 Create the policy templates for each service that you will enable, by logging into the AWS console, and doing the following:
 
@@ -338,7 +328,8 @@ Note: in the following sections that configure AWS Services, if you don't want t
 
 3. Under **Override Default AWS Availability Zone** select the default Availability Zone for RDS database instances.
 4. The **RDS Instance Prefix** is set to "cf" by default. It is the prefix for creating RDS database instances.
-5. The network section allows you to configure whether to use the Default VPC or a Custom VPC, and whether the instance is publicly accessible. For a Custom VPC, enter the DB Subnet Group Name and the VPC Security Group(s). 
+5. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy earlier. 
+5. The **Networking** section allows you to configure whether to use the Default VPC or a Custom VPC, and whether the instance is publicly accessible. For a Custom VPC, enter the DB Subnet Group Name and the VPC Security Group(s). 
 6. The setting **Enable Storage Encryption** is off by default. You can enable RDS encryption for a database instance. However, not all regions and DB instance classes support encryption so if you enable this option, you will need to change the default plans to remove those that don't support encryption. More information is available [here.](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Encryption.html#d0e21710)
 
 7. Select the checkboxes to enable the RDS Services that you want to show in Marketplace
@@ -363,8 +354,12 @@ Note: in the following sections that configure AWS Services, if you don't want t
     - **Storage Type**: This can be Magnetic, SSD or Provisioned IOPS (`io1`).
     - **IOPS**: The IOPS rate for the database instance. Only required if your **Storage Type** is `io1`.
     - **Backup Retention Period**: How long to retain backups (typically 7 days).
+    - **Preferred Backup Window**: When to backup, must be at least 30min window. e.g. 13:00-14:00
     - **Copy Tags to Snapshot**: Whether to tag the database snapshots.
     - **Multi AZ**: Whether to automatically run in multiple Availability Zones.
+    - The setting **Enable Storage Encryption** is off by default. If you have not enabled it globally, you can configure it per service plan.
+    - For flexibility, the **User Privileges** allows configuration of database user privileges by service plan. Use this to secure the privileges you want for your developers or apps. 
+    - **DB Parameter Group Name** allows you to associate an existing DB Parameter Group Name with this service plan. Use the AWS Console to create the DB Parameter Group. 
 
     <%= image_tag("images/aws-sb-addplan.png") %>
 
@@ -374,8 +369,10 @@ Note: in the following sections that configure AWS Services, if you don't want t
 1. Click **S3 Config**.
     <%= image_tag("images/aws-sb-s3config.png") %>
 1. Under **Override Default AWS Region**, select the default AWS region for this service.
-1. Select **Enable in Marketplace** to enable the S3 service in the Services Marketplace.
-2. Enter the bucket prefix, a short name to prefix all bucket names.
+1. Select **Enable in Marketplace** to enable the service in the Services Marketplace.
+2. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy earlier. 
+3. The **Quota Limit** limits the total number of instances, setting it to 0 will disable it. 
+2. Enter the **Bucket Prefix**, a short name to prefix all bucket names.
 1. Click **Installation Dashboard** to return to the Ops Manager Installation Dashboard.
 1. Click **Apply Changes** to install the product.
 
@@ -383,25 +380,27 @@ Note: in the following sections that configure AWS Services, if you don't want t
 ###<a id="sqs-config"></a>SQS Config
 1. Click **SQS Config**.
     <%= image_tag("images/aws-sb-sqsconfig.png") %>
-1. Under **Override Default AWS Region**, select the default AWS region for this service.
-2.  For **Queue Prefix**, enter the queue name prefix that will be used for filtering list results.
-3.  For **Default Visibility Timeout**, enter the length of time during which the queue will be unavailable once a message is delivered from the queue.
-4.  For **Message Retention Period**, enter the number of seconds Amazon SQS retains a message.
-5.  For **Max Message Size**, enter the limit of how many bytes a message can contain before Amazon SQS rejects it.
-6.  For **Delivery Delay**, enter the time in seconds that the delivery of all messages in the queue will be delayed.
-7.  For **Rx Message Wait Time**, enter the duration, in seconds, that the receiver action waits until a message is in the queue.
-8.  The **Redrive Policy** specifies an existing dead letter queue to receive messages after the source queue fails to process a message a specified number of times.  If enabled, this policy includes the following properties:
+2. Under **Override Default AWS Region**, select the default AWS region for this service.
+3. Select **Enable in Marketplace** to enable the service in the Services Marketplace.
+4. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy earlier. 
+5. The **Quota Limit** limits the total number of instances, setting it to 0 will disable it. 
+6. For **Queue Prefix**, enter the queue name prefix that will be used for filtering list results.
+7. For **Default Visibility Timeout**, enter the length of time during which the queue will be unavailable once a message is delivered from the queue.
+8. For **Message Retention Period**, enter the number of seconds Amazon SQS retains a message.
+9. For **Max Message Size**, enter the limit of how many bytes a message can contain before Amazon SQS rejects it.
+10. For **Delivery Delay**, enter the time in seconds that the delivery of all messages in the queue will be delayed.
+11. For **Rx Message Wait Time**, enter the duration, in seconds, that the receiver action waits until a message is in the queue.
+12. The **Redrive Policy** specifies an existing dead letter queue to receive messages after the source queue fails to process a message a specified number of times.  If enabled, this policy includes the following properties:
     - **Dead Letter Queue**: The Amazon Resource Name (ARN) of the dead letter queue.
     - **Max Receives**: The maximum number of times a message is delivered to the source queue before being sent to the dead letter queue.
-1. Select **Enable in Marketplace** to enable the SQS service in the Services Marketplace.
-1. Click **Installation Dashboard** to return to the Ops Manager Installation Dashboard.
-1. Click **Apply Changes** to install the product.
+13. Click **Apply Changes** to install the product.
+14. Click **Installation Dashboard** to return to the Ops Manager Installation Dashboard.
 
 More information on AWS SQS queue properties is available [here](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-queues.html). For more information on SQS Redrive Policy, refer to the documentation on [Using Amazon SQS Dead Letter Queues](http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/SQSDeadLetterQueue.html)
 
 ##<a id="confirm"></a>Step 5: Confirm Installation
 
-<p class="note"><strong>Note</strong>: The Service Broker for AWS installs an app called <code>aws-services-broker</code> in the <code>iaas-brokers</code> space of the <code>system</code> org.</p>
+<p class="note"><strong>Note</strong>: The Service Broker for AWS installs an app called <code>aws-services-broker</code> in the <code>iaas-brokers</code> space of the <code>system</code> org. Like other CF apps, you can view the application logs via the CF CLI by connecting to that org and space with the correct permissions.</p>
 
 1. After Ops Manager finishes the installation, the **Service Broker for AWS** appears as a green tile in the **Installation Dashboard**.
 

@@ -3,6 +3,15 @@ breadcrumb: PCF Services
 title: Release Notes
 ---
 
+###1.1.0
+
+* IAM Policy names are configurable
+* MySQL, PostgreSQL privileges are configurable by service plan
+* Customizable DB Parameter Group for MySQL, MariaDB, Aurora
+* Bug fix for S3 delete service instance when there are additional IAM Policies
+* Bug fix for Aurora provisioning with custom VPC and SG
+* Stemcell updated to 3312
+
 ###1.0.0
 
 * Broker configuration database can be MySQL or PostgreSQL. 
