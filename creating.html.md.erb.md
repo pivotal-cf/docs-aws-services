@@ -232,8 +232,8 @@ To create an S3 bucket without custom settings, use `cf create-service SERVICE P
 
 <p class="note"><strong>Note</strong>: S3 service instances use default region and tags settings configured by the PCF operator during the installation of the Service Broker for AWS.</p>
 
-To create an S3 bucket with custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE` with the `-c` flag. For instance, you can use custom settings to create a bucket in a specific region to lower latency for users. The following example  creates a bucket in the Tokyo region:
-<pre class="terminal">$ cf cs aws-s3 standard tokyobucket -c '{ "CreateBucket": { "CreateBucketConfiguration": { "LocationConstraint": "ap-northeast-1"} } }'</pre>
+To create an S3 bucket with custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE` with the `-c` flag. For instance, you can use custom settings to create a bucket in a specific region to lower latency for users. The following example  creates a bucket in the Tokyo region with tag values k1=v1:
+<pre class="terminal">$ cf cs aws-s3 standard tokyobucket -c '{ "CreateBucket": { "CreateBucketConfiguration": { "LocationConstraint": "ap-northeast-1"} }, "PutBucketTagging": { "Tagging":{ "TagSet": [ {"Key" : "k1", "Value": "v1"}]}} }'</pre>
 
 <p class="note"><strong>Note</strong>: Developers can supply additional configuration parameters to service instances at update and bind times.</p>
 
