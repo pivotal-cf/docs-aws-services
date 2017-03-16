@@ -21,7 +21,7 @@ The current version of the Service Broker for AWS supports the following service
   * AWS RDS for MariaDB
   * AWS SQS
 
-Developers create and manage service instances of the Service Broker for AWS through the cf CLI. Developers cannot use Apps Manager to create or manage instances of the Service Broker for AWS because it does not support the asynchronous provisioning capability of PCF. However, they can use Apps Manager to view service information in the Marketplace Services, including service plans and plan features.
+Developers create and manage service instances of the Service Broker for AWS through the cf CLI or Apps Manager.
 
 To perform the following procedures for creating and managing service instances, a developer must be logged in to the PCF deployment via the cf CLI.
 
