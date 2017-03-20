@@ -3,6 +3,11 @@ breadcrumb: PCF Services
 title: Release Notes
 ---
 
+###1.2.0
+
+* Upgrade to the latest AWS Golang SDK v1.7.1
+* Added C2S support using Partitions and Service identifiers
+
 ###1.1.0
 
 * IAM Policy names are configurable
