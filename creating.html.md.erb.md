@@ -11,15 +11,15 @@ PCF operators must follow the instructions in the [Installing the Service Broker
 
 The current version of the Service Broker for AWS supports the following services:
 
-  * AWS RDS for PostgreSQL
-  * AWS S3
-  * AWS RDS for MySQL
-  * AWS RDS for Aurora
-  * AWS RDS for SQL Server
-  * AWS DynamoDB
-  * AWS RDS for Oracle
-  * AWS RDS for MariaDB
-  * AWS SQS
+  * Amazon RDS for PostgreSQL
+  * Amazon S3
+  * Amazon RDS for MySQL
+  * Amazon Aurora
+  * Amazon RDS for SQL Server
+  * Amazon DynamoDB
+  * Amazon RDS for Oracle Database
+  * Amazon RDS for MariaDB
+  * Amazon SQS
 
 Developers create and manage service instances of the Service Broker for AWS through the cf CLI or Apps Manager.
 
@@ -125,9 +125,9 @@ The following example shows the syntax for each setting. You can omit settings y
 </pre>
 
 
-###<a id="rds"></a>RDS for Aurora
+###<a id="rds"></a>Amazon Aurora
 
-To create a service instance of the RDS for Aurora service, use `cf create-service` to create an instance of `aws-rds-aurora` with or without custom settings.
+To create a service instance of the Amazon Aurora service, use `cf create-service` to create an instance of `aws-rds-aurora` with or without custom settings.
 
 To create an instance of `aws-rds-aurora` without custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE`. The following example creates an instance named `auroradb1` with the `standard` plan:
 <pre class="terminal">$ cf create-service aws-rds-aurora standard auroradb1
