@@ -3,6 +3,12 @@ breadcrumb: PCF Services
 title: Release Notes
 ---
 
+###1.3.0
+
+* Fixed the default custom privileges on PostgreSQL service plans
+* Added a policy setting to enforce TLS between app and RDS database
+* Service keys work for S3 services
+
 ###1.2.0
 
 * Upgrade to the latest AWS Golang SDK v1.7.1
