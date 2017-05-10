@@ -8,6 +8,7 @@ title: Release Notes
 * Fixed the default custom privileges on PostgreSQL service plans
 * Added a policy setting to enforce TLS between app and RDS database
 * Service keys work for S3 services
+* Note: Please add  "iam:ListUserPolicies" to the PCFInstallation IAM Policy or copy the new policy from the Installation section
 
 ###1.2.0
 
