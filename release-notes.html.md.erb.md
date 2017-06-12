@@ -5,7 +5,7 @@ title: Release Notes
 
 ###1.3.0
 
-* Fixed the default custom privileges on PostgreSQL service plans
+* Fixed the default custom privileges on PostgreSQL service plans for new deployments; for upgrades you should set the User Privileges field to ALL. 
 * Added a policy setting to enforce TLS between app and RDS database
 * Service keys work for S3 services
 * Note: Please add  "iam:ListUserPolicies" to the PCFInstallation IAM Policy or copy the new policy from the Installation section
@@ -14,11 +14,12 @@ title: Release Notes
 
 * Upgrade to the latest AWS Golang SDK v1.7.1
 * Added C2S support using Partitions and Service identifiers
+* Note: for PostgreSQL service plans, the User Privileges field must be set to ALL or the "cf bind" will fail with the error: "error: pq: invalid privilege type SELECT for database"
 
 ###1.1.0
 
 * IAM Policy names are configurable
-* MySQL, PostgreSQL privileges are configurable by service plan
+* MySQL, PostgreSQL privileges are configurable by service plan. Note: for PostgreSQL service plans, the User Privileges field must be set to ALL or the "cf bind" will fail with the error: "error: pq: invalid privilege type SELECT for database"
 * Customizable DB Parameter Group for MySQL, MariaDB, Aurora
 * Bug fix for S3 delete service instance when there are additional IAM Policies
 * Bug fix for Aurora provisioning with custom VPC and SG
