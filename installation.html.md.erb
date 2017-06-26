@@ -374,6 +374,8 @@ Note: in the following sections that configure AWS Services, if you don't want t
 2. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy earlier. 
 3. The **Quota Limit** limits the total number of instances, setting it to 0 will disable it. 
 2. Enter the **Bucket Prefix**, a short name to prefix all bucket names.
+3. S3 has one default plan called "standard", but in Service Broker for AWS 1.4 and later you can add more. A service plan can require an S3 bucket to be encrypted by creating an AWS KMS Key (see AWS SSE-KMS) and entering the KMS key ARN in the service plan configuration. 
+4. Click "Save" to store the changed settings.
 1. Click **Installation Dashboard** to return to the Ops Manager Installation Dashboard.
 1. Click **Apply Changes** to install the product.
 

@@ -12,6 +12,8 @@ Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 336
 * Updated Golang version to 1.8
 * Upgraded to the latest AWS Golang SDK v1.8.19
 * Updated to the 3363 Stemcell
+* Fixed the default custom privileges on PostgreSQL service plans for upgrades
+
  
 
 ###1.3.0
