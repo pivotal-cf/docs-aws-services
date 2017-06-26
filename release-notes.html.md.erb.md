@@ -3,6 +3,17 @@ breadcrumb: PCF Services
 title: Release Notes
 ---
 
+###1.4.0
+
+Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 3363.25 or later
+
+* The service broker can now use an HTTP/HTTPS Proxy, configured in Ops Manager settings
+* Encryption can be enforced on S3 buckets through a policy setting
+* Updated Golang version to 1.8
+* Upgraded to the latest AWS Golang SDK v1.8.19
+* Updated to the 3363 Stemcell
+ 
+
 ###1.3.0
 
 * Fixed the default custom privileges on PostgreSQL service plans for new deployments; for upgrades you should set the User Privileges field to ALL. 
