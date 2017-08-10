@@ -3,6 +3,16 @@ breadcrumb: PCF Services
 title: Release Notes
 ---
 
+###1.4.2
+
+Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 3363.29 or later
+
+* Fix default MySQL privileges and change grants on other MySQL compatible databases
+* Fixes for C2S (Certificate, Regions)
+* Added region for GovCloud
+* Updated Regions dropdown for new regions
+
+
 ###1.4.0
 
 Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 3363.25 or later
