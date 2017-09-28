@@ -3,6 +3,10 @@ breadcrumb: PCF Services
 title: Release Notes
 ---
 
+###1.4.3
+
+* Fix Service Broker deployment issue when using MySQL v5.6.x
+
 ###1.4.2
 
 Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 3363.29 or later
