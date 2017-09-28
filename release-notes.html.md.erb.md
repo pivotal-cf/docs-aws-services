@@ -5,13 +5,13 @@ title: Release Notes
 
 ###1.4.3
 
-* Fix Service Broker deployment issue when using MySQL v5.6.x
+* Fixed Service Broker deployment issue when using MySQL v5.6.x
 
 ###1.4.2
 
-Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 3363.29 or later
+Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 3363.29 or later.
 
-* Fix default MySQL privileges and change grants on other MySQL compatible databases
+* Fixed default MySQL privileges and change grants on other MySQL compatible databases
 * Fixes for C2S (Certificate, Regions)
 * Added region for GovCloud
 * Updated Regions dropdown for new regions
@@ -19,7 +19,7 @@ Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 336
 
 ###1.4.0
 
-Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 3363.25 or later
+Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 3363.25 or later.
 
 * The service broker can now use an HTTP/HTTPS Proxy, configured in Ops Manager settings
 * Encryption can be enforced on S3 buckets through a policy setting
@@ -54,7 +54,7 @@ Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 336
 
 ###1.0.0
 
-* Broker configuration database can be MySQL or PostgreSQL. 
+* Broker configuration database can be MySQL or PostgreSQL
 * Supports service keys, App developers can get a service key for their service instance and perform permitted actions (in AppDeveloperPolicy) via the AWS CLI. These credentials may have an expiry time.
 * Added ALTER privilege to RDS MySQL bind credentials
 * AWS endpoint is configurable, to support C2S
