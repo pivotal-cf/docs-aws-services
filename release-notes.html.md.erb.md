@@ -3,7 +3,7 @@ breadcrumb: PCF Services
 title: Release Notes
 ---
 
-###1.4.3
+###1.4.3 Release date: Sept. 29 2017
 
 * Fixed Service Broker deployment issue when using MySQL v5.6.x
 
