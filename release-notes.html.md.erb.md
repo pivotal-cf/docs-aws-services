@@ -5,11 +5,13 @@ title: Release Notes
 
 ###1.4.3
 
+**Release Date:** October 12, 2017
+
 * Fixed Service Broker deployment issue when using MySQL v5.6.x
 
 ###1.4.2
 
-**Release Date:** October 11, 2017
+**Release Date:** August 11, 2017
 
 Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 3363.29 or later.
 
