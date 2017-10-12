@@ -9,6 +9,8 @@ title: Release Notes
 
 ###1.4.2
 
+**Release Date:** October 11, 2017
+
 Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 3363.29 or later.
 
 * Fixed default MySQL privileges and change grants on other MySQL compatible databases
@@ -18,6 +20,8 @@ Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 336
 
 
 ###1.4.0
+
+**Release Date:** June 26, 2017
 
 Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 3363.25 or later.
 
