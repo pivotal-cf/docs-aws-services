@@ -83,6 +83,17 @@ To use the default name: follow the steps above for configuring the `PCFInstalla
 
 To use a custom name: In the steps above, use a custom name instead of `PCFInstallationPolicy`. Later, during Broker Configuration, you will need to enter this custom name. 
 
+#### Set Up EMR Policy 
+Amazon Elastic MapReduce (EMR) is a managed cluster platform that can run big data frameworks, such as Apache Hadoop and Apache Spark, on AWS to process and analyze data. The PCF EMR Service Broker enables users to provision and manage an [Amazon EMR cluster](http://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-what-is-emr.html).
+
+<p class="note"><strong>Note</strong>: You must first create your AWS IAM user before you can configure the EMR policy.</p>
+
+EMR requires that the AmazonElasticMapReduceFullAccess policy be attached to the Service Broker's IAM user. To do this:
+
+1. View the IAM users and find the Service Broker user you created previously.
+1. In the user summary page, click **Add Permissions**.
+1. Select **Attach existing policies directly**.
+1. Find **AmazonElasticMapReduceFullAccess** and attach it to the user.
 
 #### Service Key Policies
 The Service Broker for AWS allows App Developers to create service keys for their service instances. Creating a service key creates an IAM user with a templated policy, and provides the App Developer with Access Key credentials to the actions listed in the policies below.
