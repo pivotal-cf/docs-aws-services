@@ -3,6 +3,15 @@ breadcrumb: PCF Services
 title: Release Notes
 ---
 
+###1.4.4
+
+**Release Date:** November 6, 2017
+
+* Updated blue-green deploy of broker to persist failed instances to allow for debugging
+* Fixed issue where bind was failing for non-commercial AWS partitions
+* Fixed issue where create-service-key was failing for non-commercial AWS partitions due to incorrect ARN format
+* Fixed issue where create-service-key was failing for accounts containing 100 or more policies
+
 ###1.4.3
 
 **Release Date:** October 12, 2017
