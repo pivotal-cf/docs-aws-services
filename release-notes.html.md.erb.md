@@ -2,6 +2,17 @@
 breadcrumb: PCF Services
 title: Release Notes
 ---
+###1.4.5
+
+Release Date: November 17, 2017
+
+* Updated minimum stemcell version to 3445
+* Updated blue-green deploy of broker to persist failed instances to allow for debugging
+* Fixed issue where bind was failing for non-commercial AWS partitions
+* Fixed issue where create-service-key was failing for non-commercial AWS partitions due to incorrect ARN format
+* Fixed issue where create-service-key was failing for accounts containing 100 or more policies
+* Added RDS CA Certs for ca-central-1, us-east-2, eu-west-2, ap-south-1, us-gov-west-1, cn-north-1
+
 
 ###1.4.3
 
