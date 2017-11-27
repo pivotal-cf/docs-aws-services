@@ -11,13 +11,12 @@ This topic describes how to install the Service Broker for AWS by configuring yo
 * An Amazon Web Services (AWS) account
 * Pivotal MySQL, or an already-created MySQL or PostgreSQL database
 
-##<a id="setup"></a>Step 1: Set up AWS
+##<a id="setup"></a>Step 1: Set Up AWS
 
 In this step you configure your AWS account to allow the Service Broker for AWS to create and manage AWS resources. 
 
 Create a new IAM user for the PCF cluster in the **AWS Identity & Access Management** console by following the procedure below. 
 <p class="note"><strong>Note</strong>: If you have more than one PCF deployment, you must create an IAM user for each deployment. Create a new IAM user in your AWS account (do not use the same IAM user that installed PCF on AWS as it has different policy restrictions).</p> 
-
 
 1. Select **Policies** and click **Create Policy**. 
 1. Choose **Create Your Own Policy**. 
@@ -76,15 +75,14 @@ Create a new IAM user for the PCF cluster in the **AWS Identity & Access Managem
 1. For each IAM user, click the user name > **Permissions** tab > **Attach Policy** and select **PCFInstallationPolicy**. 
 1. Record the **AWS Access Key ID** and **Secret Access Key** for each of your PCF IAM accounts for later use.
 
-
 Note: The Service Broker for AWS also allows a custom name for the `PCFInstallationPolicy`. 
 
 To use the default name: follow the steps above for configuring the `PCFInstallationPolicy` policy. 
 
 To use a custom name: In the steps above, use a custom name instead of `PCFInstallationPolicy`. Later, during Broker Configuration, you will need to enter this custom name. 
 
-#### Set Up EMR Policy 
-Amazon Elastic MapReduce (EMR) is a managed cluster platform that can run big data frameworks, such as Apache Hadoop and Apache Spark, on AWS to process and analyze data. The PCF EMR Service Broker enables users to provision and manage an [Amazon EMR cluster](http://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-what-is-emr.html).
+### Set Up EMR Policy 
+Amazon Elastic MapReduce (EMR) is a managed cluster platform that simplifies running big data frameworks, such as Apache Hadoop and Apache Spark, on AWS to process and analyze vast amounts of data. The PCF EMR Service Broker enables users to provision and manage an Amazon EMR cluster.
 
 <p class="note"><strong>Note</strong>: You must first create your AWS IAM user before you can configure the EMR policy.</p>
 
@@ -95,7 +93,29 @@ EMR requires that the AmazonElasticMapReduceFullAccess policy be attached to the
 1. Select **Attach existing policies directly**.
 1. Find **AmazonElasticMapReduceFullAccess** and attach it to the user.
 
-#### Service Key Policies
+#### Roles (EMR Only)
+
+EMR requires two roles in order to provision a cluster: an EMR service role, and an EMR EC2 instance profile. By default, the AWS Broker will use `PCF_EMR_Service_Role` and `PCF_EMR_EC2_Instance_Profile`. You need to create these roles and attach the necessary AWS managed policies. For details, see [Configure IAM Roles and the Amazon EC2 Instance Profile to Access Other AWS Services](http://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-iam-roles.html).
+
+**Create the EMR Service Role**
+
+1. In the IAM Console, select **Roles** and click **Create Role**.
+1. Select Role Type: AWS Service and use EMR as the service that will use this role.
+1. Select Use Case: EMR - Allows Elastic MapReduce to call AWS services such as EC2 on your behalf.
+1. Attach the AWS managed AmazonElasticMapReduceRole policy.
+1. Enter PCF_EMR_Service_Role as the Role Name, and EMR Service Role for AWS Broker as the Role Description.
+
+**Create the EMR EC2 Instance Profile**
+
+1. In the IAM Console, select **Roles** and click **Create Role**.
+1. Select Role Type: AWS Service and use EMR as the service that will use this role.
+1. Select Use Case: EMR Role for EC2: Allows EC2 instances in an Elastic MapReduce cluster to call AWS services, such as S3, on your behalf.
+1. Attach the AWS managed AmazonElasticMapReduceforEC2Role policy.
+1. Enter PCF_EMR_EC2_Instance_Profile for Role Name, and EMR EC2 Instance Profile for AWS Broker for Role Description.
+1. After creating the role, verify that it also contains an associated instance profile ARN.
+
+
+### Service Key Policies
 The Service Broker for AWS allows App Developers to create service keys for their service instances. Creating a service key creates an IAM user with a templated policy, and provides the App Developer with Access Key credentials to the actions listed in the policies below.
 
 In V1.1.0, the service key Policy names are configurable. You can choose your own policy name and configure that name in each service by updating the Service Key Policy Name field. The default names are used below. 
