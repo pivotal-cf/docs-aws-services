@@ -84,7 +84,7 @@ To use a custom name: In the steps above, use a custom name instead of `PCFInsta
 ### Set Up EMR Policy 
 Amazon Elastic MapReduce (EMR) is a managed cluster platform that simplifies running big data frameworks, such as Apache Hadoop and Apache Spark, on AWS to process and analyze vast amounts of data. The PCF EMR Service Broker enables users to provision and manage an Amazon EMR cluster.
 
-<p class="note"><strong>Note</strong>: You must first create your AWS IAM user before you can configure the EMR policy.</p>
+Prerequisite: You must first create your AWS IAM user before you can configure the EMR policy. For information about creating your AWS IAM user, see [this section on setting up AWS](#setup).
 
 EMR requires that the AmazonElasticMapReduceFullAccess policy be attached to the Service Broker's IAM user. To do this:
 
