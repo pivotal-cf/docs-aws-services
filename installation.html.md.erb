@@ -331,7 +331,7 @@ Note: in the following sections that configure AWS Services, if you don't want t
 4. The **RDS Instance Prefix** is set to "cf" by default. It is the prefix for creating RDS database instances.
 5. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy earlier. 
 5. The **Networking** section allows you to configure whether to use the Default VPC or a Custom VPC, and whether the instance is publicly accessible. For a Custom VPC, enter the DB Subnet Group Name and the VPC Security Group(s). 
-6. The setting **Enable Storage Encryption** is off by default. You can enable RDS encryption for a database instance. However, not all regions and DB instance classes support encryption so if you enable this option, you will need to change the default plans to remove those that don't support encryption. More information is available [here.](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Encryption.html#d0e21710)
+6. The setting **Enable Storage Encryption** is off by default. You can enable RDS encryption for a database instance. However, not all regions and DB instance classes support encryption so if you enable this option, you will need to change the default plans to remove those that don't support encryption. More information is available at [http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Encryption.html#d0e21710](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Encryption.html#d0e21710)
 
 7. Select the checkboxes to enable the RDS Services that you want to show in Marketplace
 
@@ -400,11 +400,11 @@ Note: in the following sections that configure AWS Services, if you don't want t
 13. Click **Apply Changes** to install the product.
 14. Click **Installation Dashboard** to return to the Ops Manager Installation Dashboard.
 
-More information on AWS SQS queue properties is available [here](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-queues.html). For more information on SQS Redrive Policy, refer to the documentation on [Using Amazon SQS Dead Letter Queues](http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/SQSDeadLetterQueue.html)
+More information about AWS SQS queue properties are available at  [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-queues.html](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-queues.html). For more information on SQS Redrive Policy, refer to the documentation on [Using Amazon SQS Dead Letter Queues](http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/SQSDeadLetterQueue.html)
 
 ##<a id="confirm"></a>Step 5: Confirm Installation
 
-<p class="note"><strong>Note</strong>: The Service Broker for AWS installs an app called <code>aws-services-broker</code> in the <code>iaas-brokers</code> space of the <code>system</code> org. Like other CF apps, you can view the application logs via the CF CLI by connecting to that org and space with the correct permissions.</p>
+<p class="note"><strong>Note</strong>: The Service Broker for AWS installs an app named <code>aws-services-broker</code> in the <code>iaas-brokers</code> space of the <code>system</code> org. Like other CF apps, you can view the application logs via the CF CLI by connecting to that org and space with the correct permissions.</p>
 
 1. After Ops Manager finishes the installation, the **Service Broker for AWS** appears as a green tile in the **Installation Dashboard**.
 
