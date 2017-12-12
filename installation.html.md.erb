@@ -95,9 +95,9 @@ EMR requires that the AmazonElasticMapReduceFullAccess policy be attached to the
 
 #### Create Roles (EMR Only)
 
-EMR requires two roles in order to provision a cluster: an EMR service role and an EMR EC2 instance profile. By default, the AWS Broker uses `PCF_EMR_Service_Role` and `PCF_EMR_EC2_Instance_Profile`. You need to create these roles and attach the necessary AWS managed policies. 
+EMR requires two roles in order to provision a cluster: an EMR service role and an EMR EC2 instance profile. By default, the AWS Broker uses `PCF_EMR_Service_Role` and `PCF_EMR_EC2_Instance_Profile`. You need to create these roles and attach the necessary AWS managed policies.
 
-**Create the EMR Service Role**
+**Create the EMR Service Role (Required)**
 
 1. In the IAM Console, select **Roles** and click **Create Role**.
 1. In the **Select type of trusted entity** section, click **AWS service.**
@@ -108,7 +108,7 @@ EMR requires two roles in order to provision a cluster: an EMR service role and 
 1. On the Review page, provide a **Role name** and a **Role description**. Pivotal recommends using `PCF_EMR_Service_Role` as the name and `EMR Service Role for AWS Broker` as the description.
 1. Click **Create role**.
 
-**Create the EMR EC2 Instance Profile**
+**Create the EMR EC2 Instance Profile (Required)**
 
 1. In the IAM Console, select **Roles** and click **Create Role**.
 1. In the **Select type of trusted entity** section, click **AWS service.**
@@ -117,7 +117,9 @@ EMR requires two roles in order to provision a cluster: an EMR service role and 
 1. On the Review page, provide a **Role name** and a **Role description**. Pivotal recommends using `PCF_EMR_EC2_Instance_Profile` as the name, and `EMR EC2 Instance Profile for AWS Broker` as the description.
 1. After creating the role, verify that it also contains an associated instance profile ARN.
 
-**Create the EMR Auto Scaling Role**
+**Create the EMR Auto Scaling Role (Optional)**
+
+EMR also requires an additional role to enable autoscaling: `EMR_AutoScaling_DefaultRole`. The role is automatically created for you by AWS (if it does not yet exist) under very specific circumstances. It cannot be created in the same way as the previous roles, so you will need to follow the instructions in the relevant section below. For more information about the Auto Scaling role, see [Creating the IAM Role for Automatic Scaling](http://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-automatic-scaling.html#emr-automatic-scaling-iam-role)
 
 This role requires different manual steps due to limitations within the GO SDK/AWS IAM Role creation console. The easiest and quickest way to ensure that EMR_AutoScaling_DefaultRole is setup correctly is to create an EMR Cluster through the EMR Console. You can terminate the cluster immediately after the role is created.
 In the IAM Console, search for EMR_AutoScaling_DefaultRole. If it already exists and has AmazonElasticMapReduceforAutoScalingRole policy attached, and Trusted Entities of elasticmapreduce.amazonaws.com and application-autoscaling.amazonaws.com, no further configuration for this role is necessary.
@@ -138,7 +140,7 @@ For more information about creating IAM roles, see [Configure IAM Roles and the 
 ### Service Key Policies
 The Service Broker for AWS allows App Developers to create service keys for their service instances. Creating a service key creates an IAM user with a templated policy, and provides the App Developer with Access Key credentials to the actions listed in the policies below.
 
-In V1.1.0, the service key Policy names are configurable. You can choose your own policy name and configure that name in each service by updating the Service Key Policy Name field. The default names are used below. 
+As of V1.1.0, Service Key policy names are configurable. You can choose your own policy name and configure that name in each service by updating the Service Key Policy Name field. The default names are used below. 
 
 Create the policy templates for each service that you will enable, by logging into the AWS console, and doing the following:
 
@@ -166,7 +168,7 @@ Create the policy templates for each service that you will enable, by logging in
 
 1. Click **Validate Policy** to check for errors. 
 1. Click **Create Policy**. This creates an AWS policy that you must apply to every IAM user you create for the Service Broker for AWS. 
-1. Repeat steps 1-6 for `PCFAppDeveloperPolicy-sqs` `PCFAppDeveloperPolicy-dynamodb` and `PCFAppDeveloperPolicy-rds`; using or modifying the examples below.
+1. Repeat steps 1-6 for `PCFAppDeveloperPolicy-sqs` `PCFAppDeveloperPolicy-dynamodb` `PCFAppDeveloperPolicy-rds` and `PCFAppDeveloperPolicy-emr`; using or modifying the examples below.
 
 <strong>`PCFAppDeveloperPolicy-sqs` Example</strong>
 
@@ -232,6 +234,60 @@ Create the policy templates for each service that you will enable, by logging in
 }
 ```
 
+<strong>`PCFAppDeveloperPolicy-emr` Example</strong>
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Sid": "emrServiceKeyActions",
+        "Effect": "Allow",
+        "Action": [
+            "elasticmapreduce:AddJobFlowSteps",
+            "elasticmapreduce:CancelSteps",
+            "elasticmapreduce:DescribeCluster",
+            "elasticmapreduce:DescribeStep",
+            "elasticmapreduce:ListInstances",
+            "elasticmapreduce:ListInstanceGroups",
+            "elasticmapreduce:ListSteps",
+            "elasticmapreduce:ListBootstrapActions",
+            "elasticmapreduce:PutAutoScalingPolicy"
+        ],
+        "Resource": [
+            "*"
+        ]
+    }]
+}
+```
+
+### Bind Key Policies
+In V1.5.0, setting up EMR requires the User to specify their Bind Key policy separately from their Service Key policy. 
+EMR does not use ARNs for access control, so the Resource needs to be "*". Access control is enforced via cluster tagging, so it is advisable ensure that applications/service key users do not have permissions to modify cluster tags. The broker will automatically add a Condition to the Policy which will limit access to associated EMR cluster. See (EMR Cluster Access)[http://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-access-iam.html#emr-fine-grained-cluster-access]
+
+To create the bind key policy template for EMR, log into the AWS console, and following Steps 1-6 of [#Service Key Policies] above using the below example:
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Sid": "emrBindActions",
+        "Effect": "Allow",
+        "Action": [
+            "elasticmapreduce:AddJobFlowSteps",
+            "elasticmapreduce:CancelSteps",
+            "elasticmapreduce:DescribeCluster",
+            "elasticmapreduce:DescribeStep",
+            "elasticmapreduce:ListInstances",
+            "elasticmapreduce:ListInstanceGroups",
+            "elasticmapreduce:ListSteps",
+            "elasticmapreduce:ListBootstrapActions",
+            "elasticmapreduce:PutAutoScalingPolicy"
+        ],
+        "Resource": [
+            "*"
+        ]
+    }]
+}
+```
 
 ##<a id="setup"></a>Step 2: Create Service Broker Database
 The Service Broker for AWS requires access to a MySQL or PostgreSQL database that is highly available and regularly backed up, in order to store its configuration information. Loss of this data will severely affect the ability of the service broker to manage the configured service instances. However, the AWS resources will not be affected. 
@@ -371,7 +427,6 @@ Note: in the following sections that configure AWS Services, if you don't want t
 1. Under **Override Default AWS Region** select the default AWS region.
 
 
-
 ###<a id="rds-config"></a>RDS Config
 1. Click **RDS Config**.
     <%= image_tag("images/aws-sb-rdsconfig.png") %>
@@ -452,6 +507,32 @@ Note: in the following sections that configure AWS Services, if you don't want t
 14. Click **Installation Dashboard** to return to the Ops Manager Installation Dashboard.
 
 More information on AWS SQS queue properties is available [here](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-queues.html). For more information on SQS Redrive Policy, refer to the documentation on [Using Amazon SQS Dead Letter Queues](http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/SQSDeadLetterQueue.html)
+
+
+###<a id="emr-config"></a>EMR Config
+1. Click **EMR Config**.
+    <!-- Still need to take this screenshot and include it <%= image_tag("images/aws-sb-emrconfig.png") %> -->
+1. With **Override Default AWS Region**, the EMR Cluster will be placed in the specified region. Otherwise leave blank to use the global defaultscan be left blank if you do not wish to override.
+1. **Override Default AWS Availability Zone** can be left blank if you do not wish to override.
+1. **Enable in Marketplace** should be enabled by default
+
+1. The **EMR Service Role** allows EMR to call other AWS Services such as EC2 on your behalf. This field should be populated with the Service Role you provided during setup. (`PCF_EMR_Service_Role` is the recommended value)
+1. The **EC2 Instance Profile** provides access to other AWS services such as S3, and DynamoDB from EC2 instances that are launched by EMR (`PCF_EMR_EC2_Instance_Profile` is the recommended value)
+1. The **Service Key Policy Name** is the managed policy that is attached to credentials generated by Create Service Key (`PCFAppDeveloperPolicy-emr` is the recommended value)
+1. The **Bind Policy Name** is the managed policy that is attached to credentials generated by Bind (`PCFAppBindPolicy-emr` is the recommended value)
+
+1. EMR cluster identifiers and related cloudformation stack in AWS will be prefixed with the value provided in **EMR Instance Prefix**. (Value should be `cf`)
+1. Under **EMR Plans**, a plan should exist named **standard**
+ <!-- Still need to take this screenshot and include it <%= image_tag("images/aws-sb-emrplans.png") %> -->
+    1. **Plan Name**: The name of the plan in the Services Marketplace.
+    1. **Plan Description**: The description of the plan in the Services Marketplace.
+    1. **Plan Features**: The list of features displayed in Apps Manager.
+    1. Select **Allow Auto Scaling** to enable or disable the auto scaling for the cluster 
+    1. **EMR release** should be the version of EMR you wish to use (`emr-5.8.0` by default)
+    1. **Master instance type** states the EC2 instance type for the master instance (`m3.xlarge` by default)
+    1. **Core instance type** states the EC2 instance type for all core instances (`m3.xlarge` by default)
+    1. **Number of core instances** states the number of core instances to launch (`2` by default)
+
 
 ##<a id="confirm"></a>Step 5: Confirm Installation
 
