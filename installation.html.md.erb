@@ -404,8 +404,7 @@ The setup in Step 1 must be successfully completed before beginning this configu
 
 ###<a id="broker-config"></a>Broker Config
 1. Click **Broker Config**.
-<!--     <%= image_tag("images/aws-sb-brokerconfig.png") %>
- -->2. For **App Instances**, enter the number of instances of the service broker you want to run. The default is `2`.
+2. For **App Instances**, enter the number of instances of the service broker you want to run. The default is `2`.
 3. Do not change the **Broker IAM Policy Name** unless you configured a custom policy name earlier. 
 4. For **Backing Database**, choose the database type for the Service Broker Configuration. 
 5. If you chose **Pivotal MySQL** enter the **Plan Name** to be used (e.g. 100mb) and a unique database name. The database will be created during deployment if it does not exist. 
@@ -511,7 +510,6 @@ More information on AWS SQS queue properties is available [here](http://docs.aws
 
 ###<a id="emr-config"></a>EMR Config
 1. Click **EMR Config**.
-    <!-- Still need to take this screenshot and include it <%= image_tag("images/aws-sb-emrconfig.png") %> -->
 1. With **Override Default AWS Region**, the EMR Cluster will be placed in the specified region. Otherwise leave blank to use the global defaultscan be left blank if you do not wish to override.
 1. **Override Default AWS Availability Zone** can be left blank if you do not wish to override.
 1. **Enable in Marketplace** should be enabled by default
@@ -523,7 +521,6 @@ More information on AWS SQS queue properties is available [here](http://docs.aws
 
 1. EMR cluster identifiers and related cloudformation stack in AWS will be prefixed with the value provided in **EMR Instance Prefix**. (Value should be `cf`)
 1. Under **EMR Plans**, a plan should exist named **standard**
- <!-- Still need to take this screenshot and include it <%= image_tag("images/aws-sb-emrplans.png") %> -->
     1. **Plan Name**: The name of the plan in the Services Marketplace.
     1. **Plan Description**: The description of the plan in the Services Marketplace.
     1. **Plan Features**: The list of features displayed in Apps Manager.
