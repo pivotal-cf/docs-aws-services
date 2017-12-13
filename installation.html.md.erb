@@ -393,8 +393,8 @@ To install the Service Broker for AWS tile in Ops Manager, complete the followin
 The setup in Step 1 must be successfully completed before beginning this configuration. You will need the AWS and database parameters from that step to successfully configure the broker.
 
 1. Click **AWS Config**.
-    <%= image_tag("images/aws-sb-awsconfig.png") %>
-2. Enter the **AWS Access Key ID** and the **Secret Access Key** from [Step 1](#setup).
+<!--     <%= image_tag("images/aws-sb-awsconfig.png") %>
+ -->2. Enter the **AWS Access Key ID** and the **Secret Access Key** from [Step 1](#setup).
 3. Enter the **Temporary Credentials Timeout** value in minutes. This is the time after which service key credentials will expire. To disable expiry of the credentials, enter 0. 
 4. Modify the **AWS Endpoint** ONLY if you are using Amazon's Commercial Cloud Service. Otherwise, leave it at Default. 
 5. For **Default Region**, enter the AWS region to use as the default. You can change this later for a particular service.
@@ -404,8 +404,8 @@ The setup in Step 1 must be successfully completed before beginning this configu
 
 ###<a id="broker-config"></a>Broker Config
 1. Click **Broker Config**.
-    <%= image_tag("images/aws-sb-brokerconfig.png") %>
-2. For **App Instances**, enter the number of instances of the service broker you want to run. The default is `2`.
+<!--     <%= image_tag("images/aws-sb-brokerconfig.png") %>
+ -->2. For **App Instances**, enter the number of instances of the service broker you want to run. The default is `2`.
 3. Do not change the **Broker IAM Policy Name** unless you configured a custom policy name earlier. 
 4. For **Backing Database**, choose the database type for the Service Broker Configuration. 
 5. If you chose **Pivotal MySQL** enter the **Plan Name** to be used (e.g. 100mb) and a unique database name. The database will be created during deployment if it does not exist. 
