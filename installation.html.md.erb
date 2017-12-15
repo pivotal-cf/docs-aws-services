@@ -115,7 +115,7 @@ EMR requires two roles in order to provision a cluster: an EMR service role and 
 1. In the **Choose the service that will use this role** section, click **EMR**.
 1. In the **Select your use case** section, click **EMR Role for EC2**, which is followed by the description "Allows EC2 instances in an Elastic MapReduce cluster to call AWS services such as S3 on your behalf."
 1. On the Review page, provide a **Role name** and a **Role description**. Pivotal recommends using `PCF_EMR_EC2_Instance_Profile` as the name, and `EMR EC2 Instance Profile for AWS Broker` as the description.
-1. After creating the role, verify that it also contains an associated instance profile ARN.
+1. After you have created the role, select **Roles**. From the **Role name** list, click `PCF_EMR_EC2_Instance_Profile` or whatever name you used for the role that you just created. On the  **Summary** page for the role, verify that it has an associated **Instance Profile ARN** (Amazon Resource Name). The ARN is a string value.
 
 **Create the EMR Auto Scaling Role (Optional)**
 
