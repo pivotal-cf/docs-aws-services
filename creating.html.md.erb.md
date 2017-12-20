@@ -11,17 +11,19 @@ PCF operators must follow the instructions in the [Installing the Service Broker
 
 The current version of the Service Broker for AWS supports the following services:
 
-  * Amazon RDS for PostgreSQL
-  * Amazon S3
-  * Amazon RDS for MySQL
+  * Amazon Relational Database Service (RDS) for 
+      - PostgreSQL
+      - MySQL
+      - MariaDB
+      - SQL Server
+      - Oracle Database
   * Amazon Aurora
-  * Amazon RDS for SQL Server
   * Amazon DynamoDB
-  * Amazon RDS for Oracle Database
-  * Amazon RDS for MariaDB
-  * Amazon SQS
+  * Amazon Simple Storage Service (S3)
+  * Amazon Simple Queue Service (SQS)
+  * Amazon Elastic MapReduce (EMR)
 
-Developers create and manage service instances of the Service Broker for AWS through the cf CLI or Apps Manager.
+Developers create and manage service instances of the Service Broker for AWS through the Cloud Foundry Command Line Interface (cf CLI) or Apps Manager.
 
 To perform the following procedures for creating and managing service instances, a developer must be logged in to the PCF deployment via the cf CLI.
 
@@ -124,25 +126,6 @@ The following example shows the syntax for each setting. You can omit settings y
 <pre class="terminal">$ cf create-service aws-rds-mariadb basic mariadbdb2 -c '{ "CreateDbInstance": { "EngineVersion": "10.0.24", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
 </pre>
 
-
-###<a id="rds"></a>Amazon Aurora
-
-To create a service instance of the Amazon Aurora service, use `cf create-service` to create an instance of `aws-rds-aurora` with or without custom settings.
-
-To create an instance of `aws-rds-aurora` without custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE`. The following example creates an instance named `auroradb1` with the `standard` plan:
-<pre class="terminal">$ cf create-service aws-rds-aurora standard auroradb1
-</pre>
-
-To create an instance of `aws-rds-aurora` with custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE` with the `-c` flag and provide custom settings for the following elements:
-
-  * Multi-AZ
-  * AvailabilityZone
-
-The following example shows the syntax for each setting. You can omit settings you don't want to explicitly set:
-<pre class="terminal">$ cf create-service aws-rds-aurora basic auroradb2 -c '{ "CreateDbInstance": { "MultiAZ": false, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
-</pre>
-
-
 ###<a id="rds"></a>RDS for SQL Server
 
 To create a service instance of the RDS for SQL Server service, use `cf create-service` to create an instance of `aws-rds-sqlserver` with or without custom settings.
@@ -163,9 +146,7 @@ The following example shows the syntax for each setting. You can omit settings y
 <pre class="terminal">$ cf create-service aws-rds-sqlserver basic sqlserverdb2 -c '{ "CreateDbInstance": { "EngineVersion": "12.00.4422.0.v1", "MultiAZ": true, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
 </pre>
 
-
 <p class="note"><strong>Note</strong>: For SQL Server setting Multi-AZ to true will enable Multi-AZ database mirroring. See the AWS documentation on <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_SQLServerMultiAZ.html">Multi-AZ Deployments for Microsoft SQL Server with Database Mirroring</a> for more details.</p>
-
 
 ###<a id="rds"></a>RDS for Oracle Database
 
@@ -187,6 +168,22 @@ The following example shows the syntax for each setting. You can omit settings y
 <pre class="terminal">$ cf create-service aws-rds-oracle basic oracledb1 -c '{ "CreateDbInstance": { "EngineVersion": "12.1.0.2.v3", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
 </pre>
 
+###<a id="rds"></a>Amazon Aurora
+
+To create a service instance of the Amazon Aurora service, use `cf create-service` to create an instance of `aws-rds-aurora` with or without custom settings.
+
+To create an instance of `aws-rds-aurora` without custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE`. The following example creates an instance named `auroradb1` with the `standard` plan:
+<pre class="terminal">$ cf create-service aws-rds-aurora standard auroradb1
+</pre>
+
+To create an instance of `aws-rds-aurora` with custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE` with the `-c` flag and provide custom settings for the following elements:
+
+  * Multi-AZ
+  * AvailabilityZone
+
+The following example shows the syntax for each setting. You can omit settings you don't want to explicitly set:
+<pre class="terminal">$ cf create-service aws-rds-aurora basic auroradb2 -c '{ "CreateDbInstance": { "MultiAZ": false, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
+</pre>
 
 ###<a id="dynamodb"></a>DynamoDB
 
@@ -251,6 +248,101 @@ To create an SQS queue with custom settings, use `cf create-service SERVICE PLAN
 
 <pre class="terminal">$ cf cs aws-sqs standard kbqueue -c '{ "CreateQueue": {  "QueueName": "kb-queue", "Attributes": { "MaximumMessageSize": "1024"} } }'</pre>
 
+<!-- Section 1 starts here -->
+
+###<a id="emr"></a>EMR
+
+To create an EMR cluster, use `cf create-service` to create an instance of `aws-emr` with or without custom settings.
+
+To create an EMR cluster without custom settings, use `cf create-service SERVICE PLAN SERVICE-INSTANCE`. The following example creates an instance named `SERVICE-INSTANCE-NAME` with the `standard` plan:
+
+<pre class="terminal">$ cf create-service aws-emr standard SERVICE-INSTANCE-NAME;
+</pre>
+
+<p class="note"><strong>Note</strong>: EMR cluster instances use default region and property settings configured by the PCF operator during the installation of the Service Broker for AWS.</p>
+
+Additional configuration parameters for EMR can be specified with the `-c` flag with `cf create-service`.
+
+<pre class="terminal">$ cf create-service aws-emr standard SERVICE-INSTANCE-NAME -c config.json;
+</pre>
+
+<strong>Sample config.json file</strong>
+
+<pre class="json">
+{
+  "Applications": [
+    "Hadoop",
+    "HBase",
+    "Pig"
+  ],
+  "ApplicationConfigs": [{
+    "Classification": "some-classification",
+    "Properties": {
+      "some-property-key": "some-property-value"
+    },
+    "Configurations": []
+  }],
+  "BootstrapActions": [{
+    "Name": "some-bootstrap-action-name",
+    "Path": "s3://some-bucket/path/to/script.sh",
+    "Args": ["arg1", "arg2"]
+  }],
+  "Ec2KeyName": "some-ec2-keypair-name",
+  "S3LogUri": "s3://some-s3-log-bucket"
+}
+</pre>
+
+You can create your config.json using a number of different variables. The following table lists the Keys that you can use to configure your EMR cluster.
+
+<table class="nice">
+        <th>Key</th>
+        <th>Type</th>
+        <th>Required</th>
+        <th>Description</th>
+        <tr><td><strong>Applications</strong></td>
+                <td>string list</td>
+                <td>no</td>
+                <td>List of applications to install (e.g. "Pig", "HBase"). Please check supported applications for EMR release versions <a href="http://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-release-components.html#emr-release-applications" rel="nofollow">here</a>.</td>
+        </tr>
+        <tr><td><strong>ApplicationConfigs</strong></td>
+                <td>JSON list</td>
+                <td>no</td>
+                <td>List of application configurations. More info <a href="http://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-configure-apps.html" rel="nofollow">here</a></td>
+        </tr>
+        <tr><td><strong>BootstrapActions</strong></td>
+                <td>JSON list</td>
+                <td>no</td>
+                <td>Bootstrap action that will run before Hadoop starts and before node begins processing data. More info <a href="http://docs.aws.amazon.com/emr/latest/DeveloperGuide/emr-plan-bootstrap.html" rel="nofollow">here</a>.</td>
+        </tr>
+        <tr><td><strong>Ec2KeyName</strong></td>
+                <td>string</td>
+                <td>no</td>
+                <td>Name of an existing EC2 key pair that will be used for SSH access</td>
+        </tr>
+        <tr><td><strong>S3LogUri</strong></td>
+                <td>string</td>
+                <td>no</td>
+                <td>Logging output S3 bucket URI</td>
+        </tr>
+</table>
+
+<strong>An example of configuring an application is shown below using HBase. To configure HBase to use an S3 bucket as a root directory, use the following snippet for the ApplicationConfigs:</strong>
+
+<pre class="json">
+"ApplicationConfigs": [{
+    "Classification": "hbase-site",
+    "Properties": {
+      "hbase.rootdir": "s3://your-hbase-root-directory-bucket"
+    }
+  }, {
+    "Classification": "hbase",
+    "Properties": {
+      "hbase.emr.storageMode": "s3"
+    }
+  }]
+</pre>
+
+<!-- Section 1 ends here -->
 
 ##<a id="bind"></a>Bind or Unbind a Service Instance
 
@@ -300,6 +392,24 @@ This returns credentials in JSON format, containing the Access Key ID and Secret
 }
 </pre>
 
+<!-- EDIT 2 STARTS HERE -->
+EMR does not use ARNs, so the cluster ID is returned instead:
+
+<pre class="terminal">
+{
+  "cluster_id": "the-emr-cluster-id",
+  "master_public_dns_name": "the-public-dns-name-for-master-node",
+  "region": "some-aws-region",
+  "access_key_id": "some-access-key-id",
+  "secret_access_key": "some-secret-access-key"
+}
+</pre>
+
+When creating a service key, a new IAM user will be created with a policy that was defined by (anchor)[] "service key with suggested name"
+^^^ ??? Needs more detail ^^^
+
+<!-- EDIT 2 ENDS HERE -->
+
 <p class="note"><strong>Note</strong>: When creating a service key, a new IAM user will be created with a policy defined by the Operator. This policy can be configured to optionally time out after a time period specified by the Operator</p>
 
 App developers can use these keys to perform one-off tasks (creating RDS Snapshots, modifying parameter groups, adding permissions, etc.) against the underlying resource using the AWS CLI. The actions permitted are defined by the Operator using service key policy templates.
@@ -316,14 +426,14 @@ Deleting a service key removes access to the service instance, and deletes the u
 
 As a PCF operator, when deploying the tile by clicking **Apply Changes**, I get the following error: "A client error (InvalidClientTokenId) occurred when calling the GetUser operation: The security token included in the request is invalid."
 
-###Reason
+####Reason
 The AWS credentials are not valid, please recheck them or recreate the credentials.
 
 ###Problem
 
 As a PCF operator, when deleting the product tile, I get the following error: "Can not remove brokers that have associated service instances".
 
-###Reason
+####Reason
 
 Your service broker currently has service instances that are active. They must be deleted before the tile can be deleted.
 
@@ -331,7 +441,7 @@ Your service broker currently has service instances that are active. They must b
 
 As a developer, when trying to create a service, I get the following error: "Service broker error: InvalidClientTokenId: The security token included in the request is invalid."
 
-###Reason
+####Reason
 The AWS credentials are not valid, please ask your PCF operator to recheck them or recreate the credentials.
 
 
