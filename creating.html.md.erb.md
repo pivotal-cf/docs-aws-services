@@ -7,7 +7,9 @@ title: Creating and Managing Service Instances
 
 This topic describes how developers set up, operate, and scale Amazon Web Services (AWS) resources from Pivotal Cloud Foundry (PCF) by creating and managing service instances using the Service Broker for AWS.
 
-PCF operators must follow the instructions in [Installing the Service Broker](installation.html) to install the Service Broker for AWS before developers can use it. During installation, operators configure which AWS services they want to make available to developers in the Services Marketplace. They can also set up pre-defined service plans with specific resource configurations and securely manage their AWS credentials.
+PCF operators must follow the instructions in [Installing the Service Broker](installation.html) to install the Service Broker for AWS before developers can use it.
+During installation, operators configure which AWS services they want to make available to developers in the Marketplace.
+They can also set up pre-defined service plans with specific resource configurations and securely manage their AWS credentials.
 
 The current version of the Service Broker for AWS supports the following services:
 
@@ -29,7 +31,7 @@ To perform the following procedures for creating and managing service instances,
 
 ##<a id="view"></a>View Services
 
-1. List available Marketplace Services with `cf marketplace` to show information about the Service Broker for AWS services. 
+1. List available Marketplace services with `cf marketplace` to show information about the Service Broker for AWS services. 
     <pre class="terminal">
     $ cf marketplace
     Getting services from marketplace in org system / space iaas-brokers as admin...
@@ -47,7 +49,7 @@ To perform the following procedures for creating and managing service instances,
     aws-sqs             standard\*                                  Create and manage Amazon SQS queues   
     </pre>
 
-    <p class="note"><strong>Note</strong>: These service plans have an associated cost. Creating a service instance will incur this cost.</p>
+    <p class="note"><strong>Note</strong>: These service plans have an associated cost. Creating a service instance incurs this cost.</p>
 
 1. View descriptions for the plans of a service with `cf marketplace -s SERVICE`.
 <pre class="terminal">
@@ -64,7 +66,10 @@ To perform the following procedures for creating and managing service instances,
 
 ##<a id="create"></a>Create Service Instances
 
-<p class="note"><strong>Note</strong>: When <a href="installation.html">installing</a> the Service Broker for AWS, the PCF operator sets up an IAM account and policy and provides credentials to the Service Broker. Developers do not need access to the credentials to create service instances.</p>
+<p class="note"><strong>Note</strong>: When installing the Service Broker for AWS,
+   the PCF operator sets up an IAM account and policy and provides credentials to the Service Broker.
+   Developers do not need access to the credentials to create service instances.
+   For information about installing, see <a href="installation.html">Installing the Service Broker</a>.</p>
 
 ###<a id="rds"></a>RDS for PostgreSQL
 
@@ -146,7 +151,8 @@ The following example shows the syntax for each setting. You can omit settings y
 <pre class="terminal">$ cf create-service aws-rds-sqlserver basic sqlserverdb2 -c '{ "CreateDbInstance": { "EngineVersion": "12.00.4422.0.v1", "MultiAZ": true, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
 </pre>
 
-<p class="note"><strong>Note</strong>: For SQL Server setting Multi-AZ to true will enable Multi-AZ database mirroring. See the AWS documentation on <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_SQLServerMultiAZ.html">Multi-AZ Deployments for Microsoft SQL Server with Database Mirroring</a> for more details.</p>
+<p class="note"><strong>Note</strong>: For SQL Server, setting Multi-AZ to true enables Multi-AZ database mirroring.
+   For more information, see the AWS documentation, <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_SQLServerMultiAZ.html">Multi-AZ Deployments for Microsoft SQL Server with Database Mirroring</a>.</p>
 
 ###<a id="oracle"></a>RDS for Oracle Database
 
@@ -310,12 +316,14 @@ You can create your config.json using a number of different variables. The follo
         <tr><td><strong>BootstrapActions</strong></td>
                 <td>JSON list</td>
                 <td>no</td>
-                <td>Bootstrap actions that will run before Hadoop starts and before node begins processing data. <br><br>For more information about Bootstrap Actions, see <a href="http://docs.aws.amazon.com/emr/latest/DeveloperGuide/emr-plan-bootstrap.html" rel="nofollow">(Optional) Create Bootstrap Actions to Install Additional Software.</a>.</td>
+                <td>Bootstrap actions that run before Hadoop starts and before node begins processing data. <br><br
+                    For more information about Bootstrap Actions,
+                    see <a href="http://docs.aws.amazon.com/emr/latest/DeveloperGuide/emr-plan-bootstrap.html" rel="nofollow">(Optional) Create Bootstrap Actions to Install Additional Software.</a>.</td>
         </tr>
         <tr><td><strong>Ec2KeyName</strong></td>
                 <td>string</td>
                 <td>no</td>
-                <td>Name of an existing EC2 key pair that will be used for SSH access.</td>
+                <td>Name of an existing EC2 key pair that is used for SSH access.</td>
         </tr>
         <tr><td><strong>S3LogUri</strong></td>
                 <td>string</td>
@@ -352,7 +360,8 @@ Access permissions applied by the bind operation are set at the lowest level.
 Run the following command to bind a service instance to an app:
 <pre class="terminal">$ cf bind-service YOUR-APP YOUR-SERVICE-INSTANCE</pre>
 
-<p class="note"><strong>Note</strong>: When binding to an RDS database, a new user and password will be created for the binding. Oracle is an exception to this rule, where bound apps will be provided with the master username and password. </p>
+<p class="note"><strong>Note</strong>: When binding to an RDS database, a new user and password is created for the binding.
+   Oracle is an exception to this rule, where bound apps are provided with the master username and password. </p>
 
 Unbinding a service instance from an app removes access to the database and removes database credentials from the environment variables.
 
@@ -405,7 +414,8 @@ This returns credentials in JSON format, containing the Access Key ID and Secret
 }
 </pre>
 
-<p class="note"><strong>Note</strong>: When creating a service key, a new IAM user will be created with a policy defined by the Operator. This policy can be configured to optionally time out after a time period specified by the Operator</p>
+<p class="note"><strong>Note</strong>: When creating a service key, a new IAM user is created with a policy defined by the Operator.
+   This policy can be configured to optionally time out after a time period specified by the Operator</p>
 
 ###Delete Service Key
 
