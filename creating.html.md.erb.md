@@ -7,7 +7,7 @@ title: Creating and Managing Service Instances
 
 This topic describes how developers set up, operate, and scale Amazon Web Services (AWS) resources from Pivotal Cloud Foundry (PCF) by creating and managing service instances using the Service Broker for AWS.
 
-PCF operators must follow the instructions in the [Installing the Service Broker](installation.html) topic to install the Service Broker for AWS before developers can use it. During installation, operators configure which AWS services they want to make available to developers in the Services Marketplace. They can also set up pre-defined service plans with specific resource configurations and securely manage their AWS credentials.
+PCF operators must follow the instructions in [Installing the Service Broker](installation.html) to install the Service Broker for AWS before developers can use it. During installation, operators configure which AWS services they want to make available to developers in the Services Marketplace. They can also set up pre-defined service plans with specific resource configurations and securely manage their AWS credentials.
 
 The current version of the Service Broker for AWS supports the following services:
 
@@ -86,7 +86,7 @@ The following example shows the syntax for each setting. You can omit settings y
 <pre class="terminal">$ cf create-service aws-rds-postgres basic postgresdb -c '{ "CreateDbInstance": { "EngineVersion": "9.4.1", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 10, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
 </pre>
 
-###<a id="rds"></a>RDS for MySQL
+###<a id="mysql"></a>RDS for MySQL
 
 To create a service instance of the RDS for MySQL service, use `cf create-service` to create an instance of `aws-rds-mysql` with or without custom settings.
 
@@ -106,7 +106,7 @@ The following example shows the syntax for each setting. You can omit settings y
 <pre class="terminal">$ cf create-service aws-rds-mysql basic mysqldb2 -c '{ "CreateDbInstance": { "EngineVersion": "5.6.27", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
 </pre>
 
-###<a id="rds"></a>RDS for MariaDB
+###<a id="mariadb"></a>RDS for MariaDB
 
 To create a service instance of the RDS for MariaDB service, use `cf create-service` to create an instance of `aws-rds-mariadb` with or without custom settings.
 
@@ -126,7 +126,7 @@ The following example shows the syntax for each setting. You can omit settings y
 <pre class="terminal">$ cf create-service aws-rds-mariadb basic mariadbdb2 -c '{ "CreateDbInstance": { "EngineVersion": "10.0.24", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
 </pre>
 
-###<a id="rds"></a>RDS for SQL Server
+###<a id="sqlserver"></a>RDS for SQL Server
 
 To create a service instance of the RDS for SQL Server service, use `cf create-service` to create an instance of `aws-rds-sqlserver` with or without custom settings.
 
@@ -148,7 +148,7 @@ The following example shows the syntax for each setting. You can omit settings y
 
 <p class="note"><strong>Note</strong>: For SQL Server setting Multi-AZ to true will enable Multi-AZ database mirroring. See the AWS documentation on <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_SQLServerMultiAZ.html">Multi-AZ Deployments for Microsoft SQL Server with Database Mirroring</a> for more details.</p>
 
-###<a id="rds"></a>RDS for Oracle Database
+###<a id="oracle"></a>RDS for Oracle Database
 
 To create a service instance of the RDS for Oracle service, use `cf create-service` to create an instance of `aws-rds-oracle` with or without custom settings.
 
@@ -168,7 +168,7 @@ The following example shows the syntax for each setting. You can omit settings y
 <pre class="terminal">$ cf create-service aws-rds-oracle basic oracledb1 -c '{ "CreateDbInstance": { "EngineVersion": "12.1.0.2.v3", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
 </pre>
 
-###<a id="rds"></a>Amazon Aurora
+###<a id="aurora"></a>Amazon Aurora
 
 To create a service instance of the Amazon Aurora service, use `cf create-service` to create an instance of `aws-rds-aurora` with or without custom settings.
 
@@ -185,7 +185,7 @@ The following example shows the syntax for each setting. You can omit settings y
 <pre class="terminal">$ cf create-service aws-rds-aurora basic auroradb2 -c '{ "CreateDbInstance": { "MultiAZ": false, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
 </pre>
 
-###<a id="dynamodb"></a>DynamoDB
+###<a id="dynamodb"></a>Amazon DynamoDB
 
 You can create and add items to NoSQL tables with DynamoDB. You can do this programmatically or through the [AWS DynamoDB console](https://console.aws.amazon.com/dynamodb/home?region=us-east-1). Pivotal recommends creating an IAM user at bind time and configuring access to a set of prefixed tables for operations such as creating a table and adding an item. 
 
@@ -219,7 +219,7 @@ Binding an app to a DynamoDB service instance creates an IAM User that can creat
 
 The tables you create are only accessible from the app that service is bound to. Each bind creates an IAM user with full DynamoDB permissions on only the prefixed tables, for example `arn:aws:dynamodb:REGION:ACCOUNT_ID:table/PREFIX_*`.
 
-###<a id="s3"></a>S3
+###<a id="s3"></a>Amazon S3
 
 To create a S3 bucket, use `cf create-service` to create an instance of `aws-s3` with or without custom settings.
 
@@ -234,7 +234,7 @@ To create an S3 bucket with custom settings, use `cf create-service SERVICE PLAN
 
 <p class="note"><strong>Note</strong>: Developers can supply additional configuration parameters to service instances at update and bind times.</p>
 
-###<a id="sqs"></a>SQS
+###<a id="sqs"></a>Amazon SQS
 
 To create an SQS queue, use `cf create-service` to create an instance of `aws-sqs` with or without custom settings.
 
@@ -248,9 +248,7 @@ To create an SQS queue with custom settings, use `cf create-service SERVICE PLAN
 
 <pre class="terminal">$ cf cs aws-sqs standard kbqueue -c '{ "CreateQueue": {  "QueueName": "kb-queue", "Attributes": { "MaximumMessageSize": "1024"} } }'</pre>
 
-<!-- Section 1 starts here -->
-
-###<a id="emr"></a>EMR
+###<a id="emr"></a>Amazon EMR
 
 To create an EMR cluster, use `cf create-service` to create an instance of `aws-emr` with or without custom settings.
 
@@ -292,7 +290,7 @@ Additional configuration parameters for EMR can be specified with the `-c` flag 
 }
 </pre>
 
-You can create your config.json using a number of different variables. The following table lists the Keys that you can use to configure your EMR cluster.
+You can create your config.json using a number of different variables. The following table lists the **Keys** that you can use to configure your EMR cluster.
 
 <table class="nice">
         <th>Key</th>
@@ -302,31 +300,31 @@ You can create your config.json using a number of different variables. The follo
         <tr><td><strong>Applications</strong></td>
                 <td>string list</td>
                 <td>no</td>
-                <td>List of applications to install (e.g. "Pig", "HBase"). Please check supported applications for EMR release versions <a href="http://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-release-components.html#emr-release-applications" rel="nofollow">here</a>.</td>
+                <td>List of applications to install (e.g. "Pig", "HBase"). <br><br>For more information about supported applications for EMR release versions, see <a href="http://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-release-components.html#emr-release-applications" rel="nofollow">About Amazon EMR Releases.</a>.</td>
         </tr>
         <tr><td><strong>ApplicationConfigs</strong></td>
                 <td>JSON list</td>
                 <td>no</td>
-                <td>List of application configurations. More info <a href="http://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-configure-apps.html" rel="nofollow">here</a></td>
+                <td>List of application configurations. <br><br>For more information about application configurations, see <a href="http://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-configure-apps.html" rel="nofollow">Configuring Applications.</a></td>
         </tr>
         <tr><td><strong>BootstrapActions</strong></td>
                 <td>JSON list</td>
                 <td>no</td>
-                <td>Bootstrap action that will run before Hadoop starts and before node begins processing data. More info <a href="http://docs.aws.amazon.com/emr/latest/DeveloperGuide/emr-plan-bootstrap.html" rel="nofollow">here</a>.</td>
+                <td>Bootstrap actions that will run before Hadoop starts and before node begins processing data. <br><br>For more information about Bootstrap Actions, see <a href="http://docs.aws.amazon.com/emr/latest/DeveloperGuide/emr-plan-bootstrap.html" rel="nofollow">(Optional) Create Bootstrap Actions to Install Additional Software.</a>.</td>
         </tr>
         <tr><td><strong>Ec2KeyName</strong></td>
                 <td>string</td>
                 <td>no</td>
-                <td>Name of an existing EC2 key pair that will be used for SSH access</td>
+                <td>Name of an existing EC2 key pair that will be used for SSH access.</td>
         </tr>
         <tr><td><strong>S3LogUri</strong></td>
                 <td>string</td>
                 <td>no</td>
-                <td>Logging output S3 bucket URI</td>
+                <td>Logging output S3 bucket URI.</td>
         </tr>
 </table>
 
-<strong>An example of configuring an application is shown below using HBase. To configure HBase to use an S3 bucket as a root directory, use the following snippet for the ApplicationConfigs:</strong>
+An example of configuring an application is shown below using HBase. To configure HBase to use an S3 bucket as a root directory, use the following snippet for the <strong>ApplicationConfigs</strong> portion of the config.json:
 
 <pre class="json">
 "ApplicationConfigs": [{
@@ -342,11 +340,14 @@ You can create your config.json using a number of different variables. The follo
   }]
 </pre>
 
-<!-- Section 1 ends here -->
-
 ##<a id="bind"></a>Bind or Unbind a Service Instance
 
-Binding a RDS database or S3 service instance to an app grants the app access to the RDS database or S3 bucket, and provides credentials in the environment variables. The access permissions are set at the least privilege required.
+Binding an RDS database or S3 service instance to an app:
+
+* Grants the app access to the RDS database or S3 bucket.
+* Provides credentials in the environment variables.
+
+Access permissions applied by the bind operation are set at the lowest level.
 
 Run the following command to bind a service instance to an app:
 <pre class="terminal">$ cf bind-service YOUR-APP YOUR-SERVICE-INSTANCE</pre>
@@ -371,8 +372,8 @@ Delete in progress. Use 'cf services' or 'cf service YOUR-SERVICE-INSTANCE' to c
 </pre>
 
 
-##<a id="service-keys"></a>Using Service Keys for Other Commands
-Creating service keys for a service instance allows app developers to perform additional operations against the underlying resources in AWS. 
+##<a id="servicekeys"></a>Using Service Keys for Other Commands
+App developers can use these keys to perform one-off tasks (creating RDS Snapshots, modifying parameter groups, adding permissions, etc.) against the underlying resource using the AWS CLI. The actions permitted are defined by the Operator using service key policy templates.
 
 Run the following command to create a service key for a service instance:
 <pre class="terminal">$ cf create-service-key YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME</pre>
@@ -382,7 +383,7 @@ This command creates a service key for "YOUR-SERVICE-INSTANCE" named "SERVICE-KE
 To view the corresponding credentials, run the following command:
 <pre class="terminal">$ cf service-key YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME</pre>
 
-This returns credentials in JSON format, containing the Access Key ID and Secret, and the ARN for the underlying resource in AWS. For example, service key credentials for an S3 bucket would return the following:
+This returns credentials in JSON format, containing the Access Key ID and Secret, and the Amazon Resource Name (ARN) for the underlying resource in AWS. For example, service key credentials for an S3 bucket would return the following:
 
 <pre class="terminal">
 {
@@ -392,8 +393,7 @@ This returns credentials in JSON format, containing the Access Key ID and Secret
 }
 </pre>
 
-<!-- EDIT 2 STARTS HERE -->
-EMR does not use ARNs, so the cluster ID is returned instead:
+**EMR Config** introduced in v1.5.0 does not use ARNs, so the cluster ID is returned instead:
 
 <pre class="terminal">
 {
@@ -405,20 +405,14 @@ EMR does not use ARNs, so the cluster ID is returned instead:
 }
 </pre>
 
-When creating a service key, a new IAM user will be created with a policy that was defined by (anchor)[] "service key with suggested name"
-^^^ ??? Needs more detail ^^^
-
-<!-- EDIT 2 ENDS HERE -->
-
 <p class="note"><strong>Note</strong>: When creating a service key, a new IAM user will be created with a policy defined by the Operator. This policy can be configured to optionally time out after a time period specified by the Operator</p>
 
-App developers can use these keys to perform one-off tasks (creating RDS Snapshots, modifying parameter groups, adding permissions, etc.) against the underlying resource using the AWS CLI. The actions permitted are defined by the Operator using service key policy templates.
-
-Run the following command to delete the service key:
-<pre class="terminal">$ cf delete-service-key YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME</pre>
+###Delete Service Key
 
 Deleting a service key removes access to the service instance, and deletes the underlying IAM user.
 
+Run the following command to delete the service key:
+<pre class="terminal">$ cf delete-service-key YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME</pre>
 
 ##<a id="troubleshooting"></a>Troubleshooting
 

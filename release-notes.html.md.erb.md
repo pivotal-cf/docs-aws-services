@@ -16,7 +16,6 @@ Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 336
 * Added region for GovCloud
 * Updated Regions dropdown for new regions
 
-
 ###1.4.0
 
 Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 3363.25 or later.
@@ -27,8 +26,6 @@ Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 336
 * Upgraded to the latest AWS Golang SDK v1.8.19
 * Updated to the 3363 Stemcell
 * Fixed the default custom privileges on PostgreSQL service plans for upgrades
-
- 
 
 ###1.3.0
 
@@ -61,7 +58,6 @@ Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 336
 * Broker Config IAM Policy name is now configurable
 * Updated stemcell to 3263
 
-
 ###0.1.3
 
 * Supports additional AWS RDS services: MariaDB, Aurora, SQL Server, Oracle
@@ -72,16 +68,13 @@ Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 336
 * Creating an S3 bucket supports logging to another S3 bucket
 * Supports PCF 1.8.x
 
-
 ###0.1.2
-
 
 * Supports AWS RDS for MySQL
 * Supports PCF 1.7.x
 
 
 ###0.1.1
-
 
 * Supports AWS RDS for PostgreSQL and Amazon S3
 * PCF operator can create RDS service plans

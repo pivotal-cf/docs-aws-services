@@ -115,7 +115,7 @@ EMR requires two roles in order to provision a cluster: an EMR service role and 
 1. In the **Choose the service that will use this role** section, click **EMR**.
 1. In the **Select your use case** section, click **EMR Role for EC2**, which is followed by the description "Allows EC2 instances in an Elastic MapReduce cluster to call AWS services such as S3 on your behalf."
 1. On the Review page, provide a **Role name** and a **Role description**. Pivotal recommends using `PCF_EMR_EC2_Instance_Profile` as the name, and `EMR EC2 Instance Profile for AWS Broker` as the description.
-1. After you have created the role, select **Roles**. From the **Role name** list, click `PCF_EMR_EC2_Instance_Profile` or whatever name you used for the role that you just created. On the  **Summary** page for the role, verify that it has an associated **Instance Profile ARN** (Amazon Resource Name). The ARN is a string value.
+1. After you have created the role, select **Roles**. From the **Role name** list, click `PCF_EMR_EC2_Instance_Profile` or whatever name you used for the role that you just created. On the  **Summary** page for the role, verify that it has an associated **Instance Profile ARN**. The Amazon Resource Name (ARN) is a string value.
 
 **Create the EMR Auto Scaling Role (Optional)**
 
@@ -261,8 +261,12 @@ Create the policy templates for each service that you will enable, by logging in
 ```
 
 ### Bind Key Policies
-In V1.5.0, setting up EMR requires the User to specify their Bind Key policy separately from their Service Key policy. 
-EMR does not use ARNs for access control, so the Resource needs to be "*". Access control is enforced via cluster tagging, so it is advisable ensure that applications/service key users do not have permissions to modify cluster tags. The broker will automatically add a Condition to the Policy which will limit access to associated EMR cluster. See (EMR Cluster Access)[http://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-access-iam.html#emr-fine-grained-cluster-access]
+In v1.5.0, setting up EMR requires the User to specify their Bind Key policy separately from their Service Key policy. 
+
+EMR does not use ARNs for access control, so the Resource needs to be "*".
+Access control is enforced via cluster tagging, so it is advisable ensure that applications/service key users do not have permissions to modify cluster tags.
+The broker will automatically add a Condition to the Policy which will limit access to associated EMR cluster.
+See (EMR Cluster Access)[http://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-access-iam.html#emr-fine-grained-cluster-access]
 
 To create the bind key policy template for EMR, log in to the AWS console and do steps 1-6 of [#Service Key Policies], above, using the following example:
 ```
@@ -290,6 +294,7 @@ To create the bind key policy template for EMR, log in to the AWS console and do
 ```
 
 ##<a id="create_database"></a>Step 2: Create Service Broker Database
+
 The Service Broker for AWS requires access to a MySQL or PostgreSQL database that is highly available and regularly backed up, in order to store its configuration information. Loss of this data will severely affect the ability of the service broker to manage the configured service instances. However, the AWS resources will not be affected. 
 
 The database can be Pivotal MySQL or an external MySQL or PostgreSQL database (including an AWS RDS database). 
@@ -502,7 +507,7 @@ Note: in the following sections that configure AWS Services, if you don't want t
 10. For **Delivery Delay**, enter the time in seconds that the delivery of all messages in the queue will be delayed.
 11. For **Rx Message Wait Time**, enter the duration, in seconds, that the receiver action waits until a message is in the queue.
 12. The **Redrive Policy** specifies an existing dead letter queue to receive messages after the source queue fails to process a message a specified number of times.  If enabled, this policy includes the following properties:
-    - **Dead Letter Queue**: The Amazon Resource Name (ARN) of the dead letter queue.
+    - **Dead Letter Queue**: The ARN of the dead letter queue.
     - **Max Receives**: The maximum number of times a message is delivered to the source queue before being sent to the dead letter queue.
 13. Click **Apply Changes** to install the product.
 14. Click **Installation Dashboard** to return to the Ops Manager Installation Dashboard.
