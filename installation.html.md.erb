@@ -75,11 +75,11 @@ Create a new Identity and Access Management (IAM) user for the PCF cluster in th
 1. For each IAM user, click the user name > **Permissions** tab > **Attach Policy** and select **PCFInstallationPolicy**. 
 1. Record the **AWS Access Key ID** and **Secret Access Key** for each of your PCF IAM accounts for later use.
 
-Note: The Service Broker for AWS also allows a custom name for the `PCFInstallationPolicy`. 
+<p class="note"><strong>Note</strong>: The Service Broker for AWS also allows a custom name for the `PCFInstallationPolicy`.</p> 
 
-To use the default name: follow the steps above for configuring the `PCFInstallationPolicy` policy. 
+<b>To use the default name:</b> follow the steps above for configuring the `PCFInstallationPolicy` policy. 
 
-To use a custom name: In the steps above, use a custom name instead of `PCFInstallationPolicy`. Later, during Broker Configuration, you will need to enter this custom name. 
+<b>To use a custom name:</b> In the steps above, use a custom name instead of `PCFInstallationPolicy`. Later, during Broker Configuration, you will need to enter this custom name. 
 
 ### Set Up EMR Policy 
 Amazon Elastic MapReduce (EMR) is a managed cluster platform for AWS that simplifies running big data frameworks, such as Apache Hadoop and Apache Spark, to process and analyze vast amounts of data. The PCF EMR Service Broker enables users to provision and manage an Amazon EMR cluster.
@@ -95,7 +95,12 @@ EMR requires that the **AmazonElasticMapReduceFullAccess** policy be attached to
 
 #### Create Roles (EMR Only)
 
-EMR requires two roles in order to provision a cluster: an EMR service role and an EMR EC2 instance profile. By default, the AWS Broker uses `PCF_EMR_Service_Role` and `PCF_EMR_EC2_Instance_Profile`. You need to create these roles and attach the necessary AWS managed policies.
+EMR requires two roles in order to provision a cluster:
+
++ an EMR service role
++ an EMR EC2 instance profile
+
+By default, the AWS Broker uses `PCF_EMR_Service_Role` and `PCF_EMR_EC2_Instance_Profile`. You need to create these roles and attach the necessary AWS managed policies.
 
 **Create the EMR Service Role (Required)**
 
@@ -382,7 +387,7 @@ Create an ASG called `aws-service-broker-app-containers` with the above configur
 ]
 ```
 
-##<a id="install"></a>Step 4: Install in Ops Manager
+##<a id="install"></a>Step 4: Install the Service Broker Tile in Ops Manager
 
 To install the Service Broker for AWS tile in Ops Manager, complete the following steps:
 
