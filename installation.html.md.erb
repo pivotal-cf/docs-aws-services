@@ -142,12 +142,12 @@ Under Permissions**. At this step, select **Custom**.
 
 For more information about creating IAM roles, see [Configure IAM Roles and the Amazon EC2 Instance Profile to Access Other AWS Services](http://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-iam-roles.html).
 
-### Service Key Policies
-The Service Broker for AWS allows App Developers to create service keys for their service instances. Creating a service key creates an IAM user with a templated policy, and provides the App Developer with Access Key credentials to the actions listed in the policies below.
+###<a id="service_key_policies"></a>Service Key Policies
+The Service Broker for AWS allows app developers to create service keys for their service instances. Creating a service key creates an IAM user with a templated policy and provides the developer with Access Key credentials to the actions listed in the policies below.
 
 As of v1.1.0, Service Key policy names are configurable. You can choose your own policy name and configure that name in each service by updating the **Service Key Policy Name** field. The default names are used below. 
 
-Create the policy templates for each service that you will enable, by logging into the AWS console, and doing the following:
+Create the policy templates for each service that you will enable by logging into the AWS console and doing the following:
 
 1. Select **Policies** and click **Create Policy**. 
 1. Choose **Create Your Own Policy**. 
@@ -265,15 +265,14 @@ Create the policy templates for each service that you will enable, by logging in
 }
 ```
 
-### Bind Key Policies
-In v1.5.0, setting up EMR requires the User to specify their Bind Key policy separately from their Service Key policy. 
+###Bind Key Policies
+In v1.5.0 of the AWS Services Broker, EMR setup requires that you specify a Bind Key policy separately from a Service Key policy. 
 
 EMR does not use ARNs for access control, so the Resource needs to be "*".
-Access control is enforced via cluster tagging, so it is advisable ensure that applications/service key users do not have permissions to modify cluster tags.
-The broker will automatically add a Condition to the Policy which will limit access to associated EMR cluster.
-See (EMR Cluster Access)[http://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-access-iam.html#emr-fine-grained-cluster-access]
+Access control is enforced with cluster tagging, so Pivotal recommends ensuring that applications/service key users do not have permission to modify cluster tags.
+The broker will automatically add a condition to the policy that limits access to the associated EMR cluster. For more information, see [EMR Cluster Access](http://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-access-iam.html#emr-fine-grained-cluster-access).
 
-To create the bind key policy template for EMR, log in to the AWS console and do steps 1-6 of [#Service Key Policies], above, using the following example:
+To create the bind key policy template for EMR, log in to the AWS console and follow steps 1 - 6 of [Service Key Policies](#service_key_policies), above, using the following example:
 ```
 {
     "Version": "2012-10-17",
@@ -298,9 +297,9 @@ To create the bind key policy template for EMR, log in to the AWS console and do
 }
 ```
 
-##<a id="create_database"></a>Step 2: Create Service Broker Database
+##<a id="create_database"></a>Step 2: Create a Service Broker Database
 
-The Service Broker for AWS requires access to a MySQL or PostgreSQL database that is highly available and regularly backed up, in order to store its configuration information. Loss of this data will severely affect the ability of the service broker to manage the configured service instances. However, the AWS resources will not be affected. 
+The Service Broker for AWS requires access to a MySQL or PostgreSQL database that is highly available and regularly backed up in order to store its configuration information. Loss of this data will severely affect the ability of the service broker to manage configured service instances. However, the AWS resources will not be affected. 
 
 The database can be Pivotal MySQL or an external MySQL or PostgreSQL database (including an AWS RDS database). 
 
@@ -313,22 +312,21 @@ If you choose to use an RDS MySQL or RDS PostgreSQL database, follow these steps
     * Select `yes` for **Multi-AZ Deployment**. 
     * Choose `Provisioned IOPS (SSD)` for **Storage Type**. For a non-production database, you can choose `General Purpose (SSD)`.
     * Enter the minimum accepted value '5' to '100' GB of **Allocated Storage**. 
-    * Leave **Provisioned IOPS** at the default value
+    * Leave **Provisioned IOPS** at the default value.
     * Enter `pcf-aws-services` for the **DB Instance Identifier**.
-    * Enter suitable values for the Master Username and Master Password
+    * Enter suitable values for the **Master Username** and **Master Password**.
 
 2. Record the Database IP, Database Port, Admin user, Admin password and Database Name. The Service Broker for AWS stores configuration information in this database. 
 
-3. Ensure that the Service Broker for AWS will be able to connect to your database. If necessary for your deployment, modify your AWS VPC settings to allow access to the RDS database from an external IP address. For more information, see the [Accessing a DB Instance in a VPC](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Scenarios.html) topic in the AWS documentation.
+3. Ensure that the Service Broker for AWS will be able to connect to your database. If necessary for your deployment, modify your AWS VPC settings to allow access to the RDS database from an external IP address. For more information, see [Accessing a DB Instance in a VPC](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Scenarios.html) in the AWS documentation.
 
-##<a id="ASGs"></a>Step 3: Application Security Groups
+##<a id="ASGs"></a>Step 3: Create Application Security Groups
 
-To allow this service to have network access you will need to create
-[Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html) (ASGs).
+To allow this service to have network access, you need to create Application Security Groups (ASGs). ASGs are collections of egress rules that specify the protocols, ports, and IP address ranges where app or task instances send traffic.
 
-<p class="note"><strong>Note</strong>: Without Application Security Groups the service will not be usable.</p>
+<p class="note"><strong>Note</strong>: Without Application Security Groups, the service will not be usable.</p>
 
-### <a id="service-container-network-connections"></a> Service Container Network Connections ###
+### <a id="service-container-network-connections"></a> Service Container Network Connections###
 
 This service is deployed as an application to the `iaas-brokers` space in the
 `system` org, and requires the following outbound network connections:
@@ -352,7 +350,7 @@ This service is deployed as an application to the `iaas-brokers` space in the
 
 ```
 
-<p class="note"><strong>Note</strong>: This creates a configuration which allows traffic for all AWS Regions. You may wish to further filter the list of entries in the Application Security Group config to a specific set of AWS Regions by adding additional `jq` `map(select(.region == "REGION_NAME"))` statements for each region.</p>
+This creates a configuration which allows traffic for all AWS Regions. You may wish to further filter the list of entries in the Application Security Group config to a specific set of AWS Regions by adding additional `jq` `map(select(.region == "REGION_NAME"))` statements for each region.
 
  Log in as an administrator and create an ASG called `aws-service-broker`, binding it to the `iaas-brokers` space in the `system` org:
 <pre class="terminal">
@@ -369,7 +367,7 @@ Application containers that use instances of this service require the following 
 |---                |---         |---        |---
 |`AWS_IP_RANGE`     |443, 5432, 1521, 1433, 3306         |tcp        |Application containers may access S3/RDS
 
-Create an ASG called `aws-service-broker-app-containers` with the above configuration and bind it to the appropriate space or, to give all started apps access, the `default-running` ASG set. Example:
+Create an ASG called `aws-service-broker-app-containers` with the above configuration and bind it to the appropriate space. To give access to all started apps, use the `default-running` ASG set. For example:
 
 ```
 [
@@ -395,7 +393,7 @@ To install the Service Broker for AWS tile in Ops Manager, complete the followin
 
 1. From the Ops Manager Installation Dashboard, click **Import a Product** to upload the product file.
 
-1. Click **Add** next to the uploaded product description in the **Available Products** view to add this product to your staging area.
+1. Click **Add** next to the uploaded product description in the **Available Products** view to add the product to your staging area.
 
 1. Click on the newly added tile to configure the sections as described below.
 
