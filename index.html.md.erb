@@ -5,9 +5,28 @@ title: Pivotal Cloud Foundry Service Broker for AWS
 
 ##<a id="overview"></a>Overview
 
-* [Installing the Service Broker](installation.html): Follow these instructions to install the AWS Service Broker via Ops Manager.
-* [Creating and Managing Service Instances](creating.html): Follow these instructions to create and manage service instances.
-* [Release Notes](release-notes.html)
+The Pivotal Cloud Foundry (PCF) Service Broker for AWS gives app developers
+the ability to create and manage Amazon Web Services (AWS) products,
+such as database services and S3 storage from the Cloud Foundry Command Line Interface (cf CLI).
+
+Service Broker for AWS exposes the selected AWS products in the Marketplace.
+App developers then create and manage a service instance using the cf CLI commands `create service`, `bind service`, `unbind service`, and `delete service`.
+After obtaining a service key using the `create-service-key` command,
+developers can use the key with the AWS CLI to perform additional operations as permitted by their PCF operator. 
+
+The following AWS products are currently supported:
+
+  * Amazon Relational Database Service (RDS) for
+      - [PostgreSQL](https://aws.amazon.com/rds/postgresql/)
+      - [MySQL](https://aws.amazon.com/rds/mysql/)
+      - [MariaDB](https://aws.amazon.com/rds/mariadb/)
+      - [SQL Server](https://aws.amazon.com/rds/sqlserver/)
+      - [Oracle Database](https://aws.amazon.com/rds/oracle/)
+  * [Amazon Aurora](https://aws.amazon.com/rds/aurora/)
+  * [Amazon DynamoDB](https://aws.amazon.com/dynamodb/)
+  * [Amazon Simple Storage Service (S3)](https://aws.amazon.com/s3/)
+  * [Amazon Simple Queue Service (SQS)](https://aws.amazon.com/sqs/)
+  * [Amazon Elastic MapReduce (EMR)](https://aws.amazon.com/emr/)
 
 ##<a id="snapshot"></a>Product Snapshot
 
@@ -22,7 +41,7 @@ The following table provides version and version-support information about Servi
     </tr>
     <tr>
         <td>Release date</td>
-        <td>Dec xx, 2017</td>
+        <td>January XX, 2018</td>
     </tr>
     <tr>
         <td>Compatible Ops Manager version(s)</td>
@@ -50,19 +69,3 @@ The following table provides version and version-support information about Servi
 [//]: # (For more information, see [Pivotal Application Service (PAS) Highlights](http://docs.pivotal.io/pivotalcf/2-0/installing/highlights.html#ert). )
 
 
-The [Service Broker for AWS](https://network.pivotal.io/products/pcf-service-broker-for-aws) provides [Pivotal Cloud Foundry](https://network.pivotal.io/products/pivotal-cf) users with the ability to create and manage Amazon Web Services (AWS) resources from the Cloud Foundry Command Line Interface (cf CLI).
-
-The PCF Service Broker for AWS is installed once and exposes the selected AWS services in the Marketplace. App developers can then create and manage a service instance by using the cf CLI commands `create service`, `bind service`, `unbind service`, and `delete service`. After obtaining a service key using the `create-service-key` command, developers can use the key with the AWS CLI to perform additional operations as permitted by their PCF operator. 
-
-AWS Services currently supported include:
-
-* [Amazon RDS for PostgreSQL](https://aws.amazon.com/rds/postgresql/)
-* [Amazon RDS for MySQL](https://aws.amazon.com/rds/mysql/)
-* [Amazon RDS for MariaDB](https://aws.amazon.com/rds/mariadb/)
-* [Amazon RDS for SQL Server](https://aws.amazon.com/rds/sqlserver/)
-* [Amazon RDS for Oracle Database](https://aws.amazon.com/rds/oracle/)
-* [Amazon Aurora](https://aws.amazon.com/rds/aurora/)
-* [Amazon DynamoDB](https://aws.amazon.com/dynamodb/)
-* [Amazon S3](https://aws.amazon.com/s3/)
-* [Amazon SQS](https://aws.amazon.com/sqs/)
-* [Amazon EMR] (https://aws.amazon.com/emr/)
