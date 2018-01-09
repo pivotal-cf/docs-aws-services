@@ -136,8 +136,8 @@ For more information about the Auto Scaling role, see [Creating the IAM Role for
 Creating this Auto Scaling role requires different manual steps due to limitations within the GO SDK/AWS IAM Role creation console. 
 The easiest and quickest way to ensure that `EMR_AutoScaling_DefaultRole` is set up correctly 
 is to create an EMR Cluster through the EMR Console. You can terminate the cluster immediately after the role is created.
-In the IAM Console, search for `EMR_AutoScaling_DefaultRole`. If it already exists, click it to review the **Summary** for the role.
-Veryify that the `EMR_AutoScaling_DefaultRole`:
+In the IAM Console, search for `EMR_AutoScaling_DefaultRole`. If the role already exists, click it to review summary information.
+Verify that the role:
 
 + has the AWS managed policy called **AmazonElasticMapReduceforAutoScalingRole** attached
 + shows **elasticmapreduce.amazonaws.com** and **application-autoscaling.amazonaws.com** as **Trusted entities** 
