@@ -140,8 +140,8 @@ In the IAM Console, search for `EMR_AutoScaling_DefaultRole`. If the role alread
 Verify that the role:
 
 + has the AWS managed policy called **AmazonElasticMapReduceforAutoScalingRole** attached
-+ shows **elasticmapreduce.amazonaws.com** and **application-autoscaling.amazonaws.com** as **Trusted entities** 
-on the **Trust relationships** tab.
++ shows, under the **Trust relationships** tab, that **elasticmapreduce.amazonaws.com** and
+**application-autoscaling.amazonaws.com** are recognized as **Trusted entities**.
 
 If the role exists and has these properties, no further configuration is necessary.
 
