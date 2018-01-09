@@ -413,7 +413,7 @@ To install the Service Broker for AWS tile in Ops Manager, complete the followin
 The setup in Step 1 must be successfully completed before beginning this configuration. You will need the AWS and database parameters from that step to successfully configure the broker.
 
 1. Click **AWS Config**.
-    <%= image_tag("images/aws-sb-awsconfig.png") %>
+    <%= image_tag("aws-sb-awsconfig.png") %>
 2. Enter the **AWS Access Key ID** and the **Secret Access Key** from [Step 1](#setup).
 3. Enter the **Temporary Credentials Timeout** value in minutes. This is the time after which service key credentials will expire. To disable expiry of the credentials, enter 0. 
 4. Modify the **AWS Endpoint** ONLY if you are using Amazon's Commercial Cloud Service. Otherwise, leave it at Default. 
@@ -468,7 +468,7 @@ Note: in the following sections that configure AWS Services, if you don't want t
     * **enterprise**: For a large database (multi-AZ, 8 vCPU, 32GB).
 
 1. You can view and edit the configuration of existing plans by clicking the arrow next to their names.
-    <%= image_tag("images/aws-sb-editplan.png") %>
+    <%= image_tag("images/aws-sb-rdseditplan.png") %>
     <p class="note"><strong>Note</strong>: If you edit an existing service plan, only future instances of that services plan will be changed. Ask your Admin to modify existing instances.</p>
 1. You can also create a new custom plan by clicking the **Add** button and completing the following fields:
     - **Plan Name**: The name of the plan in the Services Marketplace.
@@ -488,7 +488,7 @@ Note: in the following sections that configure AWS Services, if you don't want t
     - For flexibility, the **User Privileges** allows configuration of database user privileges by service plan. Use this to secure the privileges you want for your developers or apps. 
     - **DB Parameter Group Name** allows you to associate an existing DB Parameter Group Name with this service plan. Use the AWS Console to create the DB Parameter Group. 
 
-    <%= image_tag("images/aws-sb-addplan.png") %>
+    <%= image_tag("images/aws-sb-rdsaddplan.png") %>
 
 1. Click **Save**.
 
