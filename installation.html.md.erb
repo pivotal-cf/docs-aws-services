@@ -136,9 +136,14 @@ For more information about the Auto Scaling role, see [Creating the IAM Role for
 Creating this Auto Scaling role requires different manual steps due to limitations within the GO SDK/AWS IAM Role creation console. 
 The easiest and quickest way to ensure that `EMR_AutoScaling_DefaultRole` is set up correctly 
 is to create an EMR Cluster through the EMR Console. You can terminate the cluster immediately after the role is created.
-In the IAM Console, search for `EMR_AutoScaling_DefaultRole`. If it already exists and has the  
-has the **AmazonElasticMapReduceforAutoScalingRole** policy attached, and also has appropriate permssions 
-for elasticmapreduce.amazonaws.com and application-autoscaling.amazonaws.com, no further configuration is necessary.
+In the IAM Console, search for `EMR_AutoScaling_DefaultRole`. If it already exists, click it to review the **Summary** for the role.
+Veryify that the `EMR_AutoScaling_DefaultRole`:
+
++ has the AWS managed policy called **AmazonElasticMapReduceforAutoScalingRole** attached
++ shows **elasticmapreduce.amazonaws.com** and **application-autoscaling.amazonaws.com** as **Trusted entities** 
+on the **Trust relationships** tab.
+
+If the role exists and has these properties, no further configuration is necessary.
 
 If the `EMR_AutoScaling_DefaultRole` does not exist, perform the follow steps:
 
@@ -430,10 +435,10 @@ The setup in Step 1 must be successfully completed before beginning this configu
 4. For **Backing Database**, choose the database type for the Service Broker Configuration. 
 5. If you chose **Pivotal MySQL** enter the **Plan Name** to be used (e.g. 100mb) and a unique database name. The database will be created during deployment if it does not exist. 
 6. If you chose **External MySQL** or **External Postgres**:
-	1. For **Database Host** enter the IP address of the database where the Service Broker for AWS will store configuration information. You can use the database you created in the AWS RDS console in [Step 1](#setup), or choose to use an existing database.
-	2. For **Database Port**, enter the port number of your database. The default for PostgreSQL is 5432 and the default for MySQL is 3306.
-	3. For **Database Username** and **Database Password**, enter your database credentials.
-	4. For **Database Name**, enter the name of the database.
+    1. For **Database Host** enter the IP address of the database where the Service Broker for AWS will store configuration information. You can use the database you created in the AWS RDS console in [Step 1](#setup), or choose to use an existing database.
+    2. For **Database Port**, enter the port number of your database. The default for PostgreSQL is 5432 and the default for MySQL is 3306.
+    3. For **Database Username** and **Database Password**, enter your database credentials.
+    4. For **Database Name**, enter the name of the database.
 7. Under **Database SSL Connection**, select **Enabled** if you want to encrypt traffic to your database and add your custom root certificate in the **Root Certificate** text box. Otherwise, select **Disabled**.
 8. Click **Save**.
 
@@ -501,7 +506,7 @@ Note: in the following sections that configure AWS Services, if you don't want t
 3. The **Quota Limit** limits the total number of instances, setting it to 0 will disable it. 
 2. Enter the **Bucket Prefix**, a short name to prefix all bucket names.
 3. S3 has one default plan called "standard", but in Service Broker for AWS 1.4 and later you can add more. A service plan can require an S3 bucket to be encrypted by creating an AWS KMS Key (see AWS SSE-KMS) and entering the KMS key ARN in the service plan configuration. 
-	    <%= image_tag("images/aws-sb-s3plans.png") %>
+        <%= image_tag("images/aws-sb-s3plans.png") %>
 4. Click "Save" to store the changed settings.
 1. Click **Installation Dashboard** to return to the Ops Manager Installation Dashboard.
 1. Click **Apply Changes** to install the product.
@@ -566,6 +571,3 @@ Follow the steps below to confirm your AWS Service Broker installation.
 1. In Apps Manager, all orgs and spaces show the new services in the Services Marketplace. Users can create instances of these services through Apps Manager or by using the cf CLI. Review [Creating and Managing Service Instances](creating.html) for more information.
 
     <%= image_tag("images/aws-sb-marketplace.png") %>
-
-
-
