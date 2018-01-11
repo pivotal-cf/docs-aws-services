@@ -381,8 +381,10 @@ Delete in progress. Use 'cf services' or 'cf service YOUR-SERVICE-INSTANCE' to c
 </pre>
 
 
-##<a id="servicekeys"></a>Using Service Keys for Other Commands
-App developers can use these keys to perform one-off tasks (creating RDS Snapshots, modifying parameter groups, adding permissions, etc.) against the underlying resource using the AWS CLI. The actions permitted are defined by the Operator using service key policy templates.
+##<a id="servicekeys"></a>Using Service Keys with AWS
+Service keys provide credentials for manually configuring consumers of marketplace services. 
+App developers can use these keys to perform tasks against the underlying resource using the AWS CLI. 
+These tasks are defined by the Operator using service key policy templates.
 
 Run the following command to create a service key for a service instance:
 <pre class="terminal">$ cf create-service-key YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME</pre>
@@ -415,14 +417,17 @@ This returns credentials in JSON format, containing the Access Key ID and Secret
 </pre>
 
 <p class="note"><strong>Note</strong>: When creating a service key, a new IAM user is created with a policy defined by the Operator.
-   This policy can be configured to optionally time out after a time period specified by the Operator</p>
+   This policy can be configured to optionally time out after a time period specified by the Operator.</p>
 
 ###Delete Service Key
 
-Deleting a service key removes access to the service instance, and deletes the underlying IAM user.
+In addition to removing access to the service instance, 
+deleting a service key also deletes the underlying IAM user.
 
 Run the following command to delete the service key:
 <pre class="terminal">$ cf delete-service-key YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME</pre>
+
+For more information about Service Keys, see [Managing Service Keys](https://docs-pcf-staging.cfapps.io/pivotalcf/1-12/devguide/services/service-keys.html).
 
 ##<a id="troubleshooting"></a>Troubleshooting
 
