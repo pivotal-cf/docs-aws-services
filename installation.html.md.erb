@@ -16,8 +16,8 @@ This topic describes how to install the Service Broker for AWS by configuring yo
 In this step you configure your AWS account to allow the Service Broker for AWS to create and manage AWS resources. 
 
 Create a new IAM user for the PCF cluster in the **AWS Identity & Access Management** console by following the procedure below. 
-<p class="note"><strong>Note</strong>: If you have more than one PCF deployment, you must create an IAM user for each deployment. Create a new IAM user in your AWS account (do not use the same IAM user that installed PCF on AWS as it has different policy restrictions).</p> 
-
+<p class="note"><strong>Note</strong>: If you have more than one PCF deployment, you must create an IAM user for each deployment. 
+Create a new IAM user in your AWS account (do not use the same IAM user that installed PCF on AWS as it has different policy restrictions).</p> 
 
 1. Select **Policies** and click **Create Policy**. 
 1. Choose **Create Your Own Policy**. 
@@ -76,7 +76,6 @@ Create a new IAM user for the PCF cluster in the **AWS Identity & Access Managem
 1. Click **Create Policy**. This creates an AWS policy that you must apply to every IAM user you create for the Service Broker for AWS. 
 1. For each IAM user, click the user name > **Permissions** tab > **Attach Policy** and select **PCFInstallationPolicy**. 
 1. Record the **AWS Access Key ID** and **Secret Access Key** for each of your PCF IAM accounts for later use.
-
 
 Note: The Service Broker for AWS also allows a custom name for the `PCFInstallationPolicy`. 
 
