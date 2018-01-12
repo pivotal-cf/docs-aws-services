@@ -445,7 +445,7 @@ The setup in Step 1 must be successfully completed before beginning this configu
 7. Under **Database SSL Connection**, select **Enabled** if you want to encrypt traffic to your database and add your custom root certificate in the **Root Certificate** text box. Otherwise, select **Disabled**.
 8. Click **Save**.
 
-Note: in the following sections that configure AWS Services, if you don't want to offer that specific service in your PCF Marketplace then simply uncheck the box **Enable in Marketplace**
+Note: in the following sections that configure AWS Services, if you don't want to offer that specific service in your PCF Marketplace then simply clear the **Enable in Marketplace** checkbox.
 
 
 ###<a id="dynamodb-config"></a>DynamoDB Config
@@ -454,22 +454,29 @@ Note: in the following sections that configure AWS Services, if you don't want t
 
 1. Under **Override Default AWS Region** select the default AWS region.
 
+1. Select **Enable in Marketplace** if you want to enable the service in the Services Marketplace.
+
+1. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy earlier. 
+
+1. The **Quota Limit** restricts the total number of instances, setting it to 0 will disable it.
+
+
 
 ###<a id="rds-config"></a>RDS Config
 1. Click **RDS Config**.
     <%= image_tag("images/aws-sb-rdsconfig.png") %>
 
-2. Under **Override Default AWS Region** select the default AWS region.
+1. Under **Override Default AWS Region** select the default AWS region.
 
-3. Under **Override Default AWS Availability Zone** select the default Availability Zone for RDS database instances.
-4. The **RDS Instance Prefix** is set to "cf" by default. It is the prefix for creating RDS database instances.
-5. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy earlier. 
-5. The **Networking** section allows you to configure whether to use the Default VPC or a Custom VPC, and whether the instance is publicly accessible. For a Custom VPC, enter the DB Subnet Group Name and the VPC Security Group(s). 
-6. The setting **Enable Storage Encryption** is off by default. You can enable RDS encryption for a database instance. However, not all regions and DB instance classes support encryption so if you enable this option, you will need to change the default plans to remove those that don't support encryption. More information is available [here.](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Encryption.html#d0e21710)
+1. Under **Override Default AWS Availability Zone** select the default Availability Zone for RDS database instances.
+1. The **RDS Instance Prefix** is set to "cf" by default. It is the prefix for creating RDS database instances.
+1. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy earlier. 
+1. The **Networking** section allows you to configure whether to use the Default VPC or a Custom VPC, and whether the instance is publicly accessible. For a Custom VPC, enter the DB Subnet Group Name and the VPC Security Group(s). 
+1. The setting **Enable Storage Encryption** is off by default. You can enable RDS encryption for a database instance. However, not all regions and DB instance classes support encryption so if you enable this option, you will need to change the default plans to remove those that don't support encryption. More information is available [here.](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Encryption.html#d0e21710)
 
-7. Select the checkboxes to enable the RDS Services that you want to show in Marketplace
+1. Select **Enable in Marketplace** to enable the service in the Services Marketplace.
 
-8. Under **Plans**, for each RDS Database, the Service Broker for AWS includes several default plans for use.
+1. Under **Plans**, for each RDS Database, the Service Broker for AWS includes several default plans for use.
     * **basic**: For small projects and during development.
     * **standard**: For a small production database (multi-AZ, 2vCPU, 7.5GB).
     * **premium**: For a mid-sized database (multi-AZ, 4 vCPU, 15GB).
@@ -506,7 +513,7 @@ Note: in the following sections that configure AWS Services, if you don't want t
 1. Under **Override Default AWS Region**, select the default AWS region for this service.
 1. Select **Enable in Marketplace** to enable the service in the Services Marketplace.
 2. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy earlier. 
-3. The **Quota Limit** limits the total number of instances, setting it to 0 will disable it. 
+3. The **Quota Limit** restricts the total number of instances, setting it to 0 will disable it. 
 2. Enter the **Bucket Prefix**, a short name to prefix all bucket names.
 3. S3 has one default plan called "standard", but in Service Broker for AWS 1.4 and later you can add more. A service plan can require an S3 bucket to be encrypted by creating an AWS KMS Key (see AWS SSE-KMS) and entering the KMS key ARN in the service plan configuration. 
         <%= image_tag("images/aws-sb-s3plans.png") %>
@@ -521,7 +528,7 @@ Note: in the following sections that configure AWS Services, if you don't want t
 2. Under **Override Default AWS Region**, select the default AWS region for this service.
 3. Select **Enable in Marketplace** to enable the service in the Services Marketplace.
 4. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy earlier. 
-5. The **Quota Limit** limits the total number of instances, setting it to 0 will disable it. 
+5. The **Quota Limit** restricts the total number of instances, setting it to 0 will disable it. 
 6. For **Queue Prefix**, enter the queue name prefix that will be used for filtering list results.
 7. For **Default Visibility Timeout**, enter the length of time during which the queue will be unavailable once a message is delivered from the queue.
 8. For **Message Retention Period**, enter the number of seconds Amazon SQS retains a message.
@@ -545,7 +552,7 @@ More information on AWS SQS queue properties is available [here](http://docs.aws
 1. The **Enable in Marketplace** option should be checked by default.
 1. The **EMR Service Role** enables EMR to call other AWS Services, such as EC2, on your behalf. Populate this field with the Service Role you provided during setup. The recommended value is `PCF_EMR_Service_Role`.
 1. The **EC2 Instance Profile** provides access to other AWS services, such as S3 and DynamoDB, from EC2 instances launched by EMR. The recommended value is `PCF_EMR_EC2_Instance_Profile`.
-1. The **Service Key Policy Name** is the name of the managed policy that is attached to credentials generated by the Create Service Key command. The recommended value is `PCFAppDeveloperPolicy-emr`.
+1. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy earlier. This is the name of the managed policy that is attached to credentials generated by the Create Service Key command. The recommended value is `PCFAppDeveloperPolicy-emr`.
 1. The **Bind Policy Name** is the name of the managed policy that is attached to credentials generated by the bind operation. The recommended value is `PCFAppBindPolicy-emr`.
 
 1. The **EMR Instance Prefix** is the value used as the prefix for EMR cluster identifiers and related cloudformation stacks in AWS. The recommended value is `cf`.
