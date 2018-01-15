@@ -7,15 +7,21 @@ Service keys provide credentials for manually configuring consumers of marketpla
 App developers can use these keys to perform tasks against the underlying resource using the AWS CLI. 
 These tasks are defined by the Operator using service key policy templates.
 
+For more information on Service Key policies, see [Service Key Policies](installation.html#service_key_policies)
+
+##<a id="create"></a>Create Service Key
+
 Run the following command to create a service key for a service instance:
 <pre class="terminal">$ cf create-service-key YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME</pre>
 
 This command creates a service key for "YOUR-SERVICE-INSTANCE" named "SERVICE-KEY-NAME".
 
+##<a id="credentials"></a>Get Credentials for a Service Key
+
 To view the corresponding credentials, run the following command:
 <pre class="terminal">$ cf service-key YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME</pre>
 
-This returns credentials in JSON format, containing the Access Key ID and Secret, and the Amazon Resource Name (ARN) for the underlying resource in AWS. For example, service key credentials for an S3 bucket would return the following:
+This returns credentials in JSON format, containing the `access_key_id`, `secret_access_key` and the Amazon Resource Name (`arn`) for the underlying resource in AWS. For example, service key credentials for an S3 bucket would return the following:
 
 <pre class="terminal">
 {
@@ -25,7 +31,7 @@ This returns credentials in JSON format, containing the Access Key ID and Secret
 }
 </pre>
 
-**EMR Config** introduced in v1.5.0 does not use ARNs, so the cluster ID is returned instead:
+**EMR Config** introduced in v1.5.0 does not use `arn`, so the `cluster_id` is returned instead:
 
 <pre class="terminal">
 {
@@ -39,6 +45,20 @@ This returns credentials in JSON format, containing the Access Key ID and Secret
 
 <p class="note"><strong>Note</strong>: When creating a service key, a new IAM user is created with a policy defined by the Operator.
    This policy can be configured to optionally time out after a time period specified by the Operator.</p>
+
+##<a id="list"></a>List Service Keys for a Service Instance
+
+To list service keys for a service instance, use the `cf service-keys` command:
+
+<pre class="terminal">
+$ cf service-keys YOUR-SERVICE-INSTANCEE
+Getting service keys for service instance YOUR-SERVICE-INSTANCE as me@example.com...
+
+SERVICE-KEY-NAME
+mykey1
+mykey2
+
+</pre>
 
 ##<a id="delete"></a>Delete Service Key
 
@@ -66,4 +86,4 @@ Deleting service key SERVICE-KEY-NAME for service instance YOUR-SERVICE-INSTANCE
 OK
 </pre>
 
-For more information about Service Keys, see [Managing Service Keys](https://docs-pcf-staging.cfapps.io/pivotalcf/1-12/devguide/services/service-keys.html).
+<br>For more information about service keys, see [Managing Service Keys](https://docs-pcf-staging.cfapps.io/pivotalcf/1-12/devguide/services/service-keys.html).
