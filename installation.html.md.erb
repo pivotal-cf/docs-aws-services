@@ -420,7 +420,7 @@ To install the Service Broker for AWS tile in Ops Manager, complete the followin
 
 The setup in Step 1 must be successfully completed before beginning this configuration. You will need the AWS and database parameters from that step to successfully configure the broker.
 
-1. Click **AWS Config**.
+1. Select the **AWS Config** side-tab.
     <%= image_tag("aws-sb-awsconfig.png") %>
 2. Enter the **AWS Access Key ID** and the **Secret Access Key** from [Step 1](#setup).
 3. Enter the **Temporary Credentials Timeout** value in minutes. This is the time after which service key credentials will expire. To disable expiry of the credentials, enter 0. 
@@ -431,7 +431,7 @@ The setup in Step 1 must be successfully completed before beginning this configu
 8. Click **Save**.
 
 ###<a id="broker-config"></a>Broker Config
-1. Click **Broker Config**.
+1. Select the **Broker Config** side-tab.
     <%= image_tag("images/aws-sb-brokerconfig.png") %>
 2. For **App Instances**, enter the number of instances of the service broker you want to run. The default is `2`.
 3. Do not change the **Broker IAM Policy Name** unless you configured a custom policy name earlier. 
@@ -449,7 +449,7 @@ Note: in the following sections that configure AWS Services, if you don't want t
 
 
 ###<a id="dynamodb-config"></a>DynamoDB Config
-1. Click **DynamoDB Config**.
+1. Select the **DynamoDB Config** side-tab.
     <%= image_tag("images/aws-sb-dynamodbconfig.png") %>
 
 1. Under **Override Default AWS Region** select the default AWS region.
@@ -463,7 +463,7 @@ Note: in the following sections that configure AWS Services, if you don't want t
 
 
 ###<a id="rds-config"></a>RDS Config
-1. Click **RDS Config**.
+1. Select the **RDS Config** side-tab.
     <%= image_tag("images/aws-sb-rdsconfig.png") %>
 
 1. Under **Override Default AWS Region** select the default AWS region.
@@ -508,7 +508,7 @@ Note: in the following sections that configure AWS Services, if you don't want t
 1. Click **Save**.
 
 ###<a id="s3-config"></a>S3 Config
-1. Click **S3 Config**.
+1. Select the **S3 Config** side-tab.
     <%= image_tag("images/aws-sb-s3config.png") %>
 1. Under **Override Default AWS Region**, select the default AWS region for this service.
 1. Select **Enable in Marketplace** to enable the service in the Services Marketplace.
@@ -523,7 +523,7 @@ Note: in the following sections that configure AWS Services, if you don't want t
 
 
 ###<a id="sqs-config"></a>SQS Config
-1. Click **SQS Config**.
+1. Select the **SQS Config** side-tab.
     <%= image_tag("images/aws-sb-sqsconfig.png") %>
 2. Under **Override Default AWS Region**, select the default AWS region for this service.
 3. Select **Enable in Marketplace** to enable the service in the Services Marketplace.
@@ -545,7 +545,7 @@ More information on AWS SQS queue properties is available [here](http://docs.aws
 
 
 ###<a id="emr-config"></a>EMR Config
-1. Click **EMR Config**.
+1. Select the **EMR Config** side-tab.
     <%= image_tag("images/aws-sb-emrconfig.png") %>
 1. **Override Default AWS Region** gives you the option to override the default AWS Region used as the location for the EMR Cluster. To override the default, provide the name of the region you want to use. Leave this field blank to use the default region.
 1. **Override Default AWS Availability Zone** gives you the option to override the default Availability Zone used by the service. To override the default, provide the name of the Availability Zone you want to use. Leave this field blank to use the default Availability Zone.
@@ -564,17 +564,56 @@ More information on AWS SQS queue properties is available [here](http://docs.aws
     1. **Plan Features** lists features of the plan displayed in Apps Manager.
     1. Select **Allow Auto Scaling** to enable or disable the auto scaling for the cluster. 
     1. **EMR release** should be the version of EMR you wish to use 
-    (the default value is `emr-5.8.0`).
+    (Default value is `emr-5.8.0`).
     1. **Master instance type** is the EC2 instance type for the master instance 
-    (the default value is `m3.xlarge`).
+    (Default value is `m3.xlarge`).
     1. **Core instance type** is the EC2 instance type for all core instances 
-    (the default value is `m3.xlarge`).
+    (Default value is `m3.xlarge`).
     1. **Number of core instances** is the number of core instances to launch 
-    (the default value is `2`).
+    (Default value is `2`).
+
+
+###<a id="errands"></a>Errands
+Errands are tasks that are needed to support various operations of brokers, or PCF installations. They are scripts that run at designated points during an installation. These can include installation, test, or deletion.
+Service Broker for AWS has a deploy errand for deploying the service broker, as well as a remove errand, to remove the broker.
+
+1. Select the **Errands** side-tab
+    <%= image_tag("images/aws-sb-errands.png") %>
+1. **Post-Deploy Errands** are tasks run after a deployment (Default value is `On`).
+1. **Pre-Deploy Errands** are tasks run before a deployment (Default value is `On`).
+
+<p class="note warning"><strong>Warning:</strong> The deploy and remove broker errands are essential for Service Broker for AWS to function.
+These configurations should both remain set to their default states of `On`.
+Should these be turned off, unintended behaviour may occur.</p>
+
+
+###<a id="resource-config"></a>Resource Config
+Resources are errands that require the creation of a Virtual Machine (VM) to perform tasks.
+These VM's get destroyed when the errand is complete.
+This pane allows the user to manage the resource usage of Service Broker for AWS.
+
+1. Select the **Resource Config** side-tab
+    <%= image_tag("images/aws-sb-resourceconfig.png") %>
+1. **Deploy Broker** controls the errand that deploys the service broker
+    - (Recommended value is `Automatic: micro (cpu: 1, ram: 1GB, disk: 8GB)`)
+
+1. **Remove Broker** controls the errand that removes the service broker
+    - (Recommended value is `Automatic: micro (cpu: 1, ram: 1GB, disk: 8GB)`)
+
+<p class="note"><strong>Note:</strong> The recommendation is to use the `Automatic` setting for both the instances and VM type fields. However, any other selection should work.</p>
+
+
+###<a id="stemcell"></a>Stemcell
+A stemcell is an operating system image. This is the template from which Ops Manager creates the VMs needed for a wide variety of components and products. A minimum version is required, and is dependent on your cloud platform (AWS, Azure, VSphere, etc.).
+
+To access and download the stemcell required for your platform, see [Stemcells for PCF](https://network.pivotal.io/products/stemcells/)
+
+1. Select the **Stemcell** side-tab
+    <%= image_tag("images/aws-sb-stemcell.png") %>
+1. **Import Stemcell** allows the User to add the stemcell for their platform to Ops Manager.
 
 
 ##<a id="confirm"></a>Step 5: Confirm Installation
-
 Follow the steps below to confirm your AWS Service Broker installation.
 
 <p class="note"><strong>Note</strong>: The Service Broker for AWS installs an app called <code>aws-services-broker</code> in the <code>iaas-brokers</code> space of the <code>system</code> org. Like other CF apps, you can view the application logs via the CF CLI by connecting to that org and space with the correct permissions.</p>
