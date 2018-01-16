@@ -380,78 +380,9 @@ OK
 Delete in progress. Use 'cf services' or 'cf service YOUR-SERVICE-INSTANCE' to check operation status.
 </pre>
 
+<br>For more information about Service Instances, see [Managing Service Instances](https://docs.pivotal.io/pivotalcf/2-0/devguide/services/managing-services.html).
 
-##<a id="servicekeys"></a>Using Service Keys with AWS
-Service keys provide credentials for manually configuring consumers of marketplace services. 
-App developers can use these keys to perform tasks against the underlying resource using the AWS CLI. 
-These tasks are defined by the Operator using service key policy templates.
 
-Run the following command to create a service key for a service instance:
-<pre class="terminal">$ cf create-service-key YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME</pre>
-
-This command creates a service key for "YOUR-SERVICE-INSTANCE" named "SERVICE-KEY-NAME".
-
-To view the corresponding credentials, run the following command:
-<pre class="terminal">$ cf service-key YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME</pre>
-
-This returns credentials in JSON format, containing the Access Key ID and Secret, and the Amazon Resource Name (ARN) for the underlying resource in AWS. For example, service key credentials for an S3 bucket would return the following:
-
-<pre class="terminal">
-{
- "access_key_id": "AKIAIOSFODNN7EXAMPLE",
- "arn": "arn:aws:s3:::bucket-name",
- "secret_access_key": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
-}
-</pre>
-
-**EMR Config** introduced in v1.5.0 does not use ARNs, so the cluster ID is returned instead:
-
-<pre class="terminal">
-{
-  "cluster_id": "the-emr-cluster-id",
-  "master_public_dns_name": "the-public-dns-name-for-master-node",
-  "region": "some-aws-region",
-  "access_key_id": "some-access-key-id",
-  "secret_access_key": "some-secret-access-key"
-}
-</pre>
-
-<p class="note"><strong>Note</strong>: When creating a service key, a new IAM user is created with a policy defined by the Operator.
-   This policy can be configured to optionally time out after a time period specified by the Operator.</p>
-
-###Delete Service Key
-
-In addition to removing access to the service instance, 
-deleting a service key also deletes the underlying IAM user.
-
-Run the following command to delete the service key:
-<pre class="terminal">$ cf delete-service-key YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME</pre>
-
-For more information about Service Keys, see [Managing Service Keys](https://docs-pcf-staging.cfapps.io/pivotalcf/1-12/devguide/services/service-keys.html).
-
-##<a id="troubleshooting"></a>Troubleshooting
-
-###Problem
-
-As a PCF operator, when deploying the tile by clicking **Apply Changes**, I get the following error: "A client error (InvalidClientTokenId) occurred when calling the GetUser operation: The security token included in the request is invalid."
-
-####Reason
-The AWS credentials are not valid, please recheck them or recreate the credentials.
-
-###Problem
-
-As a PCF operator, when deleting the product tile, I get the following error: "Can not remove brokers that have associated service instances".
-
-####Reason
-
-Your service broker currently has service instances that are active. They must be deleted before the tile can be deleted.
-
-###Problem
-
-As a developer, when trying to create a service, I get the following error: "Service broker error: InvalidClientTokenId: The security token included in the request is invalid."
-
-####Reason
-The AWS credentials are not valid, please ask your PCF operator to recheck them or recreate the credentials.
 
 
 
