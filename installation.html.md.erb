@@ -582,14 +582,14 @@ Service Broker for AWS has a deploy errand for deploying the service broker, as 
 1. **Post-Deploy Errands** are tasks run after a deployment (Default value is `On`).
 1. **Pre-Deploy Errands** are tasks run before a deployment (Default value is `On`).
 
-<p class="note warning"><strong>Warning:</strong> The deploy and remove broker errands are essential for Service Broker for AWS to function.
-These configurations should both remain set to their default states of `On`.
+<p class="note warning"><strong>Warning:</strong> The <b>Deploy Broker</b> and <b>Remove Broker</b> errands are essential for Service Broker for AWS to function.
+These configurations should both remain set to their default states of <code>On</code>.
 Should these be turned off, unintended behaviour may occur.</p>
 
 
 ###<a id="resource-config"></a>Resource Config
-Resources are errands that require the creation of a Virtual Machine (VM) to perform tasks.
-These VM's get destroyed when the errand is complete.
+Resources define the hardware configurations of the Virtual Machines (VMs) running errands.
+These VMs get destroyed when the errand is complete.
 This pane allows the user to manage the resource usage of Service Broker for AWS.
 
 1. Select the **Resource Config** side-tab
@@ -600,11 +600,13 @@ This pane allows the user to manage the resource usage of Service Broker for AWS
 1. **Remove Broker** controls the errand that removes the service broker
     - (Recommended value is `Automatic: micro (cpu: 1, ram: 1GB, disk: 8GB)`)
 
-<p class="note"><strong>Note:</strong> The recommendation is to use the `Automatic` setting for both the instances and VM type fields. However, any other selection should work.</p>
+<p class="note"><strong>Note:</strong> The recommendation is to use the <code>Automatic</code> setting for both the <b>Instances</b> and <b>VM Type</b> fields. However, any other selection should work.</p>
 
 
 ###<a id="stemcell"></a>Stemcell
-A stemcell is an operating system image. This is the template from which Ops Manager creates the VMs needed for a wide variety of components and products. A minimum version is required, and is dependent on your cloud platform (AWS, Azure, VSphere, etc.).
+A stemcell is a versioned Operating System image wrapped with IaaS specific packaging.
+This is the template from which Ops Manager creates the VMs needed for a wide variety of components and products.
+A minimum version is required, and is dependent on your cloud platform (AWS, Azure, vSphere, etc.).
 
 To access and download the stemcell required for your platform, see [Stemcells for PCF](https://network.pivotal.io/products/stemcells/)
 
