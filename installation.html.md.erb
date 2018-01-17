@@ -183,9 +183,10 @@ Create the policy templates for each service that you will enable, by logging in
 
 
 ##<a id="setup"></a>Step 2: Create Service Broker Database
-The Service Broker for AWS requires access to a MySQL or PostgreSQL database that is highly available and regularly backed up, in order to store its configuration information. Loss of this data will severely affect the ability of the service broker to manage the configured service instances. However, the AWS resources will not be affected. 
 
-The database can be Pivotal MySQL or an external MySQL or PostgreSQL database (including an AWS RDS database). 
+To store its configuration information, the Service Broker for AWS requires access to a MySQL or PostgreSQL database that is highly available and regularly backed up. Loss of this data will severely affect the ability of the service broker to manage the configured service instances. However, the AWS resources will not be affected. 
+
+The database can be Pivotal MySQL or an external MySQL or PostgreSQL database, including an AWS RDS database. 
 
 If you choose to use a Pivotal MySQL database, the service broker will automatically provision the database. 
 
