@@ -83,13 +83,23 @@ mykey2
 <p class="note warning"><strong>Warning:</strong> In addition to removing access to the service instance, 
 deleting a service key <strong>also deletes the underlying IAM user.</strong></p>
 
-To delete a service key, use the `cf delete-service-key` command:
+To delete a service key, use the `cf delete-service-key` command.
+
+`cf delete-service-key YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME` 
+
+Where:
+
+<code>YOUR-SERVICE-INSTANCE</code>: the service instance
+
+<code>SERVIE-KEY-NAME</code>: the name of the servie key
+
+For example:
 
 <pre class="terminal">
-$ cf delete-service-key YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME
+$ cf delete-service-key myawsservice mykey1
 
-Are you sure you want to delete the service key SERVICE-KEY-NAME ? y
-Deleting service key SERVICE-KEY-NAME for service instance YOUR-SERVICE-INSTANCE as me@example.com...
+Are you sure you want to delete the service key mykey1 ? y
+Deleting service key mykey1 for service instance myawsservice as me@example.com...
 
 OK
 </pre>
