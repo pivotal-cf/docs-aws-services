@@ -7,54 +7,68 @@ Service keys provide credentials that you can configure manually
 for consumers of marketplace services. 
 App developers can use these keys to perform tasks against underlying resources
  - for example, S3 buckets or EMR clusters - using the AWS CLI. 
-These tasks are defined by the Operator using service key policy templates.
+These operations are defined by the Operator using service key policy templates.
 
 For more information on Service Key policies, see [Service Key Policies](installation.html#service_key_policies).
 
 ##<a id="create"></a>Create Service Key
 
 Run the following command to create a service key for a service instance:
-<pre class="terminal">$ cf create-service-key YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME</pre>
 
-This command creates a service key for "YOUR-SERVICE-INSTANCE" named "SERVICE-KEY-NAME".
+`cf create-service-key YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME`
+
+Where: 
+`YOUR-SERVICE-INSTANCE`: the service instance 
+`SERVIE-KEY-NAME`: the name you want to give the servie key
+
+For example,
+<pre class="terminal">$ cf create-service-key myawsservice myservicekey</pre>
 
 ##<a id="credentials"></a>Get Credentials for a Service Key
 
 To view the corresponding credentials, run the following command:
-<pre class="terminal">$ cf service-key YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME</pre>
 
-This returns credentials in JSON format, containing the `access_key_id`, `secret_access_key` and the Amazon Resource Name (`arn`) for the underlying resource in AWS. For example, service key credentials for an S3 bucket would return the following:
+`cf service-key YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME`
+
+For example,
+<pre class="terminal">$ cf service-key myawsservice mykey1</pre>
+
+This returns credentials in JSON format, containing the `access_key_id`, `secret_access_key` 
+and the Amazon Resource Name (`arn`) for the underlying resource in AWS. For example, 
+service key credentials for an S3 bucket would return the following:
 
 <pre class="terminal">
 {
  "access_key_id": "AKIAIOSFODNN7EXAMPLE",
- "arn": "arn:aws:s3:::bucket-name",
+ "arn": "arn:aws:s3:::my_corporate_bucket",
  "secret_access_key": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
 }
 </pre>
 
-**EMR Config** introduced in v1.5.0 does not use `arn`, so the `cluster_id` is returned instead:
+**EMR Config**, introduced in v1.5.0, does not use Amazon Resource Names. Therefore the `cluster_id` is returned instead.
+For example:
 
 <pre class="terminal">
 {
-  "cluster_id": "the-emr-cluster-id",
-  "master_public_dns_name": "the-public-dns-name-for-master-node",
-  "region": "some-aws-region",
-  "access_key_id": "some-access-key-id",
-  "secret_access_key": "some-secret-access-key"
+  "cluster_id": "my-emr-cluster",
+  "master_public_dns_name": "ec2-54-164-153-7.compute-1.amazonaws.com",
+  "region": "us-west-2",
+  "access_key_id": "GHBIYEGSFOPZ7EXAMPLE",
+  "secret_access_key": "vKaBlRTmDIVM/P7PLFRA/sPxBliWRYEXAMPLEKEY"
 }
 </pre>
 
-<p class="note"><strong>Note</strong>: When creating a service key, a new IAM user is created with a policy defined by the Operator.
-   This policy can be configured to optionally time out after a time period specified by the Operator.</p>
+<p class="note"><strong>Note</strong>: When you create a service key, a new IAM user is created with a policy defined by the Operator.
+   This policy can be configured to optionally time out after a duration specified by the Operator.</p>
 
 ##<a id="list"></a>List Service Keys for a Service Instance
 
-To list service keys for a service instance, use the `cf service-keys` command:
+To list service keys for a service instance, use the `cf service-keys` command.
+For example:
 
 <pre class="terminal">
-$ cf service-keys YOUR-SERVICE-INSTANCEE
-Getting service keys for service instance YOUR-SERVICE-INSTANCE as me@example.com...
+$ cf service-keys myawsservice
+Getting service keys for service instance myawsservice as me@example.com...
 
 SERVICE-KEY-NAME
 mykey1
@@ -81,9 +95,9 @@ OK
 Add option `-f` to force deletion without confirmation.
 
 <pre class="terminal">
-$ cf delete-service-key -f YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME
+$ cf delete-service-key -f myawsservice mykey1
 
-Deleting service key SERVICE-KEY-NAME for service instance YOUR-SERVICE-INSTANCE as me@example.com...
+Deleting service key mykey1 for service instance myawsservice as me@example.com...
 
 OK
 </pre>
