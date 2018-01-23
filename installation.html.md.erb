@@ -22,7 +22,10 @@ as that user profile has different policy restrictions).</p>
 
 1. Select **Policies** and click **Create Policy**. 
 1. Choose **Create Your Own Policy**. 
-1. Enter `PCFInstallationPolicy` for **Policy Name** and `Installation Policy for PCF` for  **Description**.  
+1. Enter `PCFInstallationPolicy` for **Policy Name** and `Installation Policy for PCF` for  **Description**. 
+<p class="note"><strong>Note</strong>: The Service Broker for AWS also allows a custom name for the `PCFInstallationPolicy`. 
+If you wish to use a custom name, provide it here instead of `PCFInstallationPolicy`. 
+Later, during Broker Configuration, you will need to enter this custom name.</p>  
 1. Copy the following text into the **Policy Document** section:
 
             {
@@ -77,12 +80,6 @@ as that user profile has different policy restrictions).</p>
 1. Click **Create Policy**. This creates an AWS policy that you must apply to every IAM user you create for the Service Broker for AWS. 
 1. For each IAM user, click the user name > **Permissions** tab > **Attach Policy** and select **PCFInstallationPolicy**. 
 1. Record the **AWS Access Key ID** and **Secret Access Key** for each of your PCF IAM accounts for later use.
-
-<p class="note"><strong>Note</strong>: The Service Broker for AWS also allows a custom name for the `PCFInstallationPolicy`.</p> 
-
-<b>To use the default name:</b> follow the steps above for configuring the `PCFInstallationPolicy` policy. 
-
-<b>To use a custom name:</b> In the steps above, use a custom name instead of `PCFInstallationPolicy`. Later, during Broker Configuration, you will need to enter this custom name. 
 
 ### Set Up EMR Policy 
 Amazon Elastic MapReduce (EMR) is a managed cluster platform for AWS that simplifies running big data frameworks, such as Apache Hadoop and Apache Spark, to process and analyze vast amounts of data. The PCF EMR Service Broker enables users to provision and manage an Amazon EMR cluster.
@@ -503,11 +500,8 @@ The setup in Step 1 must be successfully completed before beginning this configu
 </table>
 
 
-
-
-
 2. For **App Instances**, enter the number of instances of the service broker you want to run. The default is `2`.
-3. Do not change the **Broker IAM Policy Name** unless you configured a custom policy name earlier. 
+3. Do not change the **Broker IAM Policy Name** unless you configured a custom policy name as described in [Set Up AWS](#setup), above. 
 4. For **Backing Database**, choose the database type for the Service Broker Configuration. 
 5. If you chose **Pivotal MySQL** enter the **Plan Name** to be used (e.g. 100mb) and a unique database name. The database will be created during deployment if it does not exist. 
 6. If you chose **External MySQL** or **External Postgres**:
@@ -529,7 +523,7 @@ Note: in the following sections that configure AWS Services, if you don't want t
 
 1. Select **Enable in Marketplace** if you want to enable the service in the Services Marketplace.
 
-1. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy earlier. 
+1. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy as described in [Service Key Policies](#service_key_policies). 
 
 1. The **Quota Limit** restricts the total number of instances, setting it to 0 will disable it.
 
@@ -543,7 +537,7 @@ Note: in the following sections that configure AWS Services, if you don't want t
 
 1. Under **Override Default AWS Availability Zone** select the default Availability Zone for RDS database instances.
 1. The **RDS Instance Prefix** is set to "cf" by default. It is the prefix for creating RDS database instances.
-1. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy earlier. 
+1. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy as described in [Service Key Policies](#service_key_policies). 
 1. The **Networking** section allows you to configure whether to use the Default VPC or a Custom VPC, and whether the instance is publicly accessible. For a Custom VPC, enter the DB Subnet Group Name and the VPC Security Group(s). 
 1. The setting **Enable Storage Encryption** is off by default. You can enable RDS encryption for a database instance. However, not all regions and DB instance classes support encryption so if you enable this option, you will need to change the default plans to remove those that don't support encryption. More information is available [here.](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Encryption.html#d0e21710)
 
@@ -585,7 +579,7 @@ Note: in the following sections that configure AWS Services, if you don't want t
     <%= image_tag("images/aws-sb-s3config.png") %>
 1. Under **Override Default AWS Region**, select the default AWS region for this service.
 1. Select **Enable in Marketplace** to enable the service in the Services Marketplace.
-2. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy earlier. 
+2. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy as described in [Service Key Policies](#service_key_policies). 
 3. The **Quota Limit** restricts the total number of instances, setting it to 0 will disable it. 
 2. Enter the **Bucket Prefix**, a short name to prefix all bucket names.
 3. S3 has one default plan called "standard", but in Service Broker for AWS 1.4 and later you can add more. A service plan can require an S3 bucket to be encrypted by creating an AWS KMS Key (see AWS SSE-KMS) and entering the KMS key ARN in the service plan configuration. 
@@ -600,7 +594,7 @@ Note: in the following sections that configure AWS Services, if you don't want t
     <%= image_tag("images/aws-sb-sqsconfig.png") %>
 2. Under **Override Default AWS Region**, select the default AWS region for this service.
 3. Select **Enable in Marketplace** to enable the service in the Services Marketplace.
-4. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy earlier. 
+4. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy as described in [Service Key Policies](#service_key_policies). 
 5. The **Quota Limit** restricts the total number of instances, setting it to 0 will disable it. 
 6. For **Queue Prefix**, enter the queue name prefix that will be used for filtering list results.
 7. For **Default Visibility Timeout**, enter the length of time during which the queue will be unavailable once a message is delivered from the queue.
@@ -625,7 +619,8 @@ More information on AWS SQS queue properties is available [here](http://docs.aws
 1. The **Enable in Marketplace** option should be checked by default.
 1. The **EMR Service Role** enables EMR to call other AWS Services, such as EC2, on your behalf. Populate this field with the Service Role you provided during setup. The recommended value is `PCF_EMR_Service_Role`.
 1. The **EC2 Instance Profile** provides access to other AWS services, such as S3 and DynamoDB, from EC2 instances launched by EMR. The recommended value is `PCF_EMR_EC2_Instance_Profile`.
-1. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy earlier. This is the name of the managed policy that is attached to credentials generated by the Create Service Key command. The recommended value is `PCFAppDeveloperPolicy-emr`.
+1. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy as described in [Service Key Policies](#service_key_policies). 
+This is the name of the managed policy that is attached to credentials generated by the Create Service Key command. The recommended value is `PCFAppDeveloperPolicy-emr`.
 1. The **Bind Policy Name** is the name of the managed policy that is attached to credentials generated by the bind operation. The recommended value is `PCFAppBindPolicy-emr`.
 
 1. The **EMR Instance Prefix** is the value used as the prefix for EMR cluster identifiers and related cloudformation stacks in AWS. The recommended value is `cf`.
