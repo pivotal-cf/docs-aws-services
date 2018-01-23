@@ -422,17 +422,90 @@ The setup in Step 1 must be successfully completed before beginning this configu
 
 1. Select the **AWS Config** side-tab.
     <%= image_tag("aws-sb-awsconfig.png") %>
-2. Enter the **AWS Access Key ID** and the **Secret Access Key** from [Step 1](#setup).
-3. Enter the **Temporary Credentials Timeout** value in minutes. This is the time after which service key credentials will expire. To disable expiry of the credentials, enter 0. 
-4. Modify the **AWS Endpoint** ONLY if you are using Amazon's Commercial Cloud Service. Otherwise, leave it at Default. 
-5. For **Default Region**, enter the AWS region to use as the default. You can change this later for a particular service.
-6. For **Default Availability Zone**, enter the AWS Availability Zone to use as the default. This default Availability Zone will only be used where Multi-AZ is not selected.
-7. The broker automatically creates AWS tags for the service plan GUID and the org-space GUID. You can also configure default tags to add for each AWS resource by entering them in the **Default Tags** text box, separated by a space. For example, `owner=operations env=production app=payroll`.
-8. Click **Save**.
+
+1. Fill out the fields on the **AWS Config** pane:
+<table class="nice">
+        <th>Field</th>
+        <th>Description</th>
+        <tr><td><strong>Access Key ID</strong></td>
+                <td>!!!WIP: Enter the **AWS Access Key ID** from [Step 1](#setup).</td>
+        </tr>
+        <tr><td><strong>Secret Access Key</strong></td>
+                <td>!!!WIP: Enter the **Secret Access Key** from [Step 1](#setup).</td>
+        </tr>
+        <tr><td><strong>Temporary Credentials Timeout</strong></td>
+                <td>Value stated in minutes.<br>
+                    This is the time after which service key credentials will expire.<br>
+                    To disable credential expiry, use a value of <code>0</code>.</td>
+        </tr>
+        <tr><td><strong>AWS Endpoint</strong></td>
+                <td>Only modify this field if you are using Amazon’s Commercial Cloud Service.<br>
+                    Otherwise, leave it as <code>Default</code>.</td>
+        </tr>
+        <tr><td><strong>Default Region</strong></td>
+                <td>This is the AWS region that will be used as the default.<br>
+                    You can change this later for a particular service.</td>
+        </tr>
+        <tr><td><strong>Default Availability Zone</strong></td>
+                <td>This is the AWS Availability Zone that will be used as the default.<br>
+                    This default will only be used where Multi-AZ is not selected.</td>
+        </tr>
+        <tr><td><strong>Default Tags</strong></td>
+                <td>The broker automatically creates AWS tags for the service plan GUID
+                    and the org-space GUID.<br>
+                    You can also configure default tags to add for each AWS resource by entering them in the Default Tags text box, separated by a space.<br><br>
+                    For example: <code>owner=operations env=production app=payroll</code>.</td>
+        </tr>
+</table>
+
+1. Click **Save**.
 
 ###<a id="broker-config"></a>Broker Config
 1. Select the **Broker Config** side-tab.
     <%= image_tag("images/aws-sb-brokerconfig.png") %>
+
+<table class="nice">
+        <th>Field</th>
+        <th>Description</th>
+        <tr><td><strong>App Instances</strong></td>
+                <td>!!!WIP: Enter the **AWS Access Key ID** from [Step 1](#setup).</td>
+        </tr>
+        <tr><td><strong>Broker IAM Policy Name</strong></td>
+                <td>!!!WIP: Enter the **AWS Access Key ID** from [Step 1](#setup).</td>
+        </tr>
+        <tr><td><strong>Pivotal MySQL > Plan Name</strong></td>
+                <td>Pivotal MySQL enter the Plan Name to be used (e.g. 100mb) and a unique database name.<br>
+                    The database will be created during deployment if it does not exist.</td>
+        </tr>
+        <tr><td><strong>External MySQL / External Postgres</strong></td>
+                <td><ul>
+                    <li>Database Host
+                        <ul>
+                            <li>Enter the IP address of the database where the Service Broker for AWS will store configuration information.<br>
+                                !!!WIP: You can use the database you created in the AWS RDS console in [Step 1](#setup), or choose to use an existing database.
+                            </li>
+                        </ul>
+                    <li> Database Port
+                        <ul>
+                            <li>Enter the port number of your database.<br>
+                                The default for <b>PostgreSQL</b> is <code>5432</code> and the default for <b>MySQL</b> is <code>3306</code>.
+                            </li>
+                        </ul>
+                    <li> Database Username / Password
+                    <li> Database Port
+                    </ul>
+                </td>
+        </tr>
+        <tr><td><strong>Database SSL Connection</strong></td>
+                <td>Select <code>Enabled</code> if you want to encrypt traffic to your database, and add your custom root certificate in the Root Certificate text box.<br>
+                    Otherwise, select <code>Disabled</code>.</td>
+        </tr>
+</table>
+
+
+
+
+
 2. For **App Instances**, enter the number of instances of the service broker you want to run. The default is `2`.
 3. Do not change the **Broker IAM Policy Name** unless you configured a custom policy name earlier. 
 4. For **Backing Database**, choose the database type for the Service Broker Configuration. 
