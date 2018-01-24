@@ -112,7 +112,9 @@ By default, the AWS Broker uses `PCF_EMR_Service_Role` and `PCF_EMR_EC2_Instance
 1. In the **Select your use case** section, click **EMR**, which is followed by the description "Allows Elastic MapReduce to call AWS services such as EC2 on your behalf."
 1. Click **Next:Permissions**.
 1. The **Attached permissions policy** page should state that the type of role you selected requires the **AmazonElasticMapReduceRole** policy. Click **Next:Review**.
-1. On the Review page, provide a **Role name** and a **Role description**. Pivotal recommends using `PCF_EMR_Service_Role` as the name and `EMR Service Role for AWS Broker` as the description.
+1. On the Review page, provide a **Role name** and a **Role description**. Pivotal recommends using 
+`PCF_EMR_Service_Role` as the name, and 
+`EMR Service Role for AWS Broker` as the description.
 1. Click **Create role**.
 
 **Create the EMR EC2 Instance Profile (Required)**
@@ -121,7 +123,9 @@ By default, the AWS Broker uses `PCF_EMR_Service_Role` and `PCF_EMR_EC2_Instance
 1. In the **Select type of trusted entity** section, click **AWS service.**
 1. In the **Choose the service that will use this role** section, click **EMR**.
 1. In the **Select your use case** section, click **EMR Role for EC2**, which is followed by the description "Allows EC2 instances in an Elastic MapReduce cluster to call AWS services such as S3 on your behalf."
-1. On the Review page, provide a **Role name** and a **Role description**. Pivotal recommends using `PCF_EMR_EC2_Instance_Profile` as the name, and `EMR EC2 Instance Profile for AWS Broker` as the description.
+1. On the Review page, provide a **Role name** and a **Role description**. Pivotal recommends using
+ `PCF_EMR_EC2_Instance_Profile` as the name, and 
+ `EMR EC2 Instance Profile for AWS Broker` as the description.
 1. After you have created the role, select **Roles**. From the **Role name** list, click `PCF_EMR_EC2_Instance_Profile` or whatever name you used for the role that you just created. On the  **Summary** page for the role, verify that it has an associated **Instance Profile ARN**. The Amazon Resource Name (ARN) is a string value.
 
 **Create the EMR Auto Scaling Role (Optional)**
@@ -165,7 +169,7 @@ Create the policy templates for each service that you will enable by logging int
 
 1. Select **Policies** and click **Create Policy**. 
 1. Choose **Create Your Own Policy**. 
-1. Enter `PCFAppDeveloperPolicy-s3` for **Policy Name** and `Service Broker for AWS Service Key policy for S3` for  **Description**.
+1. Enter `PCFAppDeveloperPolicy-s3` for the **Policy Name** and `Service Broker for AWS Service Key policy for S3` for the **Description**.
 1. Enter the following text in the **Policy Document** section, or create your own policy template.
 
             {
@@ -187,7 +191,7 @@ Create the policy templates for each service that you will enable by logging int
 
 1. Click **Validate Policy** to check for errors. 
 1. Click **Create Policy**. This creates an AWS policy that you must apply to every IAM user you create for the Service Broker for AWS. 
-1. Repeat steps 1-6 for `PCFAppDeveloperPolicy-sqs` `PCFAppDeveloperPolicy-dynamodb` `PCFAppDeveloperPolicy-rds` and `PCFAppDeveloperPolicy-emr`; using or modifying the examples below.
+1. Repeat steps 1-6 for `PCFAppDeveloperPolicy-sqs` `PCFAppDeveloperPolicy-dynamodb` `PCFAppDeveloperPolicy-rds` and `PCFAppDeveloperPolicy-emr`, using or modifying the examples below.
 
 <strong>`PCFAppDeveloperPolicy-sqs` Example</strong>
 
@@ -513,7 +517,7 @@ The setup in Step 1 must be successfully completed before beginning this configu
 7. Under **Database SSL Connection**, select **Enabled** if you want to encrypt traffic to your database and add your custom root certificate in the **Root Certificate** text box. Otherwise, select **Disabled**.
 8. Click **Save**.
 
-Note: in the following sections that configure AWS Services, if you don't want to offer that specific service in your PCF Marketplace then simply clear the **Enable in Marketplace** checkbox.
+Note: in the following sections that configure AWS Services, if you don't want to offer that specific service in your PCF Marketplace, simply clear the **Enable in Marketplace** checkbox.
 
 
 ###<a id="dynamodb-config"></a>DynamoDB Config
@@ -585,7 +589,7 @@ Note: in the following sections that configure AWS Services, if you don't want t
 2. Enter the **Bucket Prefix**, a short name to prefix all bucket names.
 3. S3 has one default plan called "standard", but in Service Broker for AWS 1.4 and later you can add more. A service plan can require an S3 bucket to be encrypted by creating an AWS KMS Key (see AWS SSE-KMS) and entering the KMS key ARN in the service plan configuration. 
         <%= image_tag("images/aws-sb-s3plans.png") %>
-4. Click "Save" to store the changed settings.
+4. Click **Save** to store the changed settings.
 1. Click **Installation Dashboard** to return to the Ops Manager Installation Dashboard.
 1. Click **Apply Changes** to install the product.
 
@@ -646,14 +650,14 @@ This is the name of the managed policy that is attached to credentials generated
 Errands are tasks that are needed to support various operations of brokers, or PCF installations. They are scripts that run at designated points during an installation. These can include installation, test, or deletion.
 Service Broker for AWS has a deploy errand for deploying the service broker, as well as a remove errand, to remove the broker.
 
-1. Select the **Errands** side-tab
+1. Select the **Errands** side-tab.
     <%= image_tag("images/aws-sb-errands.png") %>
 1. **Post-Deploy Errands** are tasks run after a deployment (Default value is `On`).
 1. **Pre-Deploy Errands** are tasks run before a deployment (Default value is `On`).
 
 <p class="note warning"><strong>Warning:</strong> The <b>Deploy Broker</b> and <b>Remove Broker</b> errands are essential for Service Broker for AWS to function.
 These configurations should both remain set to their default states of <code>On</code>.
-Should these be turned off, unintended behaviour may occur.</p>
+Should these be turned off, unintended behavior may occur.</p>
 
 
 ###<a id="resource-config"></a>Resource Config
@@ -661,7 +665,7 @@ Resources define the hardware configurations of the Virtual Machines (VMs) runni
 These VMs get destroyed when the errand is complete.
 This pane allows the user to manage the resource usage of Service Broker for AWS.
 
-1. Select the **Resource Config** side-tab
+1. Select the **Resource Config** side-tab.
     <%= image_tag("images/aws-sb-resourceconfig.png") %>
 1. **Deploy Broker** controls the errand that deploys the service broker
     - (Recommended value is `Automatic: micro (cpu: 1, ram: 1GB, disk: 8GB)`)
@@ -679,7 +683,7 @@ A minimum version is required, and is dependent on your cloud platform (AWS, Azu
 
 To access and download the stemcell required for your platform, see [Stemcells for PCF](https://network.pivotal.io/products/stemcells/)
 
-1. Select the **Stemcell** side-tab
+1. Select the **Stemcell** side-tab.
     <%= image_tag("images/aws-sb-stemcell.png") %>
 1. **Import Stemcell** allows the User to add the stemcell for their platform to Ops Manager.
 
@@ -692,6 +696,8 @@ Follow the steps below to confirm your AWS Service Broker installation.
 1. After Ops Manager finishes the installation, the **Service Broker for AWS** tile appears on the **Installation Dashboard**.
 
     <%= image_tag("images/aws-sb-install.png") %>
-1. In Apps Manager, all orgs and spaces show the new services in the Services Marketplace. Users can create instances of these services through Apps Manager or by using the cf CLI. Review [Creating and Managing Service Instances](creating.html) for more information.
+1. In Apps Manager, all Orgs and Spaces show the new services in the Services Marketplace. 
+Users can create instances of these services through Apps Manager or by using the cf CLI. 
+Review [Creating and Managing Service Instances](creating.html) for more information.
 
     <%= image_tag("images/aws-sb-marketplace.png") %>
