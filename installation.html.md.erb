@@ -161,7 +161,10 @@ Under Permissions**. At this step, select **Custom**.
 For more information about creating IAM roles, see [Configure IAM Roles and the Amazon EC2 Instance Profile to Access Other AWS Services](http://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-iam-roles.html).
 
 ###<a id="service_key_policies"></a>Service Key Policies
-The Service Broker for AWS allows app developers to create service keys for their service instances. Creating a service key creates an IAM user with a templated policy and provides the developer with Access Key credentials to the actions listed in the policies below.
+The Service Broker for AWS allows app developers to create service keys for their service instances. 
+Creating a service key creates an IAM user with a templated policy 
+and provides the developer with Access Key credentials to the actions listed in the policies below.
+For more information on creating service keys, see [Create Service Key](./servicekeys.html#create).
 
 As of v1.1.0, Service Key policy names are configurable. You can choose your own policy name and configure that name in each service by updating the **Service Key Policy Name** field. The default names are used below. 
 
@@ -554,7 +557,7 @@ Note: in the following sections that configure AWS Services, if you don't want t
     * **premium**: For a mid-sized database (multi-AZ, 4 vCPU, 15GB).
     * **enterprise**: For a large database (multi-AZ, 8 vCPU, 32GB).
 
-1. You can view and edit the configuration of existing plans by clicking the arrow next to their names.
+1. You can view and edit the configuration of existing plans by clicking the arrow next to the plan name.
     <%= image_tag("images/aws-sb-rdseditplan.png") %>
     <p class="note"><strong>Note</strong>: If you edit an existing service plan, only future instances of that services plan will be changed. Ask your Admin to modify existing instances.</p>
 1. You can also create a new custom plan by clicking the **Add** button and completing the following fields:
