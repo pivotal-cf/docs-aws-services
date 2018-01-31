@@ -324,7 +324,9 @@ To create the bind key policy template for EMR, log in to the AWS console and fo
 
 
 ##<a id="create-database"></a>Step 2: Create a Service Broker Database
-The Service Broker for AWS requires access to a MySQL or PostgreSQL database that is highly available and regularly backed up in order to store its configuration information. Loss of this data will severely affect the ability of the service broker to manage configured service instances. However, the AWS resources will not be affected. 
+To store its configuration information, the Service Broker for AWS requires access to a MySQL or PostgreSQL database that is highly available and regularly backed up.
+Loss of this data will severely affect the ability of the service broker to manage configured service instances.
+However, the AWS resources will not be affected. 
 
 The database can be Pivotal MySQL, an external MySQL, or a PostgreSQL database (including an AWS RDS database). 
 
