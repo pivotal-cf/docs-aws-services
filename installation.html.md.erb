@@ -15,10 +15,14 @@ This topic describes how to install the Service Broker for AWS by configuring yo
 To configure your AWS account to enable the Service Broker 
 to create and manage resources, you must complete several tasks.
 
-1. First, you must (create a new Identity and Access Management user)[create-iam-user]. An IAM user is a
+1. First, [create a new Identity and Access Management user](#create-iam-user). An Identity and Access Management (IAM) user is a
 persona with a set of attached permissions that can be used by the person or service interacting with AWS.
+1. If you are using EMR clusters, (set up your EMR policy)[#emr-policy]. On the Amazon console, you will "attach" an EMR policy 
+to your IAM user.
+1. Create a (Service Key policy)[#service_key_policies#]. Service Key policies specify the permissions provided by a service key.
+1. Create a (Bind Key policy)[#bind_key_policies]. The Bind Key policy specifies bind actions for the service.
 
-### <a id="create-iam-user"></a>Create a New IAM User 
+###<a id="create-iam-user"></a>Create a New IAM User 
 
 Create a new Identity and Access Management (IAM) user for the PCF cluster in the **AWS IAM** console by following the procedure below. 
 <p class="note"><strong>Note</strong>: If you have more than one PCF deployment, you must create an IAM user for each deployment. 
@@ -87,7 +91,7 @@ Later, during Broker Configuration, you will need to enter this custom name.</p>
 1. Record the **AWS Access Key ID** and **Secret Access Key** for each of your PCF IAM accounts for later use.
 
 
-### <a id="emr-policy"></a>Set Up EMR Policy 
+###<a id="emr-policy"></a>Set Up EMR Policy 
 Amazon Elastic MapReduce (EMR) is a managed cluster platform for AWS that simplifies running big data frameworks, such as Apache Hadoop and Apache Spark, to process and analyze vast amounts of data. The PCF EMR Service Broker enables users to provision and manage an Amazon EMR cluster.
 
 Prerequisite: You must first create your AWS IAM user before you can configure the EMR policy. 
@@ -292,7 +296,7 @@ Create the policy templates for each service that you will enable by logging int
 }
 ```
 
-###Bind Key Policies
+###<a id="bind_key_policies"></a>Bind Key Policies
 In v1.5.0 of the AWS Services Broker, EMR setup requires that you specify a Bind Key policy separately from a Service Key policy. 
 
 EMR does not use ARNs for access control, so the `Resource` you use to set up the policy must be `*`.
