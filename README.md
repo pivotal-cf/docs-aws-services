@@ -11,7 +11,6 @@ Use **master** for next the unreleased version, and numbered branches for the co
 | v1.10         | obsolete, (need to verify before we delete the branch) | Related to OpsMan Version? |
 | v1.8        | obsolete, (need to verify before we delete the branch) | Related to OpsMan Version? |
 | v1.6      | obsolete, (need to verify before we delete the branch) | Related to OpsMan Version? |
-| revert-5-144Docs         | obsolete, but do not delete the branch | Old Branch? |
 
 Ideally once the branches are cleaned up, "master" will be the current live version.
 At the momenth, 1.5.0 is the edge branch with the most current information, and will eventually be merged into master.
