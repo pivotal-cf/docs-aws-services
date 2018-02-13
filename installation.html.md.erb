@@ -297,7 +297,7 @@ Create the policy templates for each service that you will enable by logging int
 ```
 
 ###<a id="bind_key_policies"></a>Bind Key Policies
-In v1.5.0 of the AWS Services Broker, EMR setup requires that you specify a Bind Key policy separately from a Service Key policy. 
+In v1.5.x of the AWS Services Broker, EMR setup requires that you specify a Bind Key policy separately from a Service Key policy. 
 
 EMR does not use ARNs for access control, so the `Resource` you use to set up the policy must be `*`.
 Because access control is enforced with cluster tagging, Pivotal recommends ensuring that 
