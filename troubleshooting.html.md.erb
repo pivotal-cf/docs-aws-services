@@ -3,25 +3,47 @@ breadcrumb: PCF Services
 title: Troubleshooting
 ---
 
-##Tile Deployment Token ID Error
-As a PCF operator, when deploying the tile by clicking **Apply Changes**, I get the following error:<br>
-<em>"A client error (InvalidClientTokenId) occurred when calling the GetUser operation: The security token included in the request is invalid.</em>"
+This topic presents some common problems and errors encountered with the Pivotal Cloud Foundry Service Broker for AWS (Service Broker for AWS). 
 
-**Reason:**<br>
-The AWS credentials are not valid. Please recheck them or recreate the credentials.
+## Troubleshooting for Operators
+
+Review this list when you, as an operator, troubleshoot the Service Broker for AWS. 
+
+<table class="nice">
+    <th>Symptom</th>
+    <th>Reason</th>
+    <th>Solution</th>
+  	<tr>
+    	<td>Tile deployment token ID error<br><br>
+    		After clicking <strong>Apply Changes</strong> to deploy the tile, I get this error:
+    		<code>A client error (InvalidClientTokenId) occurred when calling the GetUser operation: The security token included in the request is invalid.</code></td>
+    	<td>The AWS credentials are invalid.</td>
+    	<td>Verify or re-create the credentials. 
+		Q: Is there a cross-reference for checking or creating credentials?</td>
+  	</tr>
+  	<tr>
+    	<td>Unable to remove the AWS broker<br><br>
+    		When deleting the Service Broker for AWS tile, I get this error:
+    		<code>Can not remove brokers that have associated service instances</code></td>
+    	<td>The service broker has active service instances.</td>
+    	<td>Delete active service instances and try again to delete the tile.</td>
+  	</tr>
+</table>
 
 
-##Unable to Remove the AWS Broker
-As a PCF operator, when deleting the product tile, I get the following error:<br>
-<em>"Can not remove brokers that have associated service instances"</em>.
+## Troubleshooting for Developers
 
-**Reason:**<br>
-Your service broker currently has service instances that are active. They must be deleted before the tile can be deleted.
+Review this list when you, as a developer, troubleshoot the Service Broker for AWS. 
 
-
-##Service Creation Token ID Error
-As a developer, when trying to create a service, I get the following error:<br>
-<em>"Service broker error: InvalidClientTokenId: The security token included in the request is invalid."</em>
-
-**Reason:**<br>
-The AWS credentials are not valid. Please ask your PCF operator to recheck them or recreate the credentials.
+<table class="nice">
+    <th>Symptom</th>
+    <th>Reason</th>
+    <th>Solution</th>
+  	<tr>
+    	<td>Service creation token ID error<br><br>
+    		When trying to create a service, I get this error: 
+    		<code>Service broker error: InvalidClientTokenId: The security token included in the request is invalid.</code></td>
+    <td>The AWS credentials are invalid.</td>
+    <td>Ask your operator to verify or re-create the credentials. </td>
+  	</tr>
+</table>
