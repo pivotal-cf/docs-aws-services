@@ -18,15 +18,17 @@ Review this list when you, as an operator, troubleshoot the Service Broker for A
     		After clicking <strong>Apply Changes</strong> to deploy the tile, I get this error:
     		<code>A client error (InvalidClientTokenId) occurred when calling the GetUser operation: The security token included in the request is invalid.</code></td>
     	<td>The AWS credentials are invalid.</td>
-    	<td>Verify or re-create the credentials. 
-		Q: Is there a cross-reference for checking or creating credentials?</td>
+    	<td>Verify or re-create the credentials found on the <strong>AWS Config</strong> pane in the <strong>Access Key ID</strong> and <strong>Secret Access Key</strong> fields.<br><br>
+      For more information, see <a href="installation.html#aws-config">AWS Config</a>.
+    </td>
   	</tr>
   	<tr>
     	<td>Unable to remove the AWS broker<br><br>
     		When deleting the Service Broker for AWS tile, I get this error:
     		<code>Can not remove brokers that have associated service instances</code></td>
     	<td>The service broker has active service instances.</td>
-    	<td>Delete active service instances and try again to delete the tile.</td>
+    	<td>Delete active service instances and try again to delete the tile.<br><br>
+        For more information, see <a href="creating.html#delete">Delete a Service Instance</a>.</td>
   	</tr>
 </table>
 
@@ -44,6 +46,6 @@ Review this list when you, as a developer, troubleshoot the Service Broker for A
     		When trying to create a service, I get this error: 
     		<code>Service broker error: InvalidClientTokenId: The security token included in the request is invalid.</code></td>
     <td>The AWS credentials are invalid.</td>
-    <td>Ask your operator to verify or re-create the credentials. </td>
+    <td>Ask your operator to verify or re-create the AWS credentials. </td>
   	</tr>
 </table>
