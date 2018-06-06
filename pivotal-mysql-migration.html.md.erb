@@ -1,0 +1,184 @@
+---
+breadcrumb: PCF Services
+title: Pivotal MySQL Migration
+---
+
+### Upgrading to Pivotal's MySQL v2
+
+MySQL for PCF v2 introduces the On-Demand Service, which provides dedicated instances of MySQL that App Developers can provision on-demand from the command line.
+
+This guide will instruct you how to migrate the broker to use this new version of the Pivotal MySQL service.
+
+### Instructions
+
+#### Prerequisites
+
+* The latest Cloud Foundry CLI [available here](https://github.com/cloudfoundry/cli)
+* Cloud Foundry credentials to access the org and space of the broker
+
+##### 1. Install the Pivotal MySQL Plugin for the Cloud Foundry CLI
+
+To migrate your data to the new service a plugin for the Cloud Foundry CLI is available.
+
+You can install the plugin using the following commands
+
+```bash
+$ cf install-plugin -f -r CF-Community "MysqlTools"
+```
+
+You can verify the installation using the following commands
+
+```bash
+$ cf mysql-tools -h
+```
+
+##### 2. Stop the AWS Services Broker
+
+Login into your Cloud Foundry deployment
+
+```bash
+$ cf api $YOUR_CLOUD_FOUNDRY_API
+$ cf login
+```
+
+The broker is deployed in the `system` org in the `iaas-brokers` space.
+Target this space verfiy you see the broker.
+
+```bash
+$ cf target -o system -s iaas-brokers
+api endpoint:   https://api.sys.my-domain.com
+api version:    2.94.0
+user:           admin
+org:            system
+space:          iaas-brokers
+
+$ cf app aws-services-broker
+Showing health and status for app aws-services-broker in org system / space iaas-brokers as admin...
+
+name:              aws-services-broker
+requested state:   started
+instances:         2/2
+usage:             64M x 2 instances
+routes:            aws-services-broker.sys.my-domain.com
+last uploaded:     Tue 05 Jun 14:46:50 EDT 2018
+stack:             cflinuxfs2
+buildpack:         go_buildpack
+
+     state     since                  cpu    memory         disk          details
+#0   running   2018-06-05T18:47:39Z   0.0%   12.4M of 64M   47.4M of 1G
+#1   running   2018-06-05T18:47:39Z   0.0%   12.5M of 64M   47.4M of 1G
+```
+
+Additionally you should see your Pivotal MySQL v1 database instance bound to the broker.
+
+```bash
+$ cf services
+Getting services in org system / space iaas-brokers as admin...
+
+name            service   plan    bound apps            last operation
+aws-broker-db   p-mysql   100mb   aws-services-broker   create succeeded
+```
+
+Now let's stop the broker
+
+```bash
+$ cf stop aws-services-broker
+Stopping app aws-services-broker in org system / space iaas-brokers as admin...
+OK
+```
+
+Unbind the database from the broker
+
+```bash
+$ cf unbind-service aws-services-broker aws-broker-db
+```
+
+##### 3. Use the MySQL Tool Plugin to perform the migration
+
+Determine the plan you want to migrate to
+
+```bash
+$ cf marketplace -s p.mysql
+Getting service plan information for service p.mysql as admin...
+OK
+
+service plan   description                                             free or paid
+db-small       This plan provides a small dedicated MySQL instance.    free
+db-medium      This plan provides a medium dedicated MySQL instance.   free
+db-large       This plan provides a large dedicated MySQL instance.    free
+```
+
+For illustrative purposes the instructions will use the plan type `db-small`. Given that our service instance was is named `aws-broker-db` then we perform the migration using the following command
+
+```bash
+$ cf mysql-tools migrate aws-broker-db db-small
+2018/06/06 09:11:53 Creating new service instance "aws-broker-db-new" for service p.mysql using plan db-small
+2018/06/06 09:16:05 Unpacking assets for migration to /var/folders/qn/bxc0sm8j5dgcx260_4r3vr7w0000gn/T/migrate_app_335236385
+2018/06/06 09:16:05 Started to push app
+Done uploading
+2018/06/06 09:16:15 Successfully pushed app
+2018/06/06 09:16:16 Successfully bound app to v1 instance
+2018/06/06 09:16:18 Successfully bound app to v2 instance
+2018/06/06 09:16:18 Starting migration app
+2018/06/06 09:16:33 Started to run migration task
+2018/06/06 09:16:37 Migration completed successfully
+```
+
+The migration tool renamed the old database. In our example it would be called `aws-broker-db-old`
+
+```bash
+$ cf services
+Getting services in org system / space iaas-brokers as admin...
+
+name                service   plan       bound apps            last operation
+aws-broker-db-old   p-mysql   100mb                            update succeeded
+aws-broker-db       p.mysql   db-small                         update succeeded
+```
+
+##### 4. Switch the broker's backing store the the new database
+
+Bind our new database to the broker
+
+```bash
+$ cf bind-service aws-services-broker aws-broker-db
+Binding service aws-broker-db to app aws-services-broker in org system / space iaas-brokers as admin...
+OK
+```
+
+Start the broker
+
+```bash
+$ cf start aws-services-broker
+Starting app aws-services-broker in org system / space iaas-brokers as admin...
+
+Waiting for app to start...
+
+name:              aws-services-broker
+requested state:   started
+instances:         2/2
+usage:             64M x 2 instances
+routes:            aws-services-broker.my-domain.com
+last uploaded:     Wed 06 Jun 10:23:12 EDT 2018
+stack:             cflinuxfs2
+buildpack:         go_buildpack
+start command:     bin/aws-services-broker
+
+     state     since                  cpu    memory         disk          details
+#0   running   2018-06-06T14:26:48Z   0.0%   11.7M of 64M   47.4M of 1G
+#1   running   2018-06-06T14:26:49Z   0.0%   11.8M of 64M   47.4M of 1G
+```
+
+##### 5. Validate behaviour and cleanup the old database
+
+Prior to deleting the old database instance validate the broker behaves correctly. This can be done by creating some new AWS service instances and deleting them. If everything behaves as normal delete the old database using the following command
+
+```bash
+$ cf delete-service -f aws-broker-db-old
+Deleting service aws-broker-db-old in org system / space iaas-brokers as admin...
+OK
+```
+
+##### 6. Update the tile to reflect the plan changes
+
+Although we've migrated our database we should update the plan name in the `Broker Config` section to be consistent with what was selected above. Performing this change won't have any effect.
+
