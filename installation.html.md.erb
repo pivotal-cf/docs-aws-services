@@ -9,7 +9,7 @@ This topic describes how to install the Service Broker for AWS by configuring yo
 
 * Pivotal Cloud Foundry version 1.8 or higher
 * An Amazon Web Services (AWS) account
-* Pivotal MySQL, or an already-created MySQL or PostgreSQL database
+* Pivotal MySQL (v2), or an already-created MySQL or PostgreSQL database
 
 ##<a id="setup"></a>Step 1: Set Up AWS
 
@@ -186,9 +186,9 @@ Create the policy templates for each service that you will enable, by logging in
 
 To store its configuration information, the Service Broker for AWS requires access to a MySQL or PostgreSQL database that is highly available and regularly backed up. Loss of this data will severely affect the ability of the service broker to manage the configured service instances. However, the AWS resources will not be affected. 
 
-The database can be Pivotal MySQL or an external MySQL or PostgreSQL database, including an AWS RDS database. 
+The database can be Pivotal MySQL (v2) or an external MySQL or PostgreSQL database, including an AWS RDS database.
 
-If you choose to use a Pivotal MySQL database, the service broker will automatically provision the database. 
+If you choose to use a Pivotal MySQL (v2) database, the service broker will automatically provision the database.
 
 If you choose to use an RDS MySQL or RDS PostgreSQL database, follow these steps:
 
@@ -302,7 +302,7 @@ The setup in Step 1 must be successfully completed before beginning this configu
 2. For **App Instances**, enter the number of instances of the service broker you want to run. The default is `2`.
 3. Do not change the **Broker IAM Policy Name** unless you configured a custom policy name earlier. 
 4. For **Backing Database**, choose the database type for the Service Broker Configuration. 
-5. If you chose **Pivotal MySQL** enter the **Plan Name** to be used (e.g. 100mb) and a unique database name. The database will be created during deployment if it does not exist. 
+5. If you chose **Pivotal MySQL (v2)** enter the **Plan Name** to be used (e.g. db-small) and a unique database name. The database will be created during deployment if it does not exist.
 6. If you chose **External MySQL** or **External Postgres**:
 	1. For **Database Host** enter the IP address of the database where the Service Broker for AWS will store configuration information. You can use the database you created in the AWS RDS console in [Step 1](#setup), or choose to use an existing database.
 	2. For **Database Port**, enter the port number of your database. The default for PostgreSQL is 5432 and the default for MySQL is 3306.
