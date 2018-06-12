@@ -2,8 +2,6 @@
 
 ## How the branches here work
 
-Use **master** for next the unreleased version, and numbered branches for the corresponding live releases. For example:
-
 | Branch name | Use for… | Currently lives…
 |-------------| ------| ------|
 | master      | Currently the published 1.4.5 branch | http://docs.pivotal.io/aws-services/ |
