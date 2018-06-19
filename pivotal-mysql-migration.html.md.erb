@@ -1,40 +1,38 @@
 ---
 breadcrumb: PCF Services
-title: Pivotal MySQL Migration
+title: Migrating to MySQL for PCF v2
 ---
 
-### Upgrading to Pivotal's MySQL v2
+## <a id="overview"></a> Overview
 
-MySQL for PCF v2 introduces the On-Demand Service, which provides dedicated instances of MySQL that App Developers can provision on-demand from the command line.
+If your AWS Services Broker is configured to use an external MySQL v1 database, you may need to migrate your data to a MySQL v2 database. This guide explains how to perform the migration.
 
-This guide will instruct you how to migrate the broker to use this new version of the Pivotal MySQL service.
+## <a id="prerequisites"></a> Prerequisites
 
-### Instructions
+To perform the database migration, you must have the following:
 
-#### Prerequisites
+* The latest [Cloud Foundry CLI](https://github.com/cloudfoundry/cli)
+* Cloud Foundry credentials to access the org and space of the AWS Services Broker
 
-* The latest Cloud Foundry CLI [available here](https://github.com/cloudfoundry/cli)
-* Cloud Foundry credentials to access the org and space of the broker
+## <a id="install-mysql-plugin"></a> Install the Pivotal MySQL Plugin
 
-##### 1. Install the Pivotal MySQL Plugin for the Cloud Foundry CLI
+You can use the MySQL Plugin to migrate your data. 
 
-To migrate your data to the new service a plugin for the Cloud Foundry CLI is available.
-
-You can install the plugin using the following commands
+1. Install the `cf mysql-tool` plugin using the following command:
 
 ```bash
 $ cf install-plugin -f -r CF-Community "MysqlTools"
 ```
 
-You can verify the installation using the following commands
+To verify that the plugin is installed, using the following command:
 
 ```bash
 $ cf mysql-tools -h
 ```
 
-##### 2. Stop the AWS Services Broker
+## <a id="check-broker-status"></a> Check the Status of the AWS Services Broker
 
-Login into your Cloud Foundry deployment
+Log in to your Cloud Foundry deployment:
 
 ```bash
 $ cf api $YOUR_CLOUD_FOUNDRY_API
@@ -42,7 +40,7 @@ $ cf login
 ```
 
 The broker is deployed in the `system` org in the `iaas-brokers` space.
-Target this space verfiy you see the broker.
+Target this space and verify that you see the broker.
 
 ```bash
 $ cf target -o system -s iaas-brokers
@@ -51,7 +49,11 @@ api version:    2.94.0
 user:           admin
 org:            system
 space:          iaas-brokers
+```
 
+You can check the state of the broker using the `cf app MY-BROKER-NAME` command.
+
+```bash
 $ cf app aws-services-broker
 Showing health and status for app aws-services-broker in org system / space iaas-brokers as admin...
 
@@ -69,7 +71,7 @@ buildpack:         go_buildpack
 #1   running   2018-06-05T18:47:39Z   0.0%   12.5M of 64M   47.4M of 1G
 ```
 
-Additionally you should see your Pivotal MySQL v1 database instance bound to the broker.
+You should also see your Pivotal MySQL v1 database instance bound to the broker.
 
 ```bash
 $ cf services
@@ -78,7 +80,7 @@ Getting services in org system / space iaas-brokers as admin...
 name            service   plan    bound apps            last operation
 aws-broker-db   p-mysql   100mb   aws-services-broker   create succeeded
 ```
-
+## <a id="stop-broker"></a> Stop the Broker
 Now let's stop the broker
 
 ```bash
