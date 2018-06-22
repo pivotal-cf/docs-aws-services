@@ -1,24 +1,24 @@
 ---
 breadcrumb: PCF Services
-title: Migrating to MySQL for PCF v2
+title: Migrating to a MySQL v2 Database
 ---
 
-## <a id="overview"></a> Overview
+This topic explains how to perform the migration from a MySQL v1 database to a MySQL v2 database.
 
-If your AWS Services Broker is configured to use an external MySQL v1 database, you may need to migrate your data to a MySQL v2 database. This guide explains how to perform the migration.
+If your AWS Services Broker is configured to use an external MySQL v1 database, you may need to migrate your data to a MySQL v2 database.
 
 ## <a id="prerequisites"></a> Prerequisites
 
 To perform the database migration, you must have the following:
 
-* The latest [Cloud Foundry CLI](https://github.com/cloudfoundry/cli)
+* The latest [Cloud Foundry CLI](https://docs.pivotal.io/pivotalcf/cf-cli/install-go-cli.html)
 * Cloud Foundry credentials to access the org and space of the AWS Services Broker
 
 ## <a id="install-mysql-plugin"></a> Install the Pivotal MySQL Plugin
 
 You can use the MySQL Plugin to migrate your data. 
 
-1. Install the `cf mysql-tool` plugin using the following command:
+1. Install the `MysqlTools` plugin using the following command:
 
 	```bash
 	$ cf install-plugin -f -r CF-Community "MysqlTools"
@@ -84,7 +84,9 @@ You can use the MySQL Plugin to migrate your data.
 
 ## <a id="stop-broker"></a> Stop the Broker
 
-1. Now, stop the broker:
+After verifying the state of the broker, you can safely stop it and unbind the database. 
+
+1. Stop the broker:
 
 	```bash
 	$ cf stop aws-services-broker
@@ -98,7 +100,9 @@ You can use the MySQL Plugin to migrate your data.
 	$ cf unbind-service aws-services-broker aws-broker-db
 	```
 
-## <a id="perform-migration"></a> Perform the Migration
+## <a id="migrate-data"></a> Migrate Your Data
+
+Follow these steps to migrate your data.
 
 1. Determine which plan you want to use:
 
@@ -112,7 +116,6 @@ You can use the MySQL Plugin to migrate your data.
 	db-medium      This plan provides a medium dedicated MySQL instance.   free
 	db-large       This plan provides a large dedicated MySQL instance.    free
 	```
-
 
 2. Migrate your data using the `cf mysql-tools migrate SERVICE-INSTANCE-NAME PLAN-TYPE` command. 
 
@@ -143,7 +146,7 @@ You can use the MySQL Plugin to migrate your data.
 	aws-broker-db       p.mysql   db-small                         update succeeded
 	```
 
-## Switch the Backing Store
+## <a id="backing-store"> Switch the Backing Store
 
 1. Bind the new database to the broker:
 
@@ -153,7 +156,7 @@ You can use the MySQL Plugin to migrate your data.
 	OK
 	```
 
-2. Start the broker
+2. Start the broker:
 
 	```bash
 	$ cf start aws-services-broker
