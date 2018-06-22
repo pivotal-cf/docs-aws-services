@@ -5,13 +5,15 @@ title: Migrating to MySQL for PCF v2
 
 ## <a id="overview"></a> Overview
 
-If your AWS Services Broker is configured to use an external MySQL v1 database, you may need to migrate your data to a MySQL v2 database. This guide explains how to perform the migration.
+If your AWS Services Broker is configured to use an external MySQL v1 database,
+you may need to migrate your data to a MySQL v2 database.
+This guide explains how to perform the migration.
 
 ## <a id="prerequisites"></a> Prerequisites
 
 To perform the database migration, you must have the following:
 
-* The latest [Cloud Foundry CLI](https://github.com/cloudfoundry/cli)
+* The latest [Cloud Foundry CLI](https://docs.cloudfoundry.org/cf-cli/)
 * Cloud Foundry credentials to access the org and space of the AWS Services Broker
 
 ## <a id="install-mysql-plugin"></a> Install the Pivotal MySQL Plugin
@@ -178,7 +180,7 @@ You can use the MySQL Plugin to migrate your data.
 
 ## Delete the Old Database
 
-1. Prior to deleting the old database instance, confirm that the broker behaves correctly by creating some new AWS service instances and deleting them.
+1. Before deleting the old database instance, confirm that the broker behaves correctly by creating some new AWS service instances and deleting them.
 
 2. If everything behaves as expected, delete the old database using the `cf delete-service -f SERVICE-INSTANCE-NAME-old` command: 
 
@@ -188,6 +190,6 @@ You can use the MySQL Plugin to migrate your data.
 	OK
 	```
 
-## 6. (Optional) Update the Tile to Reflect Changes
+## (Optional) Update the Tile to Reflect Changes
 
 Update the plan name in the `Broker Config` section of your tile to be consistent with the changes you made during migration.
