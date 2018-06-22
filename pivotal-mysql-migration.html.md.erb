@@ -147,9 +147,11 @@ Follow these steps to migrate your data.
 	aws-broker-db       p.mysql   db-small                         update succeeded
 	```
 
-## <a id="backing-store">></a> Switch the Backing Store
+## <a id="bind-new-db"></a> Bind the New Database
 
-1. Bind the new database to the broker:
+After migrating your data, bind the new database to the broker.
+
+1. Bind the database to the broker:
 
 	```bash
 	$ cf bind-service aws-services-broker aws-broker-db
@@ -180,7 +182,7 @@ Follow these steps to migrate your data.
 	#1   running   2018-06-06T14:26:49Z   0.0%   11.8M of 64M   47.4M of 1G
 	```
 
-## Delete the Old Database
+##  <a id="delete-old-db"></a> Delete the Old Database
 
 1. Before deleting the old database instance, confirm that the broker behaves correctly by creating some new AWS service instances and deleting them.
 
@@ -192,6 +194,6 @@ Follow these steps to migrate your data.
 	OK
 	```
 
-## (Optional) Update the Tile to Reflect Changes
+## <a id="update-tile"></a>(Optional) Update the Tile to Reflect Changes
 
 Update the plan name in the `Broker Config` section of your tile to be consistent with the changes you made during migration.
