@@ -5,7 +5,7 @@ title: Migrating to a MySQL v2 Database
 
 This topic explains how to perform the migration from a MySQL v1 database to a MySQL v2 database.
 
-If your AWS Services Broker is configured to use the MySQL for PCF v1 tile, Pivotal recommends migrating your data to a MySQL v2 database. Doing this migration reduces dependency on v1 as users move to v2, and prepares you to use TLS (encryption) for services. 
+If your AWS Services Broker is configured to use the MySQL for PCF v1 tile, Pivotal recommends migrating your data to a MySQL v2 database. Doing this migration reduces dependency on v1 as users move to v2, and prepares you to use TLS (encryption) for  AWS services. 
 
 ## <a id="prerequisites"></a> Prerequisites
 
@@ -15,9 +15,9 @@ To perform the database migration, you must have the following:
 
 * Cloud Foundry credentials to access the org and space of the AWS Services Broker
 
-## <a id="install-mysql-plugin"></a> Install the Pivotal MySQL Plugin
+## <a id="install-mysql-plugin"></a> Install the Pivotal MysqlTools Plugin
 
-You can use the MySQL Plugin to migrate your data. 
+You can use the MysqlTools Plugin to migrate your data. 
 
 1. Install the `MysqlTools` plugin using the following command:
 
@@ -25,7 +25,7 @@ You can use the MySQL Plugin to migrate your data.
 	$ cf install-plugin -f -r CF-Community "MysqlTools"
 	```
 
-2. Verify that the plugin is installed, using the following command:
+2. Verify that the plugin is installed using the following command:
 
 	```bash
 	$ cf mysql-tools -h
