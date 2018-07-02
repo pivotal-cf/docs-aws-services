@@ -84,7 +84,7 @@ The following example shows the syntax for each setting. You can omit settings y
 <pre class="terminal">$ cf create-service aws-rds-postgres basic postgresdb -c '{ "CreateDbInstance": { "EngineVersion": "9.4.1", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 10, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
 </pre>
 
-###<a id="rds"></a>RDS for MySQL
+###<a id="rds-mysql"></a>RDS for MySQL
 
 To create a service instance of the RDS for MySQL service, use `cf create-service` to create an instance of `aws-rds-mysql` with or without custom settings.
 
@@ -104,7 +104,7 @@ The following example shows the syntax for each setting. You can omit settings y
 <pre class="terminal">$ cf create-service aws-rds-mysql basic mysqldb2 -c '{ "CreateDbInstance": { "EngineVersion": "5.6.27", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
 </pre>
 
-###<a id="rds"></a>RDS for MariaDB
+###<a id="rds-mariadb"></a>RDS for MariaDB
 
 To create a service instance of the RDS for MariaDB service, use `cf create-service` to create an instance of `aws-rds-mariadb` with or without custom settings.
 
@@ -125,7 +125,7 @@ The following example shows the syntax for each setting. You can omit settings y
 </pre>
 
 
-###<a id="rds"></a>Amazon Aurora
+###<a id="amazon-aurora"></a>Amazon Aurora
 
 To create a service instance of the Amazon Aurora service, use `cf create-service` to create an instance of `aws-rds-aurora` with or without custom settings.
 
@@ -143,7 +143,7 @@ The following example shows the syntax for each setting. You can omit settings y
 </pre>
 
 
-###<a id="rds"></a>RDS for SQL Server
+###<a id="rds-for-sql-server"></a>RDS for SQL Server
 
 To create a service instance of the RDS for SQL Server service, use `cf create-service` to create an instance of `aws-rds-sqlserver` with or without custom settings.
 
@@ -167,7 +167,7 @@ The following example shows the syntax for each setting. You can omit settings y
 <p class="note"><strong>Note</strong>: For SQL Server setting Multi-AZ to true will enable Multi-AZ database mirroring. See the AWS documentation on <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_SQLServerMultiAZ.html">Multi-AZ Deployments for Microsoft SQL Server with Database Mirroring</a> for more details.</p>
 
 
-###<a id="rds"></a>RDS for Oracle Database
+###<a id="rds-for-oracle-db"></a>RDS for Oracle Database
 
 To create a service instance of the RDS for Oracle service, use `cf create-service` to create an instance of `aws-rds-oracle` with or without custom settings.
 
