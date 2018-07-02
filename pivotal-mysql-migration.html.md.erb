@@ -136,6 +136,8 @@ Follow these steps to migrate your data.
 	2018/06/06 09:16:37 Migration completed successfully
 	```
 
+	<p class="note"><strong>Note</strong>: Take note of the message <code>Migration completed successfully</code> message in the above example. This is the best available indication that the migration was successful. This message will not appear if the migration process was not successful.</p>
+
 3. The migration tool gives the old database the name `SERVICE-INSTANCE-NAME-old`:
 
 	```bash
@@ -184,9 +186,9 @@ After migrating your data, bind the new database to the broker.
 
 ##  <a id="delete-old-db"></a> Delete the Old Database
 
-1. Before deleting the old database instance, confirm that the broker behaves correctly by creating some new AWS service instances and deleting them.
+1. Before deleting the old database instance, confirm that the broker behaves correctly by creating some new AWS service instances. Try binding these services to the v2 database. (You can delete these service instances after running this test.)
 
-2. If everything behaves as expected, delete the old database using the `cf delete-service -f SERVICE-INSTANCE-NAME-old` command: 
+2. After confirming that your data is migrated and the broker is running, delete the old database using the `cf delete-service -f SERVICE-INSTANCE-NAME-old` command: 
 
 	```bash
 	$ cf delete-service -f aws-broker-db-old
