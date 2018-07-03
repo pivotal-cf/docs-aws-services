@@ -7,8 +7,10 @@ Use **master** for next the unreleased version, and numbered branches for the co
 | Branch name | Use for… | Currently lives…
 |-------------| ------| ------|
 | master      | Currently the published 1.4.5 branch | http://docs.pivotal.io/aws-services/ |
-| v1.5.x         | Currently edge | https://docs-pcf-staging.cfapps.io/aws-services/1-5/ |
-<!-- | v1.4.x 		| Currently not live (to be created and published after 1.5.x release) | https://docs-pcf-staging.cfapps.io/aws-services/1-4/ | -->
+| 1.5         | Currently edge | https://docs-pcf-staging.cfapps.io/aws-services/1-5/ |
 
-Currently, as seen above, v1.5.x is the edge branch with the latest changes.
-Ideally, once 1.5.x is released, it would become the published branch, and master would become the edge branch.
+`master` currently has all changes for v1.4.
+`1.5` should have all changes made to v1.4, as well as additional work for EMR.
+When making changes to v1.4, cherry-pick those changes to 1.5 as well!
+
+Currently v1.5 is in "sustain mode". There is no plan for its release.
