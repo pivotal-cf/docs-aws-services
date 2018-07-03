@@ -1,0 +1,203 @@
+---
+breadcrumb: PCF Services
+title: Migrating to a MySQL v2 Database
+---
+
+This topic explains how to perform the migration from a MySQL v1 database to a MySQL v2 database.
+
+If your AWS Services Broker is configured to use the MySQL for PCF v1 tile, Pivotal recommends migrating your data to a MySQL v2 database. Doing this migration reduces dependency on v1 as users move to v2, and prepares you to use TLS (encryption) for  AWS services. 
+
+## <a id="prerequisites"></a> Prerequisites
+
+To perform the database migration, you must have the following:
+
+* The latest [Cloud Foundry CLI](https://docs.pivotal.io/pivotalcf/cf-cli/install-go-cli.html)
+
+* Cloud Foundry credentials to access the org and space of the AWS Services Broker
+
+## <a id="install-mysql-plugin"></a> Install the Pivotal MysqlTools Plugin
+
+You can use the MysqlTools plugin to migrate your data. 
+
+1. Install the `MysqlTools` plugin using the following command:
+
+	```bash
+	$ cf install-plugin -f -r CF-Community "MysqlTools"
+	```
+
+2. Verify that the plugin is installed using the following command:
+
+	```bash
+	$ cf mysql-tools -h
+	```
+
+## <a id="check-broker-status"></a> Check the Status of the Broker
+
+1. Log in to your Cloud Foundry deployment:
+
+	```bash
+	$ cf api $YOUR_CLOUD_FOUNDRY_API
+	$ cf login
+	```
+
+	The broker is deployed in the `system` org in the `iaas-brokers` space.
+
+2. Target this space and verify that you see the broker.
+
+	```bash
+	$ cf target -o system -s iaas-brokers
+	api endpoint:   https://api.sys.my-domain.com
+	api version:    2.94.0
+	user:           admin
+	org:            system
+	space:          iaas-brokers
+	```
+
+3. Check the state of the broker using the `cf app MY-BROKER-NAME` command.
+
+	```bash
+	$ cf app aws-services-broker
+	Showing health and status for app aws-services-broker in org system / space iaas-brokers as admin...
+
+	name:              aws-services-broker
+	requested state:   started
+	instances:         2/2
+	usage:             64M x 2 instances
+	routes:            aws-services-broker.sys.my-domain.com
+	last uploaded:     Tue 05 Jun 14:46:50 EDT 2018
+	stack:             cflinuxfs2
+	buildpack:         go_buildpack
+
+	     state     since                  cpu    memory         disk          details
+	#0   running   2018-06-05T18:47:39Z   0.0%   12.4M of 64M   47.4M of 1G
+	#1   running   2018-06-05T18:47:39Z   0.0%   12.5M of 64M   47.4M of 1G
+	```
+
+   	You should also see your Pivotal MySQL v1 database instance bound to the broker.
+
+    ```bash
+    $ cf services
+    Getting services in org system / space iaas-brokers as admin...
+
+    name            service   plan    bound apps            last operation
+    aws-broker-db   p-mysql   100mb   aws-services-broker   create succeeded
+    ```
+
+## <a id="stop-broker"></a> Stop the Broker
+
+After verifying the state of the broker, you can safely stop it and unbind the database. 
+
+1. Stop the broker:
+
+	```bash
+	$ cf stop aws-services-broker
+	Stopping app aws-services-broker in org system / space iaas-brokers as admin...
+	OK
+	```
+
+2. Unbind the database from the broker:
+
+	```bash
+	$ cf unbind-service aws-services-broker aws-broker-db
+	```
+
+## <a id="migrate-data"></a> Migrate Your Data
+
+Follow these steps to migrate your data.
+
+1. Determine which plan you want to use:
+
+	```bash
+	$ cf marketplace -s p.mysql
+	Getting service plan information for service p.mysql as admin...
+	OK
+
+	service plan   description                                             free or paid
+	db-small       This plan provides a small dedicated MySQL instance.    free
+	db-medium      This plan provides a medium dedicated MySQL instance.   free
+	db-large       This plan provides a large dedicated MySQL instance.    free
+	```
+
+2. Migrate your data using the `cf mysql-tools migrate SERVICE-INSTANCE-NAME PLAN-TYPE` command. 
+
+	<p class="note"><strong>Note</strong>: This example uses the service instance called <code>aws-broker-db</code> and the plan type <code>db-small</code>.</p> 
+
+	```bash
+	$ cf mysql-tools migrate aws-broker-db db-small
+	2018/06/06 09:11:53 Creating new service instance "aws-broker-db-new" for service p.mysql using plan db-small
+	2018/06/06 09:16:05 Unpacking assets for migration to /var/folders/qn/bxc0sm8j5dgcx260_4r3vr7w0000gn/T/migrate_app_335236385
+	2018/06/06 09:16:05 Started to push app
+	Done uploading
+	2018/06/06 09:16:15 Successfully pushed app
+	2018/06/06 09:16:16 Successfully bound app to v1 instance
+	2018/06/06 09:16:18 Successfully bound app to v2 instance
+	2018/06/06 09:16:18 Starting migration app
+	2018/06/06 09:16:33 Started to run migration task
+	2018/06/06 09:16:37 Migration completed successfully
+	```
+
+	<p class="note"><strong>Note</strong>: Take note of the <code>Migration completed successfully</code> message in the above example.
+           This is the best available indication that the migration was successful.
+           This message does not appear if the migration process was not successful.</p>
+
+3. The migration tool gives the old database the name `SERVICE-INSTANCE-NAME-old`:
+
+	```bash
+	$ cf services
+	Getting services in org system / space iaas-brokers as admin...
+
+	name                service   plan       bound apps            last operation
+	aws-broker-db-old   p-mysql   100mb                            update succeeded
+	aws-broker-db       p.mysql   db-small                         update succeeded
+	```
+
+## <a id="bind-new-db"></a> Bind the New Database
+
+After migrating your data, bind the new database to the broker.
+
+1. Bind the database to the broker:
+
+	```bash
+	$ cf bind-service aws-services-broker aws-broker-db
+	Binding service aws-broker-db to app aws-services-broker in org system / space iaas-brokers as admin...
+	OK
+	```
+
+2. Start the broker:
+
+	```bash
+	$ cf start aws-services-broker
+	Starting app aws-services-broker in org system / space iaas-brokers as admin...
+
+	Waiting for app to start...
+
+	name:              aws-services-broker
+	requested state:   started
+	instances:         2/2
+	usage:             64M x 2 instances
+	routes:            aws-services-broker.my-domain.com
+	last uploaded:     Wed 06 Jun 10:23:12 EDT 2018
+	stack:             cflinuxfs2
+	buildpack:         go_buildpack
+	start command:     bin/aws-services-broker
+
+	     state     since                  cpu    memory         disk          details
+	#0   running   2018-06-06T14:26:48Z   0.0%   11.7M of 64M   47.4M of 1G
+	#1   running   2018-06-06T14:26:49Z   0.0%   11.8M of 64M   47.4M of 1G
+	```
+
+## <a id="delete-old-db"></a> Delete the Old Database
+
+1. Before deleting the old database instance, confirm that the broker behaves correctly by creating some new AWS service instances. Try binding these services to the v2 database. (You can delete these service instances after running this test.)
+
+2. After confirming that your data is migrated and the broker is running, delete the old database using the `cf delete-service -f SERVICE-INSTANCE-NAME-old` command: 
+
+	```bash
+	$ cf delete-service -f aws-broker-db-old
+	Deleting service aws-broker-db-old in org system / space iaas-brokers as admin...
+	OK
+	```
+
+## <a id="update-tile"></a>(Optional) Update the Tile to Reflect Changes
+
+Update the plan name in the `Broker Config` section of your tile to be consistent with the changes you made during migration.
