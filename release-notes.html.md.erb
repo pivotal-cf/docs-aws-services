@@ -2,23 +2,48 @@
 breadcrumb: PCF Services
 title: Release Notes
 ---
-###v1.5.0
-**Release Date:** March 2018
+##<a id="1-5"></a>v1.5
+###<a id="1-5-0"></a>v1.5.0
+**Release Date:** _Unreleased_
+
+###Features
+
+New features and changes in this release:
 
 * Added support for AWS EMR:
 	* Allows for auto-scaling.
 	* Allows developers to specify apps to be installed and configured in the cluster.
 	* Allows developers to specify bootstrap actions and arguments.
 
+###Known Issues
+There are no known issues for this release.
 
-###v1.4.6
+
+##<a id="1-4"></a>v1.4
+###<a id="1-4-8"></a>v1.4.8
+
+**Release Date:** June 8, 2018
+
+* The broker now uses Pivotal's MySQL v2 when creating a backing store
+* Existing v1 databases are untouched and will require manual migration
+
+
+###<a id="1-4-7"></a>v1.4.7
+**Release Date:** April 3, 2018
+
+* Added support for partition lookup when using custom endpoints.json
+* Allowed a service to be unbound when the associated bind user no longer exists
+* Updated minimum stemcell version to 3468
+
+
+###<a id="1-4-6"></a>v1.4.6
 **Release Date:** February 13, 2018
 
 * Fixed Oracle DB binding issue
 * Fixed Aurora DB instances not being created in specified VPC and subnets
 
 
-###v1.4.5
+###<a id="1-4-5"></a>v1.4.5
 **Release Date:** November 17, 2017
 
 * Updated minimum stemcell version to 3445
@@ -26,17 +51,17 @@ title: Release Notes
 * Fixed issue where bind was failing for non-commercial AWS partitions
 * Fixed issue where create-service-key was failing for non-commercial AWS partitions due to incorrect ARN format
 * Fixed issue where create-service-key was failing for accounts containing 100 or more policies
-* Added RDS CA Certs for ca-central-1, us-east-2, eu-west-2, ap-south-1, us-gov-west-1, cn-north-1
+* Added RDS CA certificates for ca-central-1, us-east-2, eu-west-2, ap-south-1, us-gov-west-1, cn-north-1
 
 
-###v1.4.3 
+###<a id="1-4-3"></a>v1.4.3 
 
 **Release date:** October 12, 2017
 
 * Fixed Service Broker deployment issue when using MySQL v5.6.x
 
 
-###v1.4.2
+###<a id="1-4-2"></a>v1.4.2
 **Release date:** August 11, 2017
 
 **Note**: This version requires Go Buildpack v1.8.3 or later and Stemcell 3363.29 or later.
@@ -47,7 +72,7 @@ title: Release Notes
 * Updated Regions dropdown for new regions
 
 
-###v1.4.0
+###<a id="1-4-0"></a>v1.4.0
 **Release date:** June 26, 2017
 
 **Note**: This version requires Go Buildpack v1.8.3 or later and Stemcell 3363.25 or later.
@@ -60,20 +85,23 @@ title: Release Notes
 * Fixed the default custom privileges on PostgreSQL service plans for upgrades
 
 
-###1.3.0
+##<a id="1-3"></a>v1.3
+###<a id="1-3-0"></a>v1.3.0
 * Fixed the default custom privileges on PostgreSQL service plans for new deployments; for upgrades you should set the User Privileges field to ALL. 
 * Added a policy setting to enforce TLS between app and RDS database
 * Service keys work for S3 services
 * **Note**: Please add  "iam:ListUserPolicies" to the PCFInstallation IAM Policy or copy the new policy from the Installation section
 
 
-###1.2.0
+##<a id="1-2"></a>v1.2
+###<a id="1-2-0"></a>v1.2.0
 * Upgrade to the latest AWS Golang SDK v1.7.1
 * Added C2S support using Partitions and Service identifiers
 * **Note**: for PostgreSQL service plans, the User Privileges field must be set to ALL or the "cf bind" will fail with the error: "error: pq: invalid privilege type SELECT for database"
 
 
-###1.1.0
+##<a id="1-1"></a>v1.1
+###<a id="1-1-0"></a>v1.1.0
 * IAM Policy names are configurable
 * MySQL, PostgreSQL privileges are configurable by service plan.
 	* **Note**: for PostgreSQL service plans, the User Privileges field must be set to ALL or the "cf bind" will fail with the error: "error: pq: invalid privilege type SELECT for database"
@@ -83,7 +111,8 @@ title: Release Notes
 * Stemcell updated to 3312
 
 
-###1.0.0
+##<a id="1-0"></a>v1.0
+###<a id="1-0-0"></a>v1.0.0
 * Broker configuration database can be MySQL or PostgreSQL
 * Supports service keys, App developers can get a service key for their service instance and perform permitted actions (in AppDeveloperPolicy) via the AWS CLI. These credentials may have an expiry time.
 * Added ALTER privilege to RDS MySQL bind credentials
@@ -92,7 +121,8 @@ title: Release Notes
 * Updated stemcell to 3263
 
 
-###0.1.3
+##<a id="0-1"></a>v0.1
+###<a id="0-1-3"></a>v0.1.3
 * Supports additional AWS RDS services: MariaDB, Aurora, SQL Server, Oracle
 * Supports AWS services DynamoDB, SQS
 * Supports Floating Stemcells for manageability
@@ -102,12 +132,12 @@ title: Release Notes
 * Supports PCF 1.8.x
 
 
-###0.1.2
+###<a id="0-1-2"></a>v0.1.2
 * Supports AWS RDS for MySQL
 * Supports PCF 1.7.x
 
 
-###0.1.1
+###<a id="0-1-1"></a>v0.1.1
 * Supports AWS RDS for PostgreSQL and Amazon S3
 * PCF operator can create RDS service plans
 * Secure management of AWS credentials
