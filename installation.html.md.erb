@@ -9,7 +9,7 @@ This topic describes how to install the Service Broker for AWS by configuring yo
 
 * Pivotal Cloud Foundry version 1.8 or higher
 * An Amazon Web Services (AWS) account
-* Pivotal MySQL (v2), or an already-created MySQL or PostgreSQL database
+* MySQL for PCF v2, or an already-created MySQL or PostgreSQL database
 
 ##<a id="setup"></a>Step 1: Set Up AWS
 
@@ -87,7 +87,7 @@ To use a custom name: In the steps above, use a custom name instead of `PCFInsta
 #### Service Key Policies
 The Service Broker for AWS allows App Developers to create service keys for their service instances. Creating a service key creates an IAM user with a templated policy, and provides the App Developer with Access Key credentials to the actions listed in the policies below.
 
-In V1.1.0, the service key Policy names are configurable. You can choose your own policy name and configure that name in each service by updating the Service Key Policy Name field. The default names are used below. 
+In v1.1.0, the service key Policy names are configurable. You can choose your own policy name and configure that name in each service by updating the Service Key Policy Name field. The default names are used below. 
 
 Create the policy templates for each service that you will enable, by logging into the AWS console, and doing the following:
 
@@ -186,9 +186,9 @@ Create the policy templates for each service that you will enable, by logging in
 
 To store its configuration information, the Service Broker for AWS requires access to a MySQL or PostgreSQL database that is highly available and regularly backed up. Loss of this data will severely affect the ability of the service broker to manage the configured service instances. However, the AWS resources will not be affected. 
 
-The database can be Pivotal MySQL (v2) or an external MySQL or PostgreSQL database, including an AWS RDS database.
+The database can be MySQL for PCF v2 or an external MySQL or PostgreSQL database, including an AWS RDS database.
 
-If you choose to use a Pivotal MySQL (v2) database, the service broker will automatically provision the database.
+If you choose to use a MySQL for PCF v2 database, the service broker will automatically provision the database.
 
 If you choose to use an RDS MySQL or RDS PostgreSQL database, follow these steps:
 
