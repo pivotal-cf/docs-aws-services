@@ -6,7 +6,7 @@ Use **master** for next the unreleased version, and numbered branches for the co
 
 | Branch name | Use for… | Currently lives…
 |-------------| ------| ------|
-| master      | Currently the published 1.4.5 branch | http://docs.pivotal.io/aws-services/ |
+| master      | Currently the published 1.4.8 docs | http://docs.pivotal.io/aws-services/ |
 | 1.5         | Currently edge | https://docs-pcf-staging.cfapps.io/aws-services/1-5/ |
 
 `master` currently has all changes for v1.4.<br>
