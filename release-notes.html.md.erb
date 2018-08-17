@@ -8,7 +8,9 @@ title: Release Notes
 Release Date: August 3, 2018
 
 * Fixed an issue when creating service keys with a Temporary Credentials Timeout during AWS configuration of the tile in Ops Manager.
-	* If the value given was a non-zero value, it would not work as intended due to changes in Amazon's validation logic.
+
+    If Temporary Credentials Timeout was a non-zero value, the timeout did not work
+    because of changes in Amazon's validation logic.
 
 ###1.4.8
 
