@@ -5,23 +5,28 @@ title: Installing the Service Broker
 
 This topic describes how to install the Service Broker for AWS by configuring your AWS account and importing the product file into Ops Manager.
 
-##<a id="prerequisites"></a>Installation Prerequisites
 
-* Pivotal Cloud Foundry version 1.8 or higher
+## <a id="prerequisites"></a> Installation Prerequisites
+
+* Pivotal Cloud Foundry (PCF) v1.8 or higher
 * An Amazon Web Services (AWS) account
 * MySQL for PCF v2, or an already-created MySQL or PostgreSQL database
 
-##<a id="setup"></a>Step 1: Set Up AWS
 
-In this step you configure your AWS account to allow the Service Broker for AWS to create and manage AWS resources. 
+## <a id="setup"></a> Step 1: Set Up AWS
 
-Create a new IAM user for the PCF cluster in the **AWS Identity & Access Management** console by following the procedure below. 
-<p class="note"><strong>Note</strong>: If you have more than one PCF deployment, you must create an IAM user for each deployment. 
-Create a new IAM user in your AWS account (do not use the same IAM user that installed PCF on AWS as it has different policy restrictions).</p> 
+In this step, you configure your AWS account to allow the Service Broker for AWS to create and manage AWS resources. 
+
+Create a new IAM user for the PCF cluster in the **AWS Identity & Access Management** console by following the procedure below.
+
+<p class="note"><strong>Note:</strong> If you have more than one PCF deployment, you must create an IAM user for each deployment. Create a new IAM user in your AWS account (do not use the same IAM user that installed PCF on AWS as it has different policy restrictions).</p> 
 
 1. Select **Policies** and click **Create Policy**. 
+
 1. Choose **Create Your Own Policy**. 
-1. Enter `PCFInstallationPolicy` for **Policy Name** and `Installation Policy for PCF` for  **Description**.  
+
+1. Enter `PCFInstallationPolicy` for **Policy Name** and `Installation Policy for PCF` for **Description**.  
+
 1. Copy the following text into the **Policy Document** section:
 
             {
@@ -72,30 +77,36 @@ Create a new IAM user in your AWS account (do not use the same IAM user that ins
                     }
                 ]
             }
+
 1. Click **Validate Policy** to check for errors. 
+
 1. Click **Create Policy**. This creates an AWS policy that you must apply to every IAM user you create for the Service Broker for AWS. 
-1. For each IAM user, click the user name > **Permissions** tab > **Attach Policy** and select **PCFInstallationPolicy**. 
+
+1. For each IAM user, click the user name, go to **Permissions > Attach Policy**, and select **PCFInstallationPolicy**. 
+
 1. Record the **AWS Access Key ID** and **Secret Access Key** for each of your PCF IAM accounts for later use.
 
-Note: The Service Broker for AWS also allows a custom name for the `PCFInstallationPolicy`. 
+<p class='note'><strong>Note:</strong>strong> The Service Broker for AWS also allows a custom name for the `PCFInstallationPolicy`.</p>
 
-To use the default name: follow the steps above for configuring the `PCFInstallationPolicy` policy. 
+**To use the default name:** Follow the steps above for configuring the `PCFInstallationPolicy` policy. 
 
-To use a custom name: In the steps above, use a custom name instead of `PCFInstallationPolicy`. Later, during Broker Configuration, you will need to enter this custom name. 
+**To use a custom name:** In the steps above, use a custom name instead of `PCFInstallationPolicy`. Later, during Broker Configuration, you will need to enter this custom name. 
 
+#### <a id='service-key-policies'></a> Service Key Policies
 
-#### Service Key Policies
 The Service Broker for AWS allows App Developers to create service keys for their service instances. Creating a service key creates an IAM user with a templated policy, and provides the App Developer with Access Key credentials to the actions listed in the policies below.
 
-In v1.1.0, the service key Policy names are configurable. You can choose your own policy name and configure that name in each service by updating the Service Key Policy Name field. The default names are used below. 
+In v1.1, the service key Policy names are configurable. You can choose your own policy name and configure that name in each service by updating the Service Key Policy Name field. The default names are used below. 
 
-Create the policy templates for each service that you will enable, by logging into the AWS console, and doing the following:
+To create the policy templates for each service that you will enable, log into the AWS console and do the following:
 
 1. Select **Policies** and click **Create Policy**. 
-1. Choose **Create Your Own Policy**. 
-1. Enter `PCFAppDeveloperPolicy-s3` for **Policy Name** and `Service Broker for AWS Service Key policy for S3` for  **Description**.
-1. Enter the following text in the **Policy Document** section, or create your own policy template
 
+1. Choose **Create Your Own Policy**. 
+
+1. Enter `PCFAppDeveloperPolicy-s3` for **Policy Name** and `Service Broker for AWS Service Key policy for S3` for  **Description**.
+
+1. Enter the following text in the **Policy Document** section, or create your own policy template:
             {
                 "Version": "2012-10-17",
                 "Statement": [
@@ -114,8 +125,10 @@ Create the policy templates for each service that you will enable, by logging in
              }
 
 1. Click **Validate Policy** to check for errors. 
+
 1. Click **Create Policy**. This creates an AWS policy that you must apply to every IAM user you create for the Service Broker for AWS. 
-1. Repeat steps 1-6 for `PCFAppDeveloperPolicy-sqs` `PCFAppDeveloperPolicy-dynamodb` and `PCFAppDeveloperPolicy-rds`; using or modifying the examples below.
+
+1. Repeat steps 1-6 for `PCFAppDeveloperPolicy-sqs`, `PCFAppDeveloperPolicy-dynamodb`, and `PCFAppDeveloperPolicy-rds`, using or modifying the examples below.
 
 <strong>`PCFAppDeveloperPolicy-sqs` Example</strong>
 
@@ -182,7 +195,7 @@ Create the policy templates for each service that you will enable, by logging in
 ```
 
 
-##<a id="create-database"></a>Step 2: Create Service Broker Database
+## <a id="create-database"></a> Step 2: Create Service Broker Database
 
 To store its configuration information, the Service Broker for AWS requires access to a MySQL or PostgreSQL database that is highly available and regularly backed up. Loss of this data will severely affect the ability of the service broker to manage the configured service instances. However, the AWS resources will not be affected. 
 
@@ -190,39 +203,37 @@ The database can be MySQL for PCF v2 or an external MySQL or PostgreSQL database
 
 If you choose to use a MySQL for PCF v2 database, the service broker will automatically provision the database.
 
-If you choose to use an RDS MySQL or RDS PostgreSQL database, follow these steps:
+If you choose to use an RDS MySQL or RDS PostgreSQL database, do the following:
 
 1. In the AWS RDS console, create the appropriate database:
     * Choose the smallest DB instance class, `db.t2.micro`. 
     * Select `yes` for **Multi-AZ Deployment**. 
     * Choose `Provisioned IOPS (SSD)` for **Storage Type**. For a non-production database, you can choose `General Purpose (SSD)`.
     * Enter the minimum accepted value '5' to '100' GB of **Allocated Storage**. 
-    * Leave **Provisioned IOPS** at the default value
+    * Leave **Provisioned IOPS** at the default value.
     * Enter `pcf-aws-services` for the **DB Instance Identifier**.
-    * Enter suitable values for the Master Username and Master Password
+    * Enter suitable values for the Master Username and Master Password.
 
-2. Record the Database IP, Database Port, Admin user, Admin password and Database Name. The Service Broker for AWS stores configuration information in this database. 
+1. Record the **Database IP**, **Database Port**, **Admin User**, **Admin Password**, and **Database Name**. The Service Broker for AWS stores configuration information in this database. 
 
-3. Ensure that the Service Broker for AWS will be able to connect to your database. If necessary for your deployment, modify your AWS VPC settings to allow access to the RDS database from an external IP address. For more information, see the [Accessing a DB Instance in a VPC](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Scenarios.html) topic in the AWS documentation.
+1. Ensure that the Service Broker for AWS will be able to connect to your database. If necessary for your deployment, modify your AWS VPC settings to allow access to the RDS database from an external IP address. For more information, see the [Accessing a DB Instance in a VPC](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Scenarios.html) topic in the AWS documentation.
 
-##<a id="ASGs"></a>Step 3: Application Security Groups
 
-To allow this service to have network access you will need to create
-[Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html) (ASGs).
+## <a id="ASGs"></a> Step 3: Application Security Groups
 
-<p class="note"><strong>Note</strong>: Without Application Security Groups the service will not be usable.</p>
+To allow this service to have network access, you must create [Application Security Groups](http://docs.pivotal.io/pivotalcf/adminguide/app-sec-groups.html) (ASGs).
 
-### <a id="service-container-network-connections"></a> Service Container Network Connections ###
+<p class="note"><strong>Note:</strong> Without Application Security Groups, the service cannot be used.</p>
 
-This service is deployed as an application to the `iaas-brokers` space in the
-`system` org, and requires the following outbound network connections:
+### <a id="service-container-network-connections"></a> Service Container Network Connections
+
+This service is deployed as an application to the `iaas-brokers` space in the `system` org, and requires the following outbound network connections:
 
 |Destination        |Ports       |Protocol   |Reason
 |---                |---         |---        |---
 |`AWS_IP_RANGE`     |443, 5432, 1521, 1433, 3306         |tcp        |This service accesses RDS/S3
 
-<p class="note"><strong>Note</strong>: The AWS IP range is available from <a href="http://docs.aws.amazon.com/general/latest/gr/aws-ip-ranges.html#aws-ip-download">Amazon</a>. You may choose to use <a href="https://curl.haxx.se/">curl</a> and <a href="https://stedolan.github.io/jq/">jq</a> to convert the IP range as downloaded from Amazon into ASG rules:
-      </p>
+<p class="note"><strong>Note:</strong> The AWS IP range is available from <a href="http://docs.aws.amazon.com/general/latest/gr/aws-ip-ranges.html#aws-ip-download">Amazon</a>. You may choose to use <a href="https://curl.haxx.se/">curl</a> and <a href="https://stedolan.github.io/jq/">jq</a> to convert the IP range as downloaded from Amazon into ASG rules:</p>
 
 ```
     curl -s https://ip-ranges.amazonaws.com/ip-ranges.json | \
@@ -236,16 +247,15 @@ This service is deployed as an application to the `iaas-brokers` space in the
 
 ```
 
-<p class="note"><strong>Note</strong>: This creates a configuration which allows traffic for all AWS Regions. You may wish to further filter the list of entries in the Application Security Group config to a specific set of AWS Regions by adding additional `jq` `map(select(.region == "REGION_NAME"))` statements for each region.</p>
+<p class="note"><strong>Note:</strong> This creates a configuration which allows traffic for all AWS Regions. You may wish to further filter the list of entries in the Application Security Group config to a specific set of AWS Regions by adding additional <code>jq</code> <code>map(select(.region == "REGION_NAME"))</code> statements for each region.</p>
 
- Log in as an administrator and create an ASG called `aws-service-broker`, binding it to the `iaas-brokers` space in the `system` org:
+Log in as an administrator and create an ASG called `aws-service-broker`, binding it to the `iaas-brokers` space in the `system` org:
 <pre class="terminal">
 $ cf create-security-group aws-service-broker aws-service-broker.json
 $ cf bind-security-group aws-service-broker system iaas-brokers
 </pre>
 
-
-### <a id="application-container-network-connections"></a> Application Container Network Connections ###
+### <a id="application-container-network-connections"></a> Application Container Network Connections
 
 Application containers that use instances of this service require the following outbound network connections:
 
@@ -253,7 +263,7 @@ Application containers that use instances of this service require the following 
 |---                |---         |---        |---
 |`AWS_IP_RANGE`     |443, 5432, 1521, 1433, 3306         |tcp        |Application containers may access S3/RDS
 
-Create an ASG called `aws-service-broker-app-containers` with the above configuration and bind it to the appropriate space or, to give all started apps access, the `default-running` ASG set. Example:
+Create an ASG called `aws-service-broker-app-containers` with the above configuration and bind it to the appropriate space or, to give all started apps access, the `default-running` ASG set. For example:
 
 ```
 [
@@ -271,9 +281,10 @@ Create an ASG called `aws-service-broker-app-containers` with the above configur
 ]
 ```
 
-##<a id="install"></a>Step 4: Install in Ops Manager
 
-To install the Service Broker for AWS tile in Ops Manager, complete the following steps:
+## <a id="install"></a> Step 4: Install in Ops Manager
+
+To install the Service Broker for AWS tile in Ops Manager, do the following:
 
 1. Download the Service Broker for AWS product file from [Pivotal Network](https://network.pivotal.io/products/pcf-service-broker-for-aws).
 
@@ -283,83 +294,103 @@ To install the Service Broker for AWS tile in Ops Manager, complete the followin
 
 1. Click on the newly added tile to configure the sections as described below.
 
-###<a id="aws-config"></a>AWS Config
-The setup in Step 1 must be successfully completed before beginning this configuration. You will need the AWS and database parameters from that step to successfully configure the broker.
+### <a id="aws-config"></a> AWS Config
+
+The setup in Step 1 must be successfully completed before beginning this configuration. You need the AWS and database parameters from that step to successfully configure the broker.
 
 1. Click **AWS Config**.
     <%= image_tag("images/aws-sb-awsconfig.png") %>
-2. Enter the **AWS Access Key ID** and the **Secret Access Key** from [Step 1](#setup).
-3. Enter the **Temporary Credentials Timeout** value in minutes. This is the time after which service key credentials will expire. To disable expiry of the credentials, enter 0. 
-4. Modify the **AWS Endpoint** ONLY if you are using Amazon's Commercial Cloud Service. Otherwise, leave it at Default. 
-5. For **Default Region**, enter the AWS region to use as the default. You can change this later for a particular service.
-6. For **Default Availability Zone**, enter the AWS Availability Zone to use as the default. This default Availability Zone will only be used where Multi-AZ is not selected.
-7. The broker automatically creates AWS tags for the service plan GUID and the org-space GUID. You can also configure default tags to add for each AWS resource by entering them in the **Default Tags** text box, separated by a space. For example, `owner=operations env=production app=payroll`.
-8. Click **Save**.
 
-###<a id="broker-config"></a>Broker Config
+1. Enter the **AWS Access Key ID** and the **Secret Access Key** from [Step 1](#setup).
+
+1. Enter the **Temporary Credentials Timeout** value in minutes. This is the time after which service key credentials will expire. To disable expiry of the credentials, enter `0`. 
+
+1. Modify the **AWS Endpoint** <strong>only</strong> if you are using Amazon's Commercial Cloud Service. Otherwise, leave it set to the default. 
+
+1. For **Default Region**, enter the AWS region to use as the default. You can change this later for a particular service.
+
+1. For **Default Availability Zone**, enter the AWS Availability Zone to use as the default. This default Availability Zone is only used where Multi-AZ is not selected.
+
+1. The broker automatically creates AWS tags for the service plan GUID and the org-space GUID. You can also configure default tags to add for each AWS resource by entering them in the **Default Tags** text box, separated by a space. For example, `owner=operations env=production app=payroll`.
+
+1. Click **Save**.
+
+### <a id="broker-config"></a> Broker Config
+
 1. Click **Broker Config**.
     <%= image_tag("images/aws-sb-brokerconfig.png") %>
-2. For **App Instances**, enter the number of instances of the service broker you want to run. The default is `2`.
-3. Do not change the **Broker IAM Policy Name** unless you configured a custom policy name earlier. 
-4. For **Backing Database**, choose the database type for the Service Broker Configuration. 
-5. If you chose **Pivotal MySQL (v2)** enter the **Plan Name** to be used (e.g. db-small) and a unique database name. The database will be created during deployment if it does not exist.
-6. If you chose **External MySQL** or **External Postgres**:
+
+1. For **App Instances**, enter the number of instances of the service broker you want to run. The default is `2`.
+
+1. Do not change the **Broker IAM Policy Name** unless you configured a custom policy name earlier. 
+
+1. For **Backing Database**, choose the database type for the Service Broker Configuration. 
+
+1. If you chose **Pivotal MySQL (v2)**, enter the **Plan Name** to be used (e.g. `db-small`) and a unique database name. The database is created during deployment if it does not already exist.
+
+1. If you chose **External MySQL** or **External Postgres**:
 	1. For **Database Host** enter the IP address of the database where the Service Broker for AWS will store configuration information. You can use the database you created in the AWS RDS console in [Step 1](#setup), or choose to use an existing database.
-	2. For **Database Port**, enter the port number of your database. The default for PostgreSQL is 5432 and the default for MySQL is 3306.
-	3. For **Database Username** and **Database Password**, enter your database credentials.
-	4. For **Database Name**, enter the name of the database.
-7. Under **Database SSL Connection**, select **Enabled** if you want to encrypt traffic to your database and add your custom root certificate in the **Root Certificate** text box. Otherwise, select **Disabled**.
-8. Click **Save**.
+	1. For **Database Port**, enter the port number of your database. The default for PostgreSQL is `5432`, and the default for MySQL is `3306`.
+	1. For **Database Username** and **Database Password**, enter your database credentials.
+	1. For **Database Name**, enter the name of the database.
 
-Note: in the following sections that configure AWS Services, if you don't want to offer that specific service in your PCF Marketplace then simply uncheck the box **Enable in Marketplace**
+1. Under **Database SSL Connection**, select **Enabled** if you want to encrypt traffic to your database and add your custom root certificate in the **Root Certificate** text box. Otherwise, select **Disabled**.
 
+1. Click **Save**.
 
-###<a id="dynamodb-config"></a>DynamoDB Config
+<p class='note'><strong>Note:</strong> In the following sections that configure AWS Services, if you do not want to offer that specific service in your PCF Marketplace, disable the <strong>Enable in Marketplace</strong> checkbox.</p>
+
+### <a id="dynamodb-config"></a> DynamoDB Config
+
 1. Click **DynamoDB Config**.
     <%= image_tag("images/aws-sb-dynamodbconfig.png") %>
 
-1. Under **Override Default AWS Region** select the default AWS region.
+1. Under **Override Default AWS Region**, select the default AWS region.
 
+### <a id="rds-config"></a> RDS Config
 
-
-###<a id="rds-config"></a>RDS Config
 1. Click **RDS Config**.
     <%= image_tag("images/aws-sb-rdsconfig.png") %>
 
-2. Under **Override Default AWS Region** select the default AWS region.
+1. Under **Override Default AWS Region**, select the default AWS region.
 
-3. Under **Override Default AWS Availability Zone** select the default Availability Zone for RDS database instances.
-4. The **RDS Instance Prefix** is set to "cf" by default. It is the prefix for creating RDS database instances.
-5. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy earlier. 
-5. The **Networking** section allows you to configure whether to use the Default VPC or a Custom VPC, and whether the instance is publicly accessible. For a Custom VPC, enter the DB Subnet Group Name and the VPC Security Group(s). 
-6. The setting **Enable Storage Encryption** is off by default. You can enable RDS encryption for a database instance. However, not all regions and DB instance classes support encryption so if you enable this option, you will need to change the default plans to remove those that don't support encryption. More information is available at [http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Encryption.html#d0e21710](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Encryption.html#d0e21710)
+1. Under **Override Default AWS Availability Zone**, select the default Availability Zone for RDS database instances.
 
-7. Select the checkboxes to enable the RDS Services that you want to show in Marketplace
+1. The **RDS Instance Prefix** is set to `cf` by default. This is the prefix for creating RDS database instances.
 
-8. Under **Plans**, for each RDS Database, the Service Broker for AWS includes several default plans for use.
+1. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy earlier. 
+
+1. The **Networking** section allows you to configure whether to use the Default VPC or a Custom VPC, and whether the instance is publicly accessible. For a Custom VPC, enter the DB Subnet Group Name and the VPC Security Group(s). 
+
+1. The **Enable Storage Encryption** setting is disabled by default. You can enable RDS encryption for a database instance. However, not all regions and database instance classes support encryption. If you enable this setting, you must change the default plans to remove those that do not support encryption. For more information, see [http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Encryption.html#d0e21710](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Encryption.html#d0e21710).
+
+1. Select the checkboxes of the RDS Services you want to show in the Services Marketplace.
+
+1. Under **Plans**, for each RDS Database, the Service Broker for AWS includes several default plans for use.
     * **basic**: For small projects and during development.
-    * **standard**: For a small production database (multi-AZ, 2vCPU, 7.5GB).
-    * **premium**: For a mid-sized database (multi-AZ, 4 vCPU, 15GB).
-    * **enterprise**: For a large database (multi-AZ, 8 vCPU, 32GB).
+    * **standard**: For a small production database (multi-AZ, 2vCPU, 7.5&nbsp;GB).
+    * **premium**: For a mid-sized database (multi-AZ, 4 vCPU, 15&nbsp;GB).
+    * **enterprise**: For a large database (multi-AZ, 8 vCPU, 32&nbsp;GB).
 
 1. You can view and edit the configuration of existing plans by clicking the arrow next to their names.
     <%= image_tag("images/aws-sb-editplan.png") %>
-    <p class="note"><strong>Note</strong>: If you edit an existing service plan, only future instances of that services plan will be changed. Ask your Admin to modify existing instances.</p>
+    <p class="note"><strong>Note:</strong> If you edit an existing service plan, only future instances of that services plan will be changed. Ask your administrator to modify existing instances.</p>
+
 1. You can also create a new custom plan by clicking the **Add** button and completing the following fields:
     - **Plan Name**: The name of the plan in the Services Marketplace.
     - **Plan Description**: The description of the plan in the Services Marketplace.
     - **Plan Features**: The list of features displayed in Apps Manager.
-    - **Engine**: This must be `postgres` or 'mysql'.
+    - **Engine**: This must be `postgres` or `mysql`.
     - **Engine Version**: The version that your database uses.
     - **DB Instance Class**: The hardware that runs the database.
     - **Allocated Storage (GB)**: The amount of storage allocated to the database.
-    - **Storage Type**: This can be Magnetic, SSD or Provisioned IOPS (`io1`).
+    - **Storage Type**: This can be Magnetic, SSD, or Provisioned IOPS (`io1`).
     - **IOPS**: The IOPS rate for the database instance. Only required if your **Storage Type** is `io1`.
     - **Backup Retention Period**: How long to retain backups (typically 7 days).
-    - **Preferred Backup Window**: When to backup, must be at least 30min window. e.g. 13:00-14:00
+    - **Preferred Backup Window**: When to back up. Must be at least a 30-minute window (e.g. 13:00-14:00).
     - **Copy Tags to Snapshot**: Whether to tag the database snapshots.
     - **Multi AZ**: Whether to automatically run in multiple Availability Zones.
-    - The setting **Enable Storage Encryption** is off by default. If you have not enabled it globally, you can configure it per service plan.
+    - The **Enable Storage Encryption** setting is disabled by default. If you have not enabled it globally, you can configure it per service plan.
     - For flexibility, the **User Privileges** allows configuration of database user privileges by service plan. Use this to secure the privileges you want for your developers or apps. 
     - **DB Parameter Group Name** allows you to associate an existing DB Parameter Group Name with this service plan. Use the AWS Console to create the DB Parameter Group. 
 
@@ -367,52 +398,73 @@ Note: in the following sections that configure AWS Services, if you don't want t
 
 1. Click **Save**.
 
-###<a id="s3-config"></a>S3 Config
+### <a id="s3-config"></a> S3 Config
+
 1. Click **S3 Config**.
     <%= image_tag("images/aws-sb-s3config.png") %>
+
 1. Under **Override Default AWS Region**, select the default AWS region for this service.
+
 1. Select **Enable in Marketplace** to enable the service in the Services Marketplace.
-2. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy earlier. 
-3. The **Quota Limit** limits the total number of instances, setting it to 0 will disable it. 
-2. Enter the **Bucket Prefix**, a short name to prefix all bucket names.
-3. S3 has one default plan called "standard", but in Service Broker for AWS 1.4 and later you can add more. A service plan can require an S3 bucket to be encrypted by creating an AWS KMS Key (see AWS SSE-KMS) and entering the KMS key ARN in the service plan configuration. 
+
+1. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy earlier. 
+
+1. The **Quota Limit** limits the total number of instances. Setting it to `0` will disable it.
+
+1. Enter the **Bucket Prefix**, a short name to prefix all bucket names.
+
+1. S3 has one default plan called `standard`, but in Service Broker for AWS v1.4 and later, you can add more. A service plan can require an S3 bucket to be encrypted by creating an AWS KMS Key (see AWS SSE-KMS) and entering the KMS key ARN in the service plan configuration. 
 	    <%= image_tag("images/aws-sb-s3plans.png") %>
-4. Click "Save" to store the changed settings.
+
+1. Click **Save** to store the changed settings.
+
 1. Click **Installation Dashboard** to return to the Ops Manager Installation Dashboard.
-1. Click **Apply Changes** to install the product.
+
+1. Click **Review Pending Changes**, then **Apply Changes** to install the product.
 
 
-###<a id="sqs-config"></a>SQS Config
+### <a id="sqs-config"></a> SQS Config
+
 1. Click **SQS Config**.
     <%= image_tag("images/aws-sb-sqsconfig.png") %>
-2. Under **Override Default AWS Region**, select the default AWS region for this service.
-3. Select **Enable in Marketplace** to enable the service in the Services Marketplace.
-4. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy earlier. 
-5. The **Quota Limit** limits the total number of instances, setting it to 0 will disable it. 
-6. For **Queue Prefix**, enter the queue name prefix that will be used for filtering list results.
-7. For **Default Visibility Timeout**, enter the length of time during which the queue will be unavailable once a message is delivered from the queue.
-8. For **Message Retention Period**, enter the number of seconds Amazon SQS retains a message.
-9. For **Max Message Size**, enter the limit of how many bytes a message can contain before Amazon SQS rejects it.
-10. For **Delivery Delay**, enter the time in seconds that the delivery of all messages in the queue will be delayed.
-11. For **Rx Message Wait Time**, enter the duration, in seconds, that the receiver action waits until a message is in the queue.
-12. The **Redrive Policy** specifies an existing dead letter queue to receive messages after the source queue fails to process a message a specified number of times.  If enabled, this policy includes the following properties:
+
+1. Under **Override Default AWS Region**, select the default AWS region for this service.
+
+1. Select **Enable in Marketplace** to enable the service in the Services Marketplace.
+
+1. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy earlier. 
+
+1. The **Quota Limit** limits the total number of instances. Setting it to `0` will disable it.
+
+1. For **Queue Prefix**, enter the queue name prefix that will be used for filtering list results.
+
+1. For **Default Visibility Timeout**, enter the length of time during which the queue will be unavailable once a message is delivered from the queue.
+
+1. For **Message Retention Period**, enter the number of seconds Amazon SQS retains a message.
+
+1. For **Max Message Size**, enter the limit of how many bytes a message can contain before Amazon SQS rejects it.
+
+1. For **Delivery Delay**, enter the time in seconds that the delivery of all messages in the queue will be delayed.
+
+1. For **Rx Message Wait Time**, enter the duration, in seconds, that the receiver action waits until a message is in the queue.
+
+1. The **Redrive Policy** specifies an existing dead letter queue to receive messages after the source queue fails to process a message a specified number of times. If enabled, this policy includes the following properties:
     - **Dead Letter Queue**: The Amazon Resource Name (ARN) of the dead letter queue.
     - **Max Receives**: The maximum number of times a message is delivered to the source queue before being sent to the dead letter queue.
-13. Click **Apply Changes** to install the product.
-14. Click **Installation Dashboard** to return to the Ops Manager Installation Dashboard.
 
-More information about AWS SQS queue properties are available at  [http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-queues.html](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-queues.html). For more information about SQS Redrive Policy, refer to the documentation on [Using Amazon SQS Dead Letter Queues](http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/SQSDeadLetterQueue.html)
+1. Click **Installation Dashboard** to return to the Ops Manager Installation Dashboard.
 
-##<a id="confirm"></a>Step 5: Confirm Installation
+1. Click **Review Pending Changes**, then **Apply Changes** to install the product.
 
-<p class="note"><strong>Note</strong>: The Service Broker for AWS installs an app named <code>aws-services-broker</code> in the <code>iaas-brokers</code> space of the <code>system</code> org. Like other CF apps, you can view the application logs via the CF CLI by connecting to that org and space with the correct permissions.</p>
+For more information about AWS SQS queue properties, see [AWS::SQS::Queue](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-queues.html) in the AWS documentation. For more information about SQS Redrive Policy, see [Using Amazon SQS Dead Letter Queues](http://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/SQSDeadLetterQueue.html) in the AWS documentation.
+
+
+## <a id="confirm"></a> Step 5: Confirm Installation
+
+<p class="note"><strong>Note:</strong> The Service Broker for AWS installs an app named <code>aws-services-broker</code> in the <code>iaas-brokers</code> space of the <code>system</code> org. Like other Cloud Foundry apps, you can view the application logs via the cf CLI by connecting to that org and space with the correct permissions.</p>
 
 1. After Ops Manager finishes the installation, the **Service Broker for AWS** appears as a green tile in the **Installation Dashboard**.
-
     <%= image_tag("images/aws-sb-install.png") %>
-1. In Apps Manager, all orgs and spaces show the new services in the Services Marketplace. Users can create instances of these services through Apps Manager or via the cf CLI. Review the [Creating and Managing Service Instances](creating.html) topic for more information.
 
+1. In Apps Manager, all orgs and spaces show the new services in the Services Marketplace. Users can create instances of these services through Apps Manager or via the cf CLI. For more information, see [Creating and Managing Service Instances](creating.html).
     <%= image_tag("images/aws-sb-marketplace.png") %>
-
-
-
