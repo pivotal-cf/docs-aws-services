@@ -1,0 +1,29 @@
+---
+breadcrumb: PCF Services
+title: PostgreSQL Caveats
+---
+
+## <a id="background"></a> Object Ownership Caveat
+
+When a developer binds a PostgreSQL service instance to an application the broker
+creates a distinct role with unique credentials. The broken ensures all the
+distinct roles are members of a group named `binding_group`.
+
+Members of this group have full privileges to objects created by other members.
+This unfortunately excludes the ability to `DROP` or `ALTER` objects
+
+From: https://www.postgresql.org/docs/9.6/sql-grant.html
+
+```
+The right to drop an object, or to alter its definition in any way,
+is not treated as a grantable privilege; it is inherent in the owner,
+and cannot be granted or revoked.
+```
+
+In order to allow all members of the `binding_group` to `ALTER` or `DROP` an object you
+must assume the group's role **_prior_** to manipulating an object.
+
+<pre class="terminal">
+postgres=# SET ROLE binding_group;
+postgres=# CREATE TABLE ....
+</pre>
