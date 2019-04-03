@@ -3,27 +3,35 @@ breadcrumb: PCF Services
 title: PostgreSQL Caveats
 ---
 
-## <a id="background"></a> Object Ownership Caveat
+This topic describes an issue with object ownership for PostgreSQL.
 
 When a developer binds a PostgreSQL service instance to an application the broker
-creates a distinct role with unique credentials. The broken ensures all the
+creates a distinct role with unique credentials. The broker ensures all the
 distinct roles are members of a group named `binding_group`.
 
 Members of this group have full privileges to objects created by other members.
-This unfortunately excludes the ability to `DROP` or `ALTER` objects
+This does not include the ability to `DROP` or `ALTER` objects.
 
-From: https://www.postgresql.org/docs/9.6/sql-grant.html
+For more information about defining access priviledges,
+see [GRANT](https://www.postgresql.org/docs/9.6/sql-grant.html)
+in the PostgreSQL documentation.
 
-```
-The right to drop an object, or to alter its definition in any way,
-is not treated as a grantable privilege; it is inherent in the owner,
-and cannot be granted or revoked.
-```
-
-In order to allow all members of the `binding_group` to `ALTER` or `DROP` an object you
-must assume the group's role **_prior_** to manipulating an object.
+For members of `binding_group` to `ALTER` or `DROP` an object,
+you must assign the group's role before creating an object:
 
 <pre class="terminal">
-postgres=# SET ROLE binding_group;
-postgres=# CREATE TABLE ....
+$ SET ROLE binding_group;
 </pre>
+
+After this is done, you can continue with your actions.
+
+For example:
+
+<pre class="terminal">
+$ SET ROLE binding_group;
+$ CREATE TABLE data
+</pre>
+
+For more information about setting the current user identifier of the current session,
+see [SET ROLE](https://www.postgresql.org/docs/9.6/sql-set-role.html)
+in the PostgreSQL documentation.
