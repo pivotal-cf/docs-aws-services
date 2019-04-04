@@ -20,7 +20,7 @@ For members of `binding_group` to `ALTER` or `DROP` an object,
 you must assign the group's role before creating an object:
 
 <pre class="terminal">
-$ SET ROLE binding_group;
+# SET ROLE binding_group;
 </pre>
 
 After this is done, you can continue with your actions.
@@ -28,8 +28,8 @@ After this is done, you can continue with your actions.
 For example:
 
 <pre class="terminal">
-$ SET ROLE binding_group;
-$ CREATE TABLE data
+# SET ROLE binding_group;
+# CREATE TABLE data
 </pre>
 
 For more information about setting the current user identifier of the current session,
