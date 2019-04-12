@@ -12,7 +12,7 @@ such as database services and S3 storage, from the Cloud Foundry Command Line In
 Service Broker for AWS exposes the selected AWS products in the Marketplace.
 App developers then create and manage a service instance using the cf CLI commands `create service`, `bind service`, `unbind service`, and `delete service`.
 After obtaining a service key using the `create-service-key` command,
-developers can use the key with the AWS CLI to perform additional operations as permitted by the PCF operator. 
+developers can use the key with the AWS CLI to perform additional operations as permitted by the PCF operator.
 
 The following AWS products are supported:
 
@@ -45,15 +45,11 @@ The following table provides version and version-support information about Servi
     </tr>
     <tr>
         <td>Compatible Ops Manager versions</td>
-        <td>v1.10 and later</td>
+        <td>2.2, 2.3, 2.4, and 2.5</td>
     </tr>
     <tr>
-        <td>Compatible Elastic Runtime versions</td>
-        <td>v1.10 – v1.12</td>
-    </tr>
-    <tr>
-        <td>Compatible Pivotal Application Service (PAS)* versions</td>
-        <td>v2.0 and later</td>
+        <td>Compatible Pivotal Application Service (PAS) versions</td>
+        <td>2.2, 2.3, 2.4, and 2.5</td>
     </tr>
     <tr>
         <td>IaaS support</td>
@@ -64,8 +60,3 @@ The following table provides version and version-support information about Servi
         <td>Yes</td>
     </tr>
 </table>
-
-\* As of PCF v2.0, _Elastic Runtime_ is renamed _Pivotal Application Service (PAS)_.
-[//]: # (For more information, see [Pivotal Application Service (PAS) Highlights](http://docs.pivotal.io/pivotalcf/2-0/installing/highlights.html#ert). )
-
-
