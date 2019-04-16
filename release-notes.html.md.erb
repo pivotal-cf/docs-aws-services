@@ -3,48 +3,81 @@ breadcrumb: PCF Services
 title: Release Notes
 ---
 
-###1.4.10
+<strong><%= modified_date %></strong>
 
-Release Date: November 28, 2018
+##1.4.10
+**Release Date: November 28, 2018**
+
+### Resolved Issues
+This release fixes the following issue:
 
 * Fixes [CVE-2018-15759: On Demand Services SDK Timing Attack Vulnerability](https://pivotal.io/security/cve-2018-15759)
 
-###1.4.9
+###Known Issues:
+This release has the following issue:
+<%= partial './postgresql-role-issue' %>
 
-Release Date: August 3, 2018
+##1.4.9
+**Release Date: August 3, 2018**
 
-* Fixed an issue when creating service keys with a Temporary Credentials Timeout during AWS configuration of the tile in Ops Manager.
+### Resolved Issues
+This release fixes the following issue:
 
-    If Temporary Credentials Timeout was a non-zero value, the timeout did not work
-    because of changes in Amazon's validation logic.
+* Fixes an issue when creating service keys with a `Temporary Credentials Timeout`
+during AWS configuration of the tile in Ops Manager.
+If `Temporary Credentials Timeout` was a non-zero value,
+the timeout did not work because of changes in Amazon's validation logic.
 
-###1.4.8
-
-Release Date: June 8, 2018
-
-* The broker now uses MySQL for PCF v2 when creating a backing store
-* Existing v1 databases are untouched and will require manual migration
-
-###1.4.7
-
-Release Date: April 3, 2018
-
-* Added support for partition lookup when using custom endpoints.json
-* Allowed a service to be unbound when the associated bind user no longer exists
-* Updated minimum stemcell version to 3468
+###Known Issues:
+This release has the following issue:
+<%= partial './postgresql-role-issue' %>
 
 
-###1.4.6
+##1.4.8
+**Release Date: June 8, 2018**
 
-Release Date: February 13, 2018
+### Features
+New features and changes in this release:
 
-* Fixed Oracle DB binding issue
-* Fixed Aurora DB instances not being created in specified VPC and subnets
+* The broker now uses MySQL for PCF v2 when creating a backing store.
+Existing v1 databases are untouched and will require manual migration
+
+###Known Issues:
+This release has the following issue:
+<%= partial './postgresql-role-issue' %>
 
 
-###1.4.5
+##1.4.7
+**Release Date: April 3, 2018**
 
-Release Date: November 17, 2017
+### Features
+New features and changes in this release:
+
+* Adds support for partition lookup when using custom endpoints.json
+* Allows a service to be unbound when the associated bind user no longer exists
+* Updates minimum stemcell version to 3468
+
+###Known Issues:
+This release has the following issue:
+<%= partial './postgresql-role-issue' %>
+
+
+##1.4.6
+**Release Date: February 13, 2018**
+
+### Resolved Issues
+This release fixes the following issues:
+
+* Fixes Oracle DB binding issue
+* Fixes Aurora DB instances not being created in specified VPC and subnets
+
+###Known Issues:
+This release has the following issue:
+<%= partial './postgresql-role-issue' %>
+
+
+##1.4.5 (No Longer Available)
+**Release Date: November 17, 2017**
 
 * Updated minimum stemcell version to 3445
 * Updated blue-green deploy of broker to persist failed instances to allow for debugging
@@ -54,16 +87,14 @@ Release Date: November 17, 2017
 * Added RDS CA certificates for ca-central-1, us-east-2, eu-west-2, ap-south-1, us-gov-west-1, and cn-north-1
 
 
-###1.4.3
-
-**Release Date:** October 12, 2017
+##1.4.3 (No Longer Available)
+**Release Date: October 12, 2017**
 
 * Fixed Service Broker deployment issue when using MySQL v5.6.x
 
 
-###1.4.2
-
-**Release Date:** August 11, 2017
+##1.4.2 (No Longer Available)
+**Release Date: August 11, 2017**
 
 Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 3363.29 or later.
 
@@ -73,9 +104,8 @@ Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 336
 * Updated Regions dropdown for new regions
 
 
-###1.4.0
-
-**Release Date:** June 26, 2017
+##1.4.0 (No Longer Available)
+**Release Date: June 26, 2017**
 
 Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 3363.25 or later.
 
@@ -86,23 +116,21 @@ Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 336
 * Updated to the 3363 Stemcell
 * Fixed the default custom privileges on PostgreSQL service plans for upgrades
 
- 
 
-###1.3.0
-
-* Fixed the default custom privileges on PostgreSQL service plans for new deployments; for upgrades you should set the User Privileges field to ALL. 
+##1.3.0 (No Longer Available)
+* Fixed the default custom privileges on PostgreSQL service plans for new deployments; for upgrades you should set the User Privileges field to ALL.
 * Added a policy setting to enforce TLS between app and RDS database
 * Service keys work for S3 services
 * Note: Please add  "iam:ListUserPolicies" to the PCFInstallation IAM Policy or copy the new policy from the Installation section
 
-###1.2.0
 
+##1.2.0 (No Longer Available)
 * Upgrade to the latest AWS Golang SDK v1.7.1
 * Added C2S support using Partitions and Service identifiers
 * Note: for PostgreSQL service plans, the User Privileges field must be set to ALL or the "cf bind" will fail with the error: "error: pq: invalid privilege type SELECT for database"
 
-###1.1.0
 
+##1.1.0 (No Longer Available)
 * IAM Policy names are configurable
 * MySQL, PostgreSQL privileges are configurable by service plan. Note: for PostgreSQL service plans, the User Privileges field must be set to ALL or the "cf bind" will fail with the error: "error: pq: invalid privilege type SELECT for database"
 * Customizable DB Parameter Group for MySQL, MariaDB, Aurora
@@ -110,8 +138,8 @@ Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 336
 * Bug fix for Aurora provisioning with custom VPC and SG
 * Stemcell updated to 3312
 
-###1.0.0
 
+##1.0.0 (No Longer Available)
 * Broker configuration database can be MySQL or PostgreSQL
 * Supports service keys, App developers can get a service key for their service instance and perform permitted actions (in AppDeveloperPolicy) via the AWS CLI. These credentials may have an expiry time.
 * Added ALTER privilege to RDS MySQL bind credentials
@@ -120,8 +148,7 @@ Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 336
 * Updated stemcell to 3263
 
 
-###0.1.3
-
+##0.1.3 (No Longer Available)
 * Supports additional AWS RDS services: MariaDB, Aurora, SQL Server, Oracle
 * Supports AWS services DynamoDB, SQS
 * Supports Floating Stemcells for manageability
@@ -131,20 +158,14 @@ Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 336
 * Supports PCF 1.8.x
 
 
-###0.1.2
-
-
+##0.1.2 (No Longer Available)
 * Supports AWS RDS for MySQL
 * Supports PCF 1.7.x
 
 
-###0.1.1
-
-
+##0.1.1 (No Longer Available)
 * Supports AWS RDS for PostgreSQL and Amazon S3
 * PCF operator can create RDS service plans
 * Secure management of AWS credentials
 * Requires Stemcell 3146.10
 * Supports PCF 1.6.x
-
-
