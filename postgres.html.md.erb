@@ -5,6 +5,8 @@ title: Known Issue with RDS for PostgreSQL
 
 This topic describes an issue with object ownership for PostgreSQL.
 
+## <a id="overview"></a> Overview
+
 When a developer binds a PostgreSQL service instance to an application the broker
 creates a distinct role with unique credentials. The broker ensures all the
 distinct roles are members of a group named `binding_group`.
@@ -16,21 +18,29 @@ For more information about defining access priviledges,
 see [GRANT](https://www.postgresql.org/docs/9.6/sql-grant.html)
 in the PostgreSQL documentation.
 
+## <a id="create-object"></a> Create an Object using the binding_group Role
+
 For members of `binding_group` to `ALTER` or `DROP` an object,
-you must assign the group's role before creating an object:
+you must assign the group's role before creating an object.
 
-<pre class="terminal">
-# SET ROLE binding_group;
-</pre>
+To do this, do the following:
 
-After this is done, you can continue with your actions.
+1. Set your role to `binding_group`:
 
-For example:
+    For example:
 
-<pre class="terminal">
-# SET ROLE binding_group;
-# CREATE TABLE data
-</pre>
+    <pre class="terminal">
+    # SET ROLE binding_group;
+    </pre>
+
+1. Create the object:
+
+    For example:
+    <pre class="terminal">
+    \# CREATE TABLE data
+    </pre>
+
+After this is done, you can continue with your actions to alter the object.
 
 For more information about setting the current user identifier of the current session,
 see [SET ROLE](https://www.postgresql.org/docs/9.6/sql-set-role.html)
