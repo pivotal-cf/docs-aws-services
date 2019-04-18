@@ -32,3 +32,12 @@ The security token included in the request is invalid."
 ### Reason
 The AWS credentials are not valid.
 Ask your PCF operator to recheck them or recreate the credentials.
+
+
+## Problem
+As a developer, I cannot modify an object when using `ALTER` or `DROP`.
+
+### Reason
+When the object was created, the role was not `binding_group`.
+To resolve this, your PCF operator should contact support.
+For more information, see [Global Support Contacts](https://pivotal.io/support/contact)
