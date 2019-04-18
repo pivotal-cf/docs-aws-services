@@ -309,28 +309,3 @@ Run the following command to delete the service key:
 <pre class="terminal">$ cf delete-service-key YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME</pre>
 
 Deleting a service key removes access to the service instance, and deletes the underlying IAM user.
-
-
-## <a id="troubleshooting"></a> Troubleshooting
-
-### Problem
-
-As a PCF operator, when deploying the tile by clicking **Apply Changes**, I get the following error: "A client error (InvalidClientTokenId) occurred when calling the GetUser operation: The security token included in the request is invalid."
-
-### Reason
-The AWS credentials are not valid. Recheck them or recreate the credentials.
-
-### Problem
-
-As a PCF operator, when deleting the product tile, I get the following error: "Can not remove brokers that have associated service instances".
-
-### Reason
-
-Your service broker currently has service instances that are active. They must be deleted before the tile can be deleted.
-
-### Problem
-
-As a developer, when trying to create a service, I get the following error: "Service broker error: InvalidClientTokenId: The security token included in the request is invalid."
-
-### Reason
-The AWS credentials are not valid. Ask your PCF operator to recheck them or recreate the credentials.
