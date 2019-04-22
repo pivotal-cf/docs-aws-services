@@ -51,8 +51,8 @@ This release has the following issue:
 ### Features
 New features and changes in this release:
 
-* The broker now uses MySQL for PCF v2 when creating a backing store.
-Existing v1 databases are untouched and will require manual migration
+* The broker uses MySQL for PCF v2 when creating a backing store.
+Existing v1 databases are untouched and require manual migration
 
 ###Known Issues:
 This release has the following issue:
@@ -92,7 +92,7 @@ This release has the following issue:
 **Release Date: November 17, 2017**
 
 * Updated minimum stemcell version to 3445
-* Updated blue-green deploy of broker to persist failed instances to allow for debugging
+* Updated blue-green deploy of broker to persist failed instances for debugging
 * Fixed issue where bind was failing for non-commercial AWS partitions
 * Fixed issue where create-service-key was failing for non-commercial AWS partitions due to incorrect ARN format
 * Fixed issue where create-service-key was failing for accounts containing 100 or more policies
@@ -108,7 +108,7 @@ This release has the following issue:
 ##1.4.2 (No Longer Available)
 **Release Date: August 11, 2017**
 
-Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 3363.29 or later.
+Note: This version requires Go Buildpack v1.8.3 or later and stemcell 3363.29 or later.
 
 * Fixed default MySQL privileges and change grants on other MySQL compatible databases
 * Fixes for C2S (Certificate, Regions)
@@ -119,32 +119,32 @@ Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 336
 ##1.4.0 (No Longer Available)
 **Release Date: June 26, 2017**
 
-Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 3363.25 or later.
+Note: This version requires Go Buildpack v1.8.3 or later and stemcell 3363.25 or later.
 
-* The service broker can now use an HTTP/HTTPS Proxy, configured in Ops Manager settings
+* The service broker can use an HTTP/HTTPS Proxy, configured in Ops Manager settings
 * Encryption can be enforced on S3 buckets through a policy setting
 * Updated Golang version to 1.8
 * Upgraded to the latest AWS Golang SDK v1.8.19
-* Updated to the 3363 Stemcell
+* Updated to the 3363 stemcell
 * Fixed the default custom privileges on PostgreSQL service plans for upgrades
 
 
 ##1.3.0 (No Longer Available)
-* Fixed the default custom privileges on PostgreSQL service plans for new deployments; for upgrades you should set the User Privileges field to ALL.
+* Fixed the default custom privileges on PostgreSQL service plans for new deployments; for upgrades you must set the User Privileges field to ALL.
 * Added a policy setting to enforce TLS between app and RDS database
 * Service keys work for S3 services
-* Note: Please add  "iam:ListUserPolicies" to the PCFInstallation IAM Policy or copy the new policy from the Installation section
+* Note: Add  "iam:ListUserPolicies" to the PCFInstallation IAM Policy or copy the new policy from the Installation section
 
 
 ##1.2.0 (No Longer Available)
 * Upgrade to the latest AWS Golang SDK v1.7.1
 * Added C2S support using Partitions and Service identifiers
-* Note: for PostgreSQL service plans, the User Privileges field must be set to ALL or the "cf bind" will fail with the error: "error: pq: invalid privilege type SELECT for database"
+* Note: for PostgreSQL service plans, the User Privileges field must be set to ALL or the "cf bind" fails with the error: "error: pq: invalid privilege type SELECT for database"
 
 
 ##1.1.0 (No Longer Available)
 * IAM Policy names are configurable
-* MySQL, PostgreSQL privileges are configurable by service plan. Note: for PostgreSQL service plans, the User Privileges field must be set to ALL or the "cf bind" will fail with the error: "error: pq: invalid privilege type SELECT for database"
+* MySQL, PostgreSQL privileges are configurable by service plan. Note: for PostgreSQL service plans, the User Privileges field must be set to ALL or the "cf bind" fails with the error: "error: pq: invalid privilege type SELECT for database"
 * Customizable DB Parameter Group for MySQL, MariaDB, Aurora
 * Bug fix for S3 delete service instance when there are additional IAM Policies
 * Bug fix for Aurora provisioning with custom VPC and SG
@@ -153,10 +153,11 @@ Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 336
 
 ##1.0.0 (No Longer Available)
 * Broker configuration database can be MySQL or PostgreSQL
-* Supports service keys, App developers can get a service key for their service instance and perform permitted actions (in AppDeveloperPolicy) via the AWS CLI. These credentials may have an expiry time.
+* Supports service keys, App developers can get a service key for their service instance and perform permitted actions (in AppDeveloperPolicy) through the AWS CLI.
+These credentials might have an expiry time.
 * Added ALTER privilege to RDS MySQL bind credentials
 * AWS endpoint is configurable, to support C2S
-* Broker Config IAM Policy name is now configurable
+* Broker Config IAM Policy name is configurable
 * Updated stemcell to 3263
 
 
@@ -179,5 +180,5 @@ Please note: This version requires Go Buildpack v1.8.3 or later and Stemcell 336
 * Supports AWS RDS for PostgreSQL and Amazon S3
 * PCF operator can create RDS service plans
 * Secure management of AWS credentials
-* Requires Stemcell 3146.10
+* Requires stemcell 3146.10
 * Supports PCF 1.6.x
