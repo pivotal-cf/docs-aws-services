@@ -7,12 +7,12 @@ This topic describes an issue with object ownership for PostgreSQL.
 
 ## <a id="overview"></a> Overview
 
-When a developer binds a PostgreSQL service instance to an application the broker
-creates a distinct role with unique credentials. The broker ensures all the
+When a developer binds a PostgreSQL service instance to an application, the broker
+creates a distinct role with unique credentials. The broker ensures that all the
 distinct roles are members of a group named `binding_group`.
 
 Members of this group have full privileges to objects created by other members.
-This does not include the ability to `DROP` or `ALTER` objects.
+However, this does not include the ability to `DROP` or `ALTER` objects.
 
 For more information about defining access priviledges,
 see [GRANT](https://www.postgresql.org/docs/9.6/sql-grant.html)
@@ -20,7 +20,7 @@ in the PostgreSQL documentation.
 
 ## <a id="create-object"></a> Create an Object using the binding_group Role
 
-For members of `binding_group` to `ALTER` or `DROP` an object,
+So that members of `binding_group` can `ALTER` or `DROP` an object,
 you must assign the group's role before creating an object.
 
 To do this, do the following:

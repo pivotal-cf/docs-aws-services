@@ -98,7 +98,7 @@ provide custom settings for the following elements:
   * AvailabilityZone
 
 The following example shows the syntax for each setting.
-You can omit settings you don't want to explicitly set:
+You can omit settings that you do not want to explicitly set:
 <pre class="terminal">$ cf create-service aws-rds-postgres basic postgresdb -c '{ "CreateDbInstance": { "EngineVersion": "9.4.1", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 10, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
 </pre>
 
@@ -127,7 +127,7 @@ provide custom settings for the following elements:
   * AvailabilityZone
 
 The following example shows the syntax for each setting.
-You can omit settings you don't want to explicitly set:
+You can omit settings that you do not want to explicitly set:
 <pre class="terminal">$ cf create-service aws-rds-mysql basic mysqldb2 -c '{ "CreateDbInstance": { "EngineVersion": "5.6.27", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
 </pre>
 
@@ -151,7 +151,7 @@ provide custom settings for the following elements:
   * AvailabilityZone
 
 The following example shows the syntax for each setting.
-You can omit settings you don't want to explicitly set:
+You can omit settings that you do not want to explicitly set:
 <pre class="terminal">$ cf create-service aws-rds-mariadb basic mariadbdb2 -c '{ "CreateDbInstance": { "EngineVersion": "10.0.24", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
 </pre>
 
@@ -174,7 +174,7 @@ provide custom settings for the following elements:
   * AvailabilityZone
 
 The following example shows the syntax for each setting.
-You can omit settings you don't want to explicitly set:
+You can omit settings that you do not want to explicitly set:
 <pre class="terminal">$ cf create-service aws-rds-aurora basic auroradb2 -c '{ "CreateDbInstance": { "MultiAZ": false, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
 </pre>
 
@@ -200,7 +200,7 @@ provide custom settings for the following elements:
   * AvailabilityZone
 
 The following example shows the syntax for each setting.
-You can omit settings you don't want to explicitly set:
+You can omit settings that you do not want to explicitly set:
 <pre class="terminal">$ cf create-service aws-rds-sqlserver basic sqlserverdb2 -c '{ "CreateDbInstance": { "EngineVersion": "12.00.4422.0.v1", "MultiAZ": true, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
 </pre>
 
@@ -228,7 +228,7 @@ provide custom settings for the following elements:
   * AvailabilityZone
 
 The following example shows the syntax for each setting.
-You can omit settings you don't want to explicitly set:
+You can omit settings that you do not want to explicitly set:
 <pre class="terminal">$ cf create-service aws-rds-oracle basic oracledb1 -c '{ "CreateDbInstance": { "EngineVersion": "12.1.0.2.v3", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
 </pre>
 
