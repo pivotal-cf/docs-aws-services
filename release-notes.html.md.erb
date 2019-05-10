@@ -5,19 +5,21 @@ title: Release Notes
 
 <strong><%= modified_date %></strong>
 
-##1.4.12
+## <a id="1412"></a> 1.4.12
 **Release Date: May 10, 2019**
 
-### Changes 
+### Features
+New features and changes in this release:
 
-* Since trusty stemcells are no longer supported the broker now requires xenial stemcells
+* Updates PCF Service Broker for AWS to use Xenial stemcells.
+Trusty stemcells are no longer supported.
 
 ###Known Issues:
 This release has the following issue:
 <%= partial './postgresql-role-issue' %>
 
 
-##1.4.11
+## <a id="1411"></a> 1.4.11
 **Release Date: April 17, 2019**
 
 ### Resolved Issues
@@ -29,7 +31,8 @@ This release fixes the following issue:
 This release has the following issue:
 <%= partial './postgresql-role-issue' %>
 
-##1.4.10
+
+## <a id="1410"></a> 1.4.10
 **Release Date: November 28, 2018**
 
 ### Resolved Issues
@@ -41,7 +44,8 @@ This release fixes the following issue:
 This release has the following issue:
 <%= partial './postgresql-role-issue' %>
 
-##1.4.9
+
+## <a id="1409"></a> 1.4.9
 **Release Date: August 3, 2018**
 
 ### Resolved Issues
@@ -57,7 +61,7 @@ This release has the following issue:
 <%= partial './postgresql-role-issue' %>
 
 
-##1.4.8
+## <a id="1408"></a> 1.4.8
 **Release Date: June 8, 2018**
 
 ### Features
@@ -71,7 +75,7 @@ This release has the following issue:
 <%= partial './postgresql-role-issue' %>
 
 
-##1.4.7
+## <a id="1407"></a> 1.4.7
 **Release Date: April 3, 2018**
 
 ### Features
@@ -86,7 +90,7 @@ This release has the following issue:
 <%= partial './postgresql-role-issue' %>
 
 
-##1.4.6
+## <a id="1406"></a> 1.4.6
 **Release Date: February 13, 2018**
 
 ### Resolved Issues
@@ -100,7 +104,7 @@ This release has the following issue:
 <%= partial './postgresql-role-issue' %>
 
 
-##1.4.5 (No Longer Available)
+## <a id="1405"></a> 1.4.5 (No Longer Available)
 **Release Date: November 17, 2017**
 
 * Updated minimum stemcell version to 3445
@@ -111,13 +115,13 @@ This release has the following issue:
 * Added RDS CA certificates for ca-central-1, us-east-2, eu-west-2, ap-south-1, us-gov-west-1, and cn-north-1
 
 
-##1.4.3 (No Longer Available)
+## <a id="1403"></a> 1.4.3 (No Longer Available)
 **Release Date: October 12, 2017**
 
 * Fixed Service Broker deployment issue when using MySQL v5.6.x
 
 
-##1.4.2 (No Longer Available)
+## <a id="1402"></a> 1.4.2 (No Longer Available)
 **Release Date: August 11, 2017**
 
 Note: This version requires Go Buildpack v1.8.3 or later and stemcell 3363.29 or later.
@@ -128,7 +132,7 @@ Note: This version requires Go Buildpack v1.8.3 or later and stemcell 3363.29 or
 * Updated Regions dropdown for new regions
 
 
-##1.4.0 (No Longer Available)
+## <a id="1400"></a> 1.4.0 (No Longer Available)
 **Release Date: June 26, 2017**
 
 Note: This version requires Go Buildpack v1.8.3 or later and stemcell 3363.25 or later.
@@ -141,6 +145,7 @@ Note: This version requires Go Buildpack v1.8.3 or later and stemcell 3363.25 or
 * Fixed the default custom privileges on PostgreSQL service plans for upgrades
 
 
+## <a id="previous"></a> Previous Versions
 ##1.3.0 (No Longer Available)
 * Fixed the default custom privileges on PostgreSQL service plans for new deployments; for upgrades you must set the User Privileges field to ALL.
 * Added a policy setting to enforce TLS between app and RDS database
