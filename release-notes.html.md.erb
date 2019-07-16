@@ -6,14 +6,14 @@ title: Release Notes
 <strong><%= modified_date %></strong>
 
 ## <a id="1413"></a> 1.4.13
-**Release Date: July 16, 2019**
+**Release Date: XXXX XX, 2019**
 
 ### Features
 New features and changes in this release:
 
 * Updates PCF Service Broker for AWS to use CF CLI v6.45.0.
 
-###Known Issues:
+###Known Issues
 This release has the following issue:
 <%= partial './postgresql-role-issue' %>
 
@@ -27,7 +27,8 @@ New features and changes in this release:
 * Updates PCF Service Broker for AWS to use Xenial stemcells.
 Trusty stemcells are no longer supported.
 
-###Known Issues:
+###Known Issues
+
 This release has the following issue:
 <%= partial './postgresql-role-issue' %>
 
@@ -40,7 +41,7 @@ This release fixes the following issue:
 
 * Fixes an issue where using the latest Go buildpacks caused deployment of the broker to fail.
 
-###Known Issues:
+###Known Issues
 This release has the following issue:
 <%= partial './postgresql-role-issue' %>
 
@@ -53,7 +54,7 @@ This release fixes the following issue:
 
 * Fixes [CVE-2018-15759: On Demand Services SDK Timing Attack Vulnerability](https://pivotal.io/security/cve-2018-15759)
 
-###Known Issues:
+###Known Issues
 This release has the following issue:
 <%= partial './postgresql-role-issue' %>
 
@@ -69,7 +70,7 @@ during AWS configuration of the tile in Ops Manager.
 If `Temporary Credentials Timeout` was a non-zero value,
 the timeout did not work because of changes in Amazon's validation logic.
 
-###Known Issues:
+###Known Issues
 This release has the following issue:
 <%= partial './postgresql-role-issue' %>
 
@@ -83,7 +84,7 @@ New features and changes in this release:
 * The broker uses MySQL for PCF v2 when creating a backing store.
 Existing v1 databases are untouched and require manual migration
 
-###Known Issues:
+###Known Issues
 This release has the following issue:
 <%= partial './postgresql-role-issue' %>
 
@@ -98,7 +99,7 @@ New features and changes in this release:
 * Allows a service to be unbound when the associated bind user no longer exists
 * Updates minimum stemcell version to 3468
 
-###Known Issues:
+###Known Issues
 This release has the following issue:
 <%= partial './postgresql-role-issue' %>
 
@@ -112,7 +113,7 @@ This release fixes the following issues:
 * Fixes Oracle DB binding issue
 * Fixes Aurora DB instances not being created in specified VPC and subnets
 
-###Known Issues:
+###Known Issues
 This release has the following issue:
 <%= partial './postgresql-role-issue' %>
 
