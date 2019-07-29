@@ -264,7 +264,7 @@ This service is deployed as an application to the `iaas-brokers` space in the `s
 ```
 
 <p class="note"><strong>Note:</strong> This creates a configuration which allows traffic for all AWS Regions.
-  You might want to further filter the list of entries in the Application Security Group config
+  You can further filter the list of entries in the Application Security Group config
   to a specific set of AWS Regions by adding additional
   <code>jq</code> <code>map(select(.region == "REGION_NAME"))</code>
   statements for each region.</p>
