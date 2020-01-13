@@ -79,7 +79,7 @@ This release has the following issue:
 This release fixes the following issue:
 
 * Fixes an issue when creating service keys with a `Temporary Credentials Timeout`
-during AWS configuration of the tile in Ops Manager.
+during AWS configuration of the tile in <%= vars.ops_manager %>.
 If `Temporary Credentials Timeout` was a non-zero value,
 the timeout did not work because of changes in Amazon's validation logic.
 
@@ -164,7 +164,7 @@ Note: This version requires Go Buildpack v1.8.3 or later and stemcell 3363.29 or
 
 Note: This version requires Go Buildpack v1.8.3 or later and stemcell 3363.25 or later.
 
-* The service broker can use an HTTP/HTTPS Proxy, configured in Ops Manager settings
+* The service broker can use an HTTP/HTTPS Proxy, configured in <%= vars.ops_manager %> settings
 * Encryption can be enforced on S3 buckets through a policy setting
 * Updated golang version to 1.8
 * Upgraded to the latest AWS Golang SDK v1.8.19

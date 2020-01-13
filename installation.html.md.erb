@@ -3,7 +3,7 @@ breadcrumb: PCF Services
 title: Installing the Service Broker
 ---
 
-This topic describes how to install the Service Broker for AWS by configuring your AWS account and importing the product file into Ops Manager.
+This topic describes how to install the Service Broker for AWS by configuring your AWS account and importing the product file into <%= vars.ops_manager_full %>.
 
 
 ## <a id="prerequisites"></a> Installation Prerequisites
@@ -302,13 +302,13 @@ Create an ASG called `aws-service-broker-app-containers` with the above configur
 ```
 
 
-## <a id="install"></a> Step 4: Install in Ops Manager
+## <a id="install"></a> Step 4: Install in <%= vars.ops_manager %>
 
-To install the Service Broker for AWS tile in Ops Manager, do the following:
+To install the Service Broker for AWS tile in <%= vars.ops_manager %>, do the following:
 
 1. Download the Service Broker for AWS product file from [Pivotal Network](https://network.pivotal.io/products/pcf-service-broker-for-aws).
 
-1. From the Ops Manager Installation Dashboard, click **Import a Product** to upload the product file.
+1. From the <%= vars.ops_manager %> Installation Dashboard, click **Import a Product** to upload the product file.
 
 1. Click **Add** next to the uploaded product description in the **Available Products** view to add this product to your staging area.
 
@@ -468,10 +468,10 @@ The setup in Step 1 must be successfully completed before beginning this configu
     - **Dead Letter Queue**: The Amazon Resource Name (ARN) of the dead letter queue.
     - **Max Receives**: The maximum number of times a message is delivered to the source queue before being sent to the dead letter queue.
 
-1. Click **Installation Dashboard** to return to the Ops Manager Installation Dashboard.
+1. Click **Installation Dashboard** to return to the <%= vars.ops_manager %> Installation Dashboard.
 
-1. If you are using Ops Manager v2.3 or later, click **Review Pending Changes**.
-For more information about this Ops Manager page,
+1. If you are using <%= vars.ops_manager %> v2.3 or later, click **Review Pending Changes**.
+For more information about this <%= vars.ops_manager %> page,
 see [Reviewing Pending Product Changes](https://docs.pivotal.io/pivotalcf/customizing/review-pending-changes.html).
 
 1. Click **Apply Changes** to install the product.
@@ -483,7 +483,7 @@ For more information about AWS SQS queue properties, see [AWS::SQS::Queue](http:
 
 <p class="note"><strong>Note:</strong> The Service Broker for AWS installs an app named <code>aws-services-broker</code> in the <code>iaas-brokers</code> space of the <code>system</code> org. Like other Cloud Foundry apps, you can view the application logs through the cf CLI by connecting to that org and space with the correct permissions.</p>
 
-1. After Ops Manager finishes the installation, the **Service Broker for AWS** appears as a green tile in the **Installation Dashboard**.
+1. After <%= vars.ops_manager %> finishes the installation, the **Service Broker for AWS** appears as a green tile in the **Installation Dashboard**.
     <%= image_tag("images/aws-sb-install.png") %>
 
 1. In Apps Manager, all orgs and spaces show the new services in the Marketplace. Users can create instances of these services through Apps Manager or through the cf CLI. For more information, see [Creating and Managing Service Instances](creating.html).
