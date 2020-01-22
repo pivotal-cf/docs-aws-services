@@ -3,7 +3,7 @@ breadcrumb: PCF Services
 title: Installing the Service Broker
 ---
 
-This topic describes how to install the Service Broker for AWS by configuring your AWS account and importing the product file into Ops Manager.
+This topic describes how to install the Service Broker for AWS by configuring your AWS account and importing the product file into <%= vars.ops_manager_full %>.
 
 
 ##<a id="prerequisites"></a>Installation Prerequisites
@@ -12,29 +12,29 @@ This topic describes how to install the Service Broker for AWS by configuring yo
 * MySQL for PCF v2, or an already-created MySQL or PostgreSQL database
 
 ##<a id="setup"></a>Step 1: Set Up AWS
-To configure your AWS account to enable the Service Broker 
+To configure your AWS account to enable the Service Broker
 to create and manage resources, you must complete several tasks.
 
 1. First, [create a new Identity and Access Management user](#create-iam-user). An Identity and Access Management (IAM) user is a
 persona with a set of attached permissions that can be used by the person or service interacting with AWS.
-1. If you are using EMR clusters, [set up your EMR policy](#emr-policy). On the Amazon console, you will "attach" an EMR policy 
+1. If you are using EMR clusters, [set up your EMR policy](#emr-policy). On the Amazon console, you will "attach" an EMR policy
 to your IAM user.
 1. Create a [Service Key policy](#service_key_policies#). Service Key policies specify the permissions provided by a service key.
 1. Create a [Bind Key policy](#bind_key_policies). Bind Key policies specify bind actions for specific servies.
 
-###<a id="create-iam-user"></a>Create a New IAM User 
+###<a id="create-iam-user"></a>Create a New IAM User
 
-Create a new Identity and Access Management (IAM) user for the PCF cluster in the **AWS IAM** console by following the procedure below. 
-<p class="note"><strong>Note</strong>: If you have more than one PCF deployment, you must create an IAM user for each deployment. 
+Create a new Identity and Access Management (IAM) user for the PCF cluster in the **AWS IAM** console by following the procedure below.
+<p class="note"><strong>Note</strong>: If you have more than one PCF deployment, you must create an IAM user for each deployment.
 Create a new IAM user in your AWS account (do not use the same IAM user that installed PCF on AWS,
-as that user profile has different policy restrictions).</p> 
+as that user profile has different policy restrictions).</p>
 
-1. Select **Policies** and click **Create Policy**. 
-1. Choose **Create Your Own Policy**. 
-1. Enter `PCFInstallationPolicy` for **Policy Name** and `Installation Policy for PCF` for  **Description**. 
-<p class="note"><strong>Note</strong>: The Service Broker for AWS also allows a custom name for the `PCFInstallationPolicy`. 
-If you wish to use a custom name, provide it here instead of `PCFInstallationPolicy`. 
-Later, during Broker Configuration, you will need to enter this custom name.</p>  
+1. Select **Policies** and click **Create Policy**.
+1. Choose **Create Your Own Policy**.
+1. Enter `PCFInstallationPolicy` for **Policy Name** and `Installation Policy for PCF` for  **Description**.
+<p class="note"><strong>Note</strong>: The Service Broker for AWS also allows a custom name for the `PCFInstallationPolicy`.
+If you wish to use a custom name, provide it here instead of `PCFInstallationPolicy`.
+Later, during Broker Configuration, you will need to enter this custom name.</p>
 1. Copy the following text into the **Policy Document** section:
 
             {
@@ -85,19 +85,19 @@ Later, during Broker Configuration, you will need to enter this custom name.</p>
                     }
                 ]
             }
-1. Click **Validate Policy** to check for errors. 
-1. Click **Create Policy**. This creates an AWS policy that you must apply to every IAM user you create for the Service Broker for AWS. 
-1. For each IAM user, click the user name > **Permissions** tab > **Attach Policy** and select **PCFInstallationPolicy**. 
+1. Click **Validate Policy** to check for errors.
+1. Click **Create Policy**. This creates an AWS policy that you must apply to every IAM user you create for the Service Broker for AWS.
+1. For each IAM user, click the user name > **Permissions** tab > **Attach Policy** and select **PCFInstallationPolicy**.
 1. Record the **AWS Access Key ID** and **Secret Access Key** for each of your PCF IAM accounts for later use.
 
 
-###<a id="emr-policy"></a>Set Up EMR Policy 
+###<a id="emr-policy"></a>Set Up EMR Policy
 Amazon Elastic MapReduce (EMR) is a managed cluster platform for AWS that simplifies running big data frameworks, such as Apache Hadoop and Apache Spark, to process and analyze vast amounts of data. The PCF EMR Service Broker enables users to provision and manage an Amazon EMR cluster.
 
-Prerequisite: You must first create your AWS IAM user before you can configure the EMR policy. 
+Prerequisite: You must first create your AWS IAM user before you can configure the EMR policy.
 For information about creating your AWS IAM user, see [Set Up AWS](#setup), above.
 
-EMR requires that the **AmazonElasticMapReduceFullAccess** policy be attached to the service broker's IAM user. 
+EMR requires that the **AmazonElasticMapReduceFullAccess** policy be attached to the service broker's IAM user.
 Follow these steps to attach the policy to the user:
 
 1. View your IAM users. Locate the IAM user that you created in [Set Up AWS](#setup), above.
@@ -118,12 +118,12 @@ By default, the AWS Broker uses `PCF_EMR_Service_Role` and `PCF_EMR_EC2_Instance
 
 1. In the IAM Console, select **Roles** and click **Create Role**.
 1. In the **Select type of trusted entity** section, click **AWS service.**
-1. In the **Choose the service that will use this role** section, click **EMR**. 
+1. In the **Choose the service that will use this role** section, click **EMR**.
 1. In the **Select your use case** section, click **EMR**, which is followed by the description "Allows Elastic MapReduce to call AWS services such as EC2 on your behalf."
 1. Click **Next:Permissions**.
 1. The **Attached permissions policy** page should state that the type of role you selected requires the **AmazonElasticMapReduceRole** policy. Click **Next:Review**.
-1. On the Review page, provide a **Role name** and a **Role description**. Pivotal recommends using 
-`PCF_EMR_Service_Role` as the name, and 
+1. On the Review page, provide a **Role name** and a **Role description**. Pivotal recommends using
+`PCF_EMR_Service_Role` as the name, and
 `EMR Service Role for AWS Broker` as the description.
 1. Click **Create role**.
 
@@ -134,19 +134,19 @@ By default, the AWS Broker uses `PCF_EMR_Service_Role` and `PCF_EMR_EC2_Instance
 1. In the **Choose the service that will use this role** section, click **EMR**.
 1. In the **Select your use case** section, click **EMR Role for EC2**, which is followed by the description "Allows EC2 instances in an Elastic MapReduce cluster to call AWS services such as S3 on your behalf."
 1. On the Review page, provide a **Role name** and a **Role description**. Pivotal recommends using
- `PCF_EMR_EC2_Instance_Profile` as the name, and 
+ `PCF_EMR_EC2_Instance_Profile` as the name, and
  `EMR EC2 Instance Profile for AWS Broker` as the description.
 1. After you have created the role, select **Roles**. From the **Role name** list, click `PCF_EMR_EC2_Instance_Profile` or whatever name you used for the role that you just created. On the  **Summary** page for the role, verify that it has an associated **Instance Profile ARN**. The Amazon Resource Name (ARN) is a string value.
 
 **Create the EMR Auto Scaling Role (Optional)**
 
 EMR also requires an additional role to enable autoscaling: `EMR_AutoScaling_DefaultRole`.
-The role is automatically created for you by AWS (if it does not yet exist) under very specific circumstances. 
-It cannot be created in the same way as the previous roles. In order to create it, you must follow the instructions in the relevant section below. 
+The role is automatically created for you by AWS (if it does not yet exist) under very specific circumstances.
+It cannot be created in the same way as the previous roles. In order to create it, you must follow the instructions in the relevant section below.
 For more information about the Auto Scaling role, see [Creating the IAM Role for Automatic Scaling](http://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-automatic-scaling.html#emr-automatic-scaling-iam-role).
 
-Creating this Auto Scaling role requires different manual steps due to limitations within the GO SDK/AWS IAM Role creation console. 
-The easiest and quickest way to ensure that `EMR_AutoScaling_DefaultRole` is set up correctly 
+Creating this Auto Scaling role requires different manual steps due to limitations within the GO SDK/AWS IAM Role creation console.
+The easiest and quickest way to ensure that `EMR_AutoScaling_DefaultRole` is set up correctly
 is to create an EMR Cluster through the EMR Console. You can terminate the cluster immediately after the role is created.
 In the IAM Console, search for `EMR_AutoScaling_DefaultRole`. If the role already exists, click it to review summary information.
 Verify that the role:
@@ -171,17 +171,17 @@ Under Permissions**. At this step, select **Custom**.
 For more information about creating IAM roles, see [Configure IAM Roles and the Amazon EC2 Instance Profile to Access Other AWS Services](http://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-iam-roles.html).
 
 ###<a id="service_key_policies"></a>Service Key Policies
-The Service Broker for AWS allows app developers to create service keys for their service instances. 
-Creating a service key creates an IAM user with a templated policy 
+The Service Broker for AWS allows app developers to create service keys for their service instances.
+Creating a service key creates an IAM user with a templated policy
 and provides the developer with Access Key credentials to the actions listed in the policies below.
 For more information on creating service keys, see [Create Service Key](./servicekeys.html#create).
 
-Service Key policy names are configurable. You can choose your own policy name and configure that name in each service by updating the **Service Key Policy Name** field. The default names are used below. 
+Service Key policy names are configurable. You can choose your own policy name and configure that name in each service by updating the **Service Key Policy Name** field. The default names are used below.
 
 Create the policy templates for each service that you will enable by logging into the AWS console and doing the following:
 
-1. Select **Policies** and click **Create Policy**. 
-1. Choose **Create Your Own Policy**. 
+1. Select **Policies** and click **Create Policy**.
+1. Choose **Create Your Own Policy**.
 1. Enter `PCFAppDeveloperPolicy-s3` for the **Policy Name** and `Service Broker for AWS Service Key policy for S3` for the **Description**.
 1. Enter the following text in the **Policy Document** section, or create your own policy template.
 
@@ -202,8 +202,8 @@ Create the policy templates for each service that you will enable by logging int
                  ]
              }
 
-1. Click **Validate Policy** to check for errors. 
-1. Click **Create Policy**. This creates an AWS policy that you must apply to every IAM user you create for the Service Broker for AWS. 
+1. Click **Validate Policy** to check for errors.
+1. Click **Create Policy**. This creates an AWS policy that you must apply to every IAM user you create for the Service Broker for AWS.
 1. Repeat steps 1-6 for `PCFAppDeveloperPolicy-sqs` `PCFAppDeveloperPolicy-dynamodb` `PCFAppDeveloperPolicy-rds` and `PCFAppDeveloperPolicy-emr`, using or modifying the examples below.
 
 <strong>`PCFAppDeveloperPolicy-sqs` Example</strong>
@@ -297,12 +297,12 @@ Create the policy templates for each service that you will enable by logging int
 ```
 
 ###<a id="bind_key_policies"></a>Bind Key Policies
-In v1.5.0 and later of the AWS Services Broker, EMR setup requires that you specify a Bind Key policy separately from a Service Key policy. 
+In v1.5.0 and later of the AWS Services Broker, EMR setup requires that you specify a Bind Key policy separately from a Service Key policy.
 
 EMR does not use ARNs for access control, so the `Resource` you use to set up the policy must be `*`.
-Because access control is enforced with cluster tagging, Pivotal recommends ensuring that 
+Because access control is enforced with cluster tagging, Pivotal recommends ensuring that
 applications/service key users do not have permission to modify cluster tags.
-The broker will automatically add a condition to the policy that limits access to 
+The broker will automatically add a condition to the policy that limits access to
 the associated EMR cluster. For more information, see [EMR Cluster Access](http://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-access-iam.html#emr-fine-grained-cluster-access).
 
 To create the bind key policy template for EMR, log in to the AWS console and follow steps 1–6 of [Service Key Policies](#service-key-policies), above, using the following example:
@@ -335,7 +335,7 @@ To create the bind key policy template for EMR, log in to the AWS console and fo
 ##<a id="create-database"></a>Step 2: Create a Service Broker Database
 To store its configuration information, the Service Broker for AWS requires access to a MySQL or PostgreSQL database that is highly available and regularly backed up.
 Loss of this data will severely affect the ability of the service broker to manage configured service instances.
-However, the AWS resources will not be affected. 
+However, the AWS resources will not be affected.
 
 The database can be MySQL for PCF v2 or an external MySQL or PostgreSQL database, including an AWS RDS database.
 
@@ -344,15 +344,15 @@ If you choose to use a MySQL for PCF v2 database, the service broker will automa
 If you use an RDS MySQL or RDS PostgreSQL database, follow these steps:
 
 1. In the AWS RDS console, create the appropriate database:
-    * Choose the smallest DB instance class, `db.t2.micro`. 
-    * Select `yes` for **Multi-AZ Deployment**. 
+    * Choose the smallest DB instance class, `db.t2.micro`.
+    * Select `yes` for **Multi-AZ Deployment**.
     * Choose `Provisioned IOPS (SSD)` for **Storage Type**. For a non-production database, you can choose `General Purpose (SSD)`.
-    * Enter the minimum accepted value '5' to '100' GB of **Allocated Storage**. 
+    * Enter the minimum accepted value '5' to '100' GB of **Allocated Storage**.
     * Leave **Provisioned IOPS** at the default value.
     * Enter `pcf-aws-services` for the **DB Instance Identifier**.
     * Enter suitable values for the **Master Username** and **Master Password**.
 
-2. Record the Database IP, Database Port, Admin user, Admin password and Database Name. The Service Broker for AWS stores configuration information in this database. 
+2. Record the Database IP, Database Port, Admin user, Admin password and Database Name. The Service Broker for AWS stores configuration information in this database.
 
 3. Ensure that the Service Broker for AWS will be able to connect to your database. If necessary for your deployment, modify your AWS VPC settings to allow access to the RDS database from an external IP address. For more information, see [Accessing a DB Instance in a VPC](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Scenarios.html) in the AWS documentation.
 
@@ -421,12 +421,12 @@ Create an ASG called `aws-service-broker-app-containers` with the above configur
 ```
 
 
-##<a id="install"></a>Step 4: Install the Service Broker Tile in Ops Manager
-To install the Service Broker for AWS tile in Ops Manager, complete the following steps:
+##<a id="install"></a>Step 4: Install the Service Broker Tile in <%= vars.ops_manager %>
+To install the Service Broker for AWS tile in <%= vars.ops_manager %>, complete the following steps:
 
 1. Download the Service Broker for AWS product file from [Pivotal Network](https://network.pivotal.io/products/pcf-service-broker-for-aws).
 
-1. From the Ops Manager Installation Dashboard, click **Import a Product** to upload the product file.
+1. From the <%= vars.ops_manager %> Installation Dashboard, click **Import a Product** to upload the product file.
 
 1. Click **Add** next to the uploaded product description in the **Available Products** view to add the product to your staging area.
 
@@ -975,7 +975,7 @@ This pane allows the user to manage the resource usage of Service Broker for AWS
 
 ###<a id="stemcell"></a>Stemcell
 A stemcell is a versioned Operating System image wrapped with IaaS specific packaging.
-This is the template from which Ops Manager creates the VMs needed for a wide variety of components and products.
+This is the template from which <%= vars.ops_manager %> creates the VMs needed for a wide variety of components and products.
 A minimum version is required, and is dependent on your cloud platform (AWS, Azure, vSphere, etc.).
 
 To access and download the stemcell required for your platform, see [Stemcells for PCF](https://network.pivotal.io/products/stemcells/)
@@ -988,7 +988,7 @@ To access and download the stemcell required for your platform, see [Stemcells f
         <th>Field</th>
         <th>Description</th>
         <tr><td><strong>Import Stemcell</strong></td>
-                <td>This allows the User to add the stemcell for their platform to Ops Manager.</td>
+                <td>This allows the User to add the stemcell for their platform to <%= vars.ops_manager %>.</td>
         </tr>
 </table>
 
@@ -998,10 +998,10 @@ Follow the steps below to confirm your Service Broker for AWS installation.
 
 <p class="note"><strong>Note</strong>: The Service Broker for AWS installs an app called <code>aws-services-broker</code> in the <code>iaas-brokers</code> space of the <code>system</code> org. Like other CF apps, you can view the application logs via the CF CLI by connecting to that org and space with the correct permissions.</p>
 
-1. After Ops Manager finishes the installation, the **Service Broker for AWS** tile appears on the **Installation Dashboard**.
+1. After <%= vars.ops_manager %> finishes the installation, the **Service Broker for AWS** tile appears on the **Installation Dashboard**.
     <%= image_tag("images/aws-sb-install.png") %>
 
-1. In Apps Manager, all Orgs and Spaces show the new services in the Services Marketplace. 
-Users can create instances of these services through Apps Manager or by using the cf CLI. 
+1. In Apps Manager, all Orgs and Spaces show the new services in the Services Marketplace.
+Users can create instances of these services through Apps Manager or by using the cf CLI.
 Review [Creating and Managing Service Instances](creating.html) for more information.
     <%= image_tag("images/aws-sb-marketplace.png") %>
