@@ -13,10 +13,9 @@ title: Release Notes
 This release fixes the following issue:
 
 * Fixes an issue where the **Engine** field on the **RDS Config** pane did not appear in
-<%= vars.ops_manager_full %> v2.7 and later.
-Pivotal recommends that you do not modify the **Engine** field.
-However, because <%= vars.ops_manager_full %> v2.6 and earlier permitted changing the field,
-this field is now backwards compatible.
+<%= vars.ops_manager_full %> v2.7 and later. Because this field appeared
+in <%= vars.ops_manager_full %> v2.6 and earlier, the prior behavior is restored.
+However, you must not modify the **Engine** field because it is not supported.
 
 ###Known Issues
 This release has the following issue:
