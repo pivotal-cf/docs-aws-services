@@ -1,5 +1,7 @@
 # Service Broker for AWS
 
+The book repo associated with this conetent is [**docs-book-aws-services**](https://github.com/pivotal-cf/docs-book-aws-services/).
+
 ## How the branches here work
 
 | Branch name | Use for… | Protected? | Currently lives…
