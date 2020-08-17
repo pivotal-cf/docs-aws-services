@@ -5,7 +5,7 @@ title: Migrating to a MySQL for PCF v2 Database
 
 This topic explains how to perform the migration from a MySQL for PCF v1 database to a MySQL for PCF v2 database.
 
-If your AWS Services Broker is configured to use the MySQL for PCF v1 tile, Pivotal recommends migrating your data to a MySQL for PCF v2 database. Doing this migration reduces dependency on v1 as users move to v2, and prepares you to use TLS (encryption) for  AWS services. 
+If your AWS Services Broker is configured to use the MySQL for PCF v1 tile, Pivotal recommends migrating your data to a MySQL for PCF v2 database. Doing this migration reduces dependency on v1 as users move to v2, and prepares you to use TLS (encryption) for  AWS services.
 
 ## <a id="prerequisites"></a> Prerequisites
 
@@ -17,7 +17,7 @@ To perform the database migration, you must have the following:
 
 ## <a id="install-mysql-plugin"></a> Install the MysqlTools Plugin
 
-You can use the MysqlTools plugin to migrate your data. 
+You can use the MysqlTools plugin to migrate your data.
 
 1. Install the `MysqlTools` plugin using the following command:
 
@@ -85,7 +85,7 @@ You can use the MysqlTools plugin to migrate your data.
 
 ## <a id="stop-broker"></a> Stop the Broker
 
-After verifying the state of the broker, you can safely stop it and unbind the database. 
+After verifying the state of the broker, you can safely stop it and unbind the database.
 
 1. Stop the broker:
 
@@ -118,9 +118,9 @@ Follow these steps to migrate your data.
 	db-large       This plan provides a large dedicated MySQL instance.    free
 	```
 
-2. Migrate your data using the `cf mysql-tools migrate SERVICE-INSTANCE-NAME PLAN-TYPE` command. 
+2. Migrate your data using the `cf mysql-tools migrate SERVICE-INSTANCE-NAME PLAN-TYPE` command.
 
-	<p class="note"><strong>Note</strong>: This example uses the service instance called <code>aws-broker-db</code> and the plan type <code>db-small</code>.</p> 
+	<p class="note"><strong>Note</strong>: This example uses the service instance called <code>aws-broker-db</code> and the plan type <code>db-small</code>.</p>
 
 	```bash
 	$ cf mysql-tools migrate aws-broker-db db-small
@@ -190,7 +190,7 @@ After migrating your data, bind the new database to the broker.
 
 1. Before deleting the old database instance, confirm that the broker behaves correctly by creating some new AWS service instances. Try binding these services to the v2 database. (You can delete these service instances after running this test.)
 
-2. After confirming that your data is migrated and the broker is running, delete the old database using the `cf delete-service -f SERVICE-INSTANCE-NAME-old` command: 
+2. After confirming that your data is migrated and the broker is running, delete the old database using the `cf delete-service -f SERVICE-INSTANCE-NAME-old` command:
 
 	```bash
 	$ cf delete-service -f aws-broker-db-old
