@@ -1,5 +1,8 @@
 # Service Broker for AWS
 
+Service Broker for AWS is no longer supported
+because it has reached the End of General Support (EOGS) phase.
+
 The book repo associated with this content is [**docs-book-aws-services**](https://github.com/pivotal-cf/docs-book-aws-services/).
 
 ## How the branches here work
