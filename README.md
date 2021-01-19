@@ -1,10 +1,10 @@
 # Service Broker for AWS
 
-The book repo associated with this conetent is [**docs-book-aws-services**](https://github.com/pivotal-cf/docs-book-aws-services/).
+The book repo associated with this content is [**docs-book-aws-services**](https://github.com/pivotal-cf/docs-book-aws-services/).
 
 ## How the branches here work
 
 | Branch name | Use for… | Protected? | Currently lives…
 |-------------| ------| ------| ------|
 | master      | Currently the published 1.4.8 docs. Contains all changes for v1.4. | Yes | http://docs.pivotal.io/aws-services/ |
-| 1.5         | Currently Edge. Contains all changes made to early v1.4, as well as additional work for EMR. v1.5 is in "sustain mode". There is no plan for its release. At the moment, no need to cherry-pick 1.4 changes to 1.5. But, if this version releases, merge master into this verion.| Yes | https://docs-pcf-staging.cfapps.io/aws-services/1-5/ |
+| 1.5         | Currently Edge. Contains all changes made to early v1.4, as well as additional work for EMR. Service Broker for AWS is no longer supported. There is no plan to release v1.5. | Yes | not published |
