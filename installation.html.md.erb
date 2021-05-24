@@ -3,12 +3,12 @@ breadcrumb: PCF Services
 title: Installing the Service Broker
 ---
 
-This topic describes how to install the Service Broker for AWS by configuring your AWS account and importing the product file into <%= vars.ops_manager_full %>.
+This topic describes how to install the <%= vars.product_short %> by configuring your AWS account and importing the product file into <%= vars.ops_manager %>.
 
 
 ## <a id="prerequisites"></a> Installation Prerequisites
 
-* Pivotal Cloud Foundry (PCF) v2.3 or later
+* Pivotal Cloud Foundry (PCF) v2.3 to v2.9
 * An Amazon Web Services (AWS) account
 * MySQL for PCF v2, or an existing MySQL or PostgreSQL database
 
@@ -16,7 +16,7 @@ This topic describes how to install the Service Broker for AWS by configuring yo
 
 ## <a id="setup"></a> Step 1: Set Up AWS
 
-In this step, you configure your AWS account to allow the Service Broker for AWS to create and manage AWS resources.
+In this step, you configure your AWS account to allow the <%= vars.product_short %> to create and manage AWS resources.
 
 Create a new IAM user for the PCF cluster in the **AWS Identity & Access Management** console by following the procedure below.
 
@@ -81,7 +81,7 @@ Create a new IAM user for the PCF cluster in the **AWS Identity & Access Managem
 
 1. Enter `PCFInstallationPolicy` for **Policy Name** and `Installation Policy for PCF` for **Description**.
 
-1. Click **Create Policy**. This creates an AWS policy that you must apply to every IAM user you create for the Service Broker for AWS.
+1. Click **Create Policy**. This creates an AWS policy that you must apply to every IAM user you create for the <%= vars.product_short %>.
 
 1. For each IAM user, do the following:
   1. Click the username.
@@ -90,14 +90,14 @@ Create a new IAM user for the PCF cluster in the **AWS Identity & Access Managem
 
 1. Record the **AWS Access Key ID** and **Secret Access Key** for each of your PCF IAM accounts for later use.
 
-<p class='note'><strong>Note:</strong> The Service Broker for AWS also allows a custom name for the <code>PCFInstallationPolicy</code>.<br><br>
+<p class='note'><strong>Note:</strong> The <%= vars.product_short %> also allows a custom name for the <code>PCFInstallationPolicy</code>.<br><br>
     • <strong>To use the default name:</strong> Follow the steps above for configuring the <code>PCFInstallationPolicy</code> policy.<br>
     • <strong>To use a custom name:</strong> In the steps above, use a custom name instead of <code>PCFInstallationPolicy</code>.
       You need to enter this custom name later during <strong>Broker Config</strong>, <strong>RDS Config</strong>, <strong>S3 Config</strong>, and <strong>SQS Config</strong>.</p>
 
 #### <a id='service-key-policies'></a> Service Key Policies
 
-The Service Broker for AWS allows app developers to create service keys for their service instances.
+The <%= vars.product_short %> allows app developers to create service keys for their service instances.
 Creating a service key creates an IAM user with a templated policy,
 and provides the app developer with Access Key credentials to the actions listed in the policies below.
 
@@ -133,9 +133,9 @@ log in to the AWS console and do the following:
 
 1. Click **Review Policy** to check for errors.
 
-1. Enter `PCFAppDeveloperPolicy-s3` for **Policy Name** and `Service Broker for AWS Service Key policy for S3` for  **Description**.
+1. Enter `PCFAppDeveloperPolicy-s3` for **Policy Name** and `<%= vars.product_short %> Service Key policy for S3` for  **Description**.
 
-1. Click **Create Policy**. This creates an AWS policy that you must apply to every IAM user you create for the Service Broker for AWS.
+1. Click **Create Policy**. This creates an AWS policy that you must apply to every IAM user you create for the <%= vars.product_short %>.
 
 1. Repeat steps 1&ndash;6 for `PCFAppDeveloperPolicy-sqs`, `PCFAppDeveloperPolicy-dynamodb`, and `PCFAppDeveloperPolicy-rds`, using or modifying the examples below.
 
@@ -206,7 +206,7 @@ log in to the AWS console and do the following:
 
 ## <a id="create-database"></a> Step 2: Create Service Broker Database
 
-To store its configuration information, the Service Broker for AWS requires access
+To store its configuration information, the <%= vars.product_short %> requires access
 to a MySQL or PostgreSQL database that is highly available and regularly backed up.
 Loss of this data severely impacts the ability of the service broker to manage
 the configured service instances. However, the AWS resources are not be affected.
@@ -226,9 +226,9 @@ If you choose to use an RDS MySQL or RDS PostgreSQL database, do the following:
     * Enter `pcf-aws-services` for the **DB Instance Identifier**.
     * Enter suitable values for the **Master username** and **Master password**.
 
-1. Record the **Database IP**, **Database Port**, **Admin User**, **Admin Password**, and **Database Name**. The Service Broker for AWS stores configuration information in this database.
+1. Record the **Database IP**, **Database Port**, **Admin User**, **Admin Password**, and **Database Name**. The <%= vars.product_short %> stores configuration information in this database.
 
-1. Ensure that the Service Broker for AWS is able to connect to your database.
+1. Ensure that the <%= vars.product_short %> is able to connect to your database.
   If necessary for your deployment, modify your AWS VPC settings to allow access to
   the RDS database from an external IP address. For more information, see
   [Accessing a DB Instance in a VPC](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Scenarios.html)
@@ -304,9 +304,9 @@ Create an ASG called `aws-service-broker-app-containers` with the above configur
 
 ## <a id="install"></a> Step 4: Install in <%= vars.ops_manager %>
 
-To install the Service Broker for AWS tile in <%= vars.ops_manager %>, do the following:
+To install the <%= vars.product_short %> tile in <%= vars.ops_manager %>, do the following:
 
-1. Download the Service Broker for AWS product file from [Pivotal Network](https://network.pivotal.io/products/pcf-service-broker-for-aws).
+1. Download the <%= vars.product_short %> product file from [<%= vars.product_network %>](https://network.pivotal.io/products/pcf-service-broker-for-aws).
 
 1. From the <%= vars.ops_manager %> Installation Dashboard, click **Import a Product** to upload the product file.
 
@@ -349,7 +349,7 @@ The setup in Step 1 must be successfully completed before beginning this configu
 1. If you chose **Pivotal MySQL (v2)**, enter the **Plan Name** to be used (e.g. `db-small`) and a unique database name. The database is created during deployment if it does not already exist.
 
 1. If you chose **External MySQL** or **External Postgres**:
-	1. For **Database Host** enter the IP address of the database where the Service Broker for AWS stores configuration information. You can use the database you created in the AWS RDS console in [Step 1](#setup), or choose to use an existing database.
+	1. For **Database Host** enter the IP address of the database where the <%= vars.product_short %> stores configuration information. You can use the database you created in the AWS RDS console in [Step 1](#setup), or choose to use an existing database.
 	1. For **Database Port**, enter the port number of your database. The default for PostgreSQL is `5432`, and the default for MySQL is `3306`.
 	1. For **Database Username** and **Database Password**, enter your database credentials.
 	1. For **Database Name**, enter the name of the database.
@@ -386,7 +386,7 @@ The setup in Step 1 must be successfully completed before beginning this configu
 
 1. Select the checkboxes of the RDS Services you want to show in the Marketplace.
 
-1. Under **Plans**, for each RDS Database, the Service Broker for AWS includes several default plans for use.
+1. Under **Plans**, for each RDS Database, the <%= vars.product_short %> includes several default plans for use.
     * **basic**: For small projects and during development.
     * **standard**: For a small production database (multi-AZ, 2vCPU, 7.5&nbsp;GB).
     * **premium**: For a mid-sized database (multi-AZ, 4 vCPU, 15&nbsp;GB).
@@ -433,7 +433,7 @@ The setup in Step 1 must be successfully completed before beginning this configu
 
 1. Enter the **Bucket Prefix**, a short name to prefix all bucket names.
 
-1. S3 has one default plan called `standard`, but in Service Broker for AWS v1.4 and later, you can add more. A service plan can require an S3 bucket to be encrypted by creating an AWS KMS Key (see AWS SSE-KMS) and entering the KMS key ARN in the service plan configuration.
+1. S3 has one default plan called `standard`, but in <%= vars.product_short %> v1.4 and later, you can add more. A service plan can require an S3 bucket to be encrypted by creating an AWS KMS Key (see AWS SSE-KMS) and entering the KMS key ARN in the service plan configuration.
 	    <%= image_tag("images/aws-sb-s3plans.png") %><%# Images require alt text that describes the image in detail. %>
 
 1. Click **Save** to store the changed settings.
@@ -481,9 +481,9 @@ For more information about AWS SQS queue properties, see [AWS::SQS::Queue](http:
 
 ## <a id="confirm"></a> Step 5: Confirm Installation
 
-<p class="note"><strong>Note:</strong> The Service Broker for AWS installs an app named <code>aws-services-broker</code> in the <code>iaas-brokers</code> space of the <code>system</code> org. Like other Cloud Foundry apps, you can view the application logs through the cf CLI by connecting to that org and space with the correct permissions.</p>
+<p class="note"><strong>Note:</strong> The <%= vars.product_short %> installs an app named <code>aws-services-broker</code> in the <code>iaas-brokers</code> space of the <code>system</code> org. Like other Cloud Foundry apps, you can view the application logs through the cf CLI by connecting to that org and space with the correct permissions.</p>
 
-1. After <%= vars.ops_manager %> finishes the installation, the **Service Broker for AWS** appears as a green tile in the **Installation Dashboard**.
+1. After <%= vars.ops_manager %> finishes the installation, the **<%= vars.product_short %>** appears as a green tile in the **Installation Dashboard**.
     <%= image_tag("images/aws-sb-install.png") %><%# Images require alt text that describes the image in detail. %>
 
 1. In Apps Manager, all orgs and spaces show the new services in the Marketplace. Users can create instances of these services through Apps Manager or through the cf CLI. For more information, see [Creating and Managing Service Instances](creating.html).

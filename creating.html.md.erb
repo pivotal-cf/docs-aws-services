@@ -7,17 +7,17 @@ title: Creating and Managing Service Instances
 
 This topic describes how developers set up, operate,
 and scale Amazon Web Services (AWS) resources from Pivotal Cloud Foundry (PCF)
-by creating and managing service instances using the Service Broker for AWS.
+by creating and managing service instances using the <%= vars.product_short %>.
 
 PCF operators must follow the instructions in the
 [Installing the Service Broker](installation.html) topic to install the
-Service Broker for AWS before developers can use it.
+<%= vars.product_short %> before developers can use it.
 During installation, operators configure which AWS services they want to make
 available to developers in the Services Marketplace.
 They can also set up pre-defined service plans with specific resource configurations
 and securely manage their AWS credentials.
 
-The current version of the Service Broker for AWS supports the following services:
+The current version of the <%= vars.product_short %> supports the following services:
 
   * Amazon RDS for PostgreSQL
   * Amazon S3
@@ -29,7 +29,7 @@ The current version of the Service Broker for AWS supports the following service
   * Amazon RDS for MariaDB
   * Amazon SQS
 
-Developers create and manage service instances of the Service Broker for AWS
+Developers create and manage service instances of the <%= vars.product_short %>
 through the cf CLI or Apps Manager.
 
 To perform the following procedures for creating and managing service instances,
@@ -39,7 +39,7 @@ a developer must be logged in to the PCF deployment through the cf CLI.
 ## <a id="view"></a> View Services
 
 1. List available Marketplace Services with `cf marketplace` to show information
-about the Service Broker for AWS services.
+about the <%= vars.product_short %> services.
     <pre class="terminal">
     $ cf marketplace
     Getting services from marketplace in org system / space iaas-brokers as admin...
@@ -74,7 +74,7 @@ about the Service Broker for AWS services.
 
 ## <a id="create"></a> Create Service Instances
 
-<p class="note"><strong>Note:</strong> When <a href="installation.html">installing</a> the Service Broker for AWS, the PCF operator sets up an IAM account and policy and provides credentials to the Service Broker. Developers do not need access to the credentials to create service instances.</p>
+<p class="note"><strong>Note:</strong> When <a href="installation.html">installing</a> the <%= vars.product_short %>, the PCF operator sets up an IAM account and policy and provides credentials to the Service Broker. Developers do not need access to the credentials to create service instances.</p>
 
 ### <a id="rds"></a> RDS for PostgreSQL
 
@@ -237,7 +237,7 @@ You can omit settings that you do not want to explicitly set:
 You can create and add items to NoSQL tables with DynamoDB.
 You can do this programmatically or through the
 [AWS DynamoDB console](https://console.aws.amazon.com/dynamodb/home?region=us-east-1).
-Pivotal recommends creating an IAM user at bind time and configuring access to a
+VMware recommends creating an IAM user at bind time and configuring access to a
 set of prefixed tables for operations such as creating a table and adding an item.
 
 To create a service instance of the AWS DynamoDB service, use `cf create-service`
@@ -289,7 +289,7 @@ The following example creates an instance named `bucket1` with the `standard` pl
 <pre class="terminal">$ cf create-service aws-s3 standard bucket1
 </pre>
 
-<p class="note"><strong>Note:</strong> S3 service instances use default region and tags settings configured by the PCF operator during the installation of the Service Broker for AWS.</p>
+<p class="note"><strong>Note:</strong> S3 service instances use default region and tags settings configured by the PCF operator during the installation of the <%= vars.product_short %>.</p>
 
 To create an S3 bucket with custom settings,
 use `cf create-service SERVICE PLAN SERVICE-INSTANCE` with the `-c` flag.
@@ -311,7 +311,7 @@ The following example creates an instance named `queue1` with the `standard` pla
 <pre class="terminal">$ cf create-service aws-sqs standard queue1
 </pre>
 
-<p class="note"><strong>Note:</strong> SQS queue instances use default region and property settings configured by the PCF operator during the installation of the Service Broker for AWS.</p>
+<p class="note"><strong>Note:</strong> SQS queue instances use default region and property settings configured by the PCF operator during the installation of the <%= vars.product_short %>.</p>
 
 To create an SQS queue with custom settings,
 use `cf create-service SERVICE PLAN SERVICE-INSTANCE` with the `-c` flag.
