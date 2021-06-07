@@ -28,54 +28,57 @@ Create a new IAM user for the PCF cluster in the **AWS Identity & Access Managem
 
 1. Copy the following text into the field:
 
-            {
-                "Version": "2012-10-17",
-                "Statement": [
-                    {
-                        "Action": [
-                            "s3:CreateBucket",
-                            "s3:DeleteBucket",
-                            "s3:PutBucketAcl",
-                            "s3:PutBucketLogging",
-                            "s3:PutBucketPolicy",
-                            "s3:PutBucketTagging",
-                            "s3:GetObject",
-                            "s3:ListBucket",
-                            "iam:CreateAccessKey",
-                            "iam:CreateUser",
-                            "iam:GetUser",
-                            "iam:DeleteAccessKey",
-                            "iam:DeleteUser",
-                            "iam:DeleteUserPolicy",
-                            "iam:ListAccessKeys",
-                            "iam:ListAttachedUserPolicies",
-                            "iam:ListUserPolicies",
-                            "iam:ListPolicies",
-                            "iam:PutUserPolicy",
-                            "iam:GetPolicy",
-                            "iam:GetAccountAuthorizationDetails",
-                            "rds:CreateDBCluster",
-                            "rds:CreateDBInstance",
-                            "rds:DeleteDBCluster",
-                            "rds:DeleteDBInstance",
-                            "rds:DescribeDBClusters",
-                            "rds:DescribeDBInstances",
-                            "rds:DescribeDBSnapshots",
-                            "rds:DeleteDBSnapshot",
-                            "rds:CreateDBParameterGroup",
-                            "rds:ModifyDBParameterGroup",
-                            "rds:DeleteDBParameterGroup",
-                            "dynamodb:ListTables",
-                            "dynamodb:DeleteTable",
-                            "dynamodb:DescribeTable",
-                            "sqs:CreateQueue",
-                            "sqs:DeleteQueue"
-                        ],
-                        "Effect": "Allow",
-                        "Resource": "*"
-                    }
-                ]
-            }
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "s3:CreateBucket",
+                "s3:DeleteBucket",
+                "s3:PutBucketAcl",
+                "s3:PutBucketLogging",
+                "s3:PutBucketPolicy",
+                "s3:PutBucketTagging",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "iam:CreateAccessKey",
+                "iam:CreateUser",
+                "iam:GetUser",
+                "iam:DeleteAccessKey",
+                "iam:DeleteUser",
+                "iam:DeleteUserPolicy",
+                "iam:ListAccessKeys",
+                "iam:ListAttachedUserPolicies",
+                "iam:ListUserPolicies",
+                "iam:ListPolicies",
+                "iam:PutUserPolicy",
+                "iam:GetPolicy",
+                "iam:GetAccountAuthorizationDetails",
+                "rds:AddTagsToResource",
+                "rds:CreateDBCluster",
+                "rds:CreateDBInstance",
+                "rds:DeleteDBCluster",
+                "rds:DeleteDBInstance",
+                "rds:DescribeDBClusters",
+                "rds:DescribeDBInstances",
+                "rds:DescribeDBSnapshots",
+                "rds:DeleteDBSnapshot",
+                "rds:CreateDBParameterGroup",
+                "rds:ModifyDBParameterGroup",
+                "rds:DeleteDBParameterGroup",
+                "dynamodb:ListTables",
+                "dynamodb:DeleteTable",
+                "dynamodb:DescribeTable",
+                "sqs:CreateQueue",
+                "sqs:DeleteQueue"
+            ],
+            "Effect": "Allow",
+            "Resource": "*"
+        }
+    ]
+}
+```
 
 1. Click **Review Policy** to check for errors.
 
@@ -114,22 +117,24 @@ log in to the AWS console and do the following:
 
 1. Copy the following text into the field or create your own policy template:
 
-            {
-                "Version": "2012-10-17",
-                "Statement": [
-                    {
-                        "Sid": "allowtagging",
-                        "Effect": "Allow",
-                        "Action": [
-                            "s3:GetBucketTagging",
-                            "s3:PutBucketTagging"
-                        ],
-                        "Resource": [
-                            "arn:aws:broker:resource::"
-                        ]
-                     }
-                 ]
-             }
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "allowtagging",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetBucketTagging",
+                "s3:PutBucketTagging"
+            ],
+            "Resource": [
+                "arn:aws:broker:resource::*"
+            ]
+         }
+     ]
+}
+```
 
 1. Click **Review Policy** to check for errors.
 
@@ -155,7 +160,7 @@ log in to the AWS console and do the following:
                 "sqs:SendMessage"
             ],
             "Resource": [
-                "arn:aws:broker:resource::"
+                "arn:aws:broker:resource::*"
             ]
         }
     ]
@@ -175,7 +180,7 @@ log in to the AWS console and do the following:
                 "dynamodb:*"
             ],
             "Resource": [
-                "arn:aws:broker:resource::"
+                "arn:aws:broker:resource::*"
             ]
         }
     ]
@@ -196,7 +201,7 @@ log in to the AWS console and do the following:
                 "rds:DescribeDbInstances"
             ],
             "Resource": [
-                "arn:aws:broker:resource::"
+                "arn:aws:broker:resource::*"
             ]
         }
     ]
