@@ -11,12 +11,20 @@ title: Release Notes
 
 **Release Date: June 8, 2021**
 
-### Features
-* Extended EOGS support until the end of 2021
-* Validated compatibility with newer TAS and OpsManagers, including all LTS versions
+<p class="note breaking"><strong> Breaking Change:</strong>
+Switch to stemcell Xenial 621.x so that you are running on a stemcell
+that will be supported in the future.
+</p>
 
-### Breaking Changes
-* Switch to stemcell Xenial 621.x to ensure running on a supported stemcell for the future
+### Maintenance Changes
+
+Maintenance changes in this release:
+
+* Extended End of General Support (EOGS) to December 31, 2021.
+
+* Validated compatibility with newer versions of <%= vars.ops_manager %> and <%= vars.app_runtime_full %>
+  including the long-term support (LTS) versions.
+
 
 ###Known Issues
 This release has the following issue:
