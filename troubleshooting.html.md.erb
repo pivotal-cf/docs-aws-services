@@ -6,7 +6,7 @@ title: Troubleshooting VMware Tanzu Service Broker for AWS
 This topic provides basic troubleshooting techniques and FAQs for <%= vars.product_full %>.
 
 ##<a id="token-op"></a> Problem: Invalid Token (Operator)
-As a PCF operator, when deploying the tile by clicking **Apply Changes**,
+As an operator, when deploying the tile by clicking **Apply Changes**,
 I get the following error:
 "A client error (InvalidClientTokenId) occurred when calling the GetUser operation:
 The security token included in the request is invalid."
@@ -22,7 +22,7 @@ For more information, see [AWS Config](./installation.html#aws-config).
 
 
 ##<a id="brokers"></a> Problem: Cannot Remove Brokers
-As a PCF operator, when deleting the product tile, I get the following error:
+As an operator, when deleting the product tile, I get the following error:
 "Can not remove brokers that have associated service instances".
 
 ### Reason
@@ -43,7 +43,7 @@ The security token included in the request is invalid."
 The AWS credentials are not valid.
 
 ### Solution
-Ask your PCF operator to verify or re-create the AWS credentials.
+Ask your operator to verify or re-create the AWS credentials.
 
 
 ##<a id="cannot-modify"></a> Problem: Cannot Modify an Object
@@ -53,5 +53,5 @@ As a developer, I cannot modify an object when using `ALTER` or `DROP`.
 When the object was created, the role was not `binding_group`.
 
 ### Solution
-To resolve this, your PCF operator must contact support.
+To resolve this, your operator must contact support.
 For more information, see [Global Support Contacts](https://pivotal.io/support/contact).

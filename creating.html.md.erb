@@ -6,10 +6,10 @@ title: Creating and Managing Service Instances
 ## <a id="overview"></a> Overview
 
 This topic describes how developers set up, operate,
-and scale Amazon Web Services (AWS) resources from Pivotal Cloud Foundry (PCF)
+and scale Amazon Web Services (AWS) resources from <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>)
 by creating and managing service instances using the <%= vars.product_short %>.
 
-PCF operators must follow the instructions in the
+Operators must follow the instructions in the
 [Installing the Service Broker](installation.html) topic to install the
 <%= vars.product_short %> before developers can use it.
 During installation, operators configure which AWS services they want to make
@@ -33,7 +33,7 @@ Developers create and manage service instances of the <%= vars.product_short %>
 through the cf CLI or Apps Manager.
 
 To perform the following procedures for creating and managing service instances,
-a developer must be logged in to the PCF deployment through the cf CLI.
+a developer must be logged in to the <%= vars.app_runtime_abbr %> deployment through the cf CLI.
 
 
 ## <a id="view"></a> View Services
@@ -74,7 +74,7 @@ about the <%= vars.product_short %> services.
 
 ## <a id="create"></a> Create Service Instances
 
-<p class="note"><strong>Note:</strong> When <a href="installation.html">installing</a> the <%= vars.product_short %>, the PCF operator sets up an IAM account and policy and provides credentials to the Service Broker. Developers do not need access to the credentials to create service instances.</p>
+<p class="note"><strong>Note:</strong> When <a href="installation.html">installing</a> the <%= vars.product_short %>, the operator sets up an IAM account and policy and provides credentials to the Service Broker. Developers do not need access to the credentials to create service instances.</p>
 
 ### <a id="rds"></a> RDS for PostgreSQL
 
@@ -289,7 +289,7 @@ The following example creates an instance named `bucket1` with the `standard` pl
 <pre class="terminal">$ cf create-service aws-s3 standard bucket1
 </pre>
 
-<p class="note"><strong>Note:</strong> S3 service instances use default region and tags settings configured by the PCF operator during the installation of the <%= vars.product_short %>.</p>
+<p class="note"><strong>Note:</strong> S3 service instances use default region and tags settings configured by the operator during the installation of the <%= vars.product_short %>.</p>
 
 To create an S3 bucket with custom settings,
 use `cf create-service SERVICE PLAN SERVICE-INSTANCE` with the `-c` flag.
@@ -311,7 +311,7 @@ The following example creates an instance named `queue1` with the `standard` pla
 <pre class="terminal">$ cf create-service aws-sqs standard queue1
 </pre>
 
-<p class="note"><strong>Note:</strong> SQS queue instances use default region and property settings configured by the PCF operator during the installation of the <%= vars.product_short %>.</p>
+<p class="note"><strong>Note:</strong> SQS queue instances use default region and property settings configured by the operator during the installation of the <%= vars.product_short %>.</p>
 
 To create an SQS queue with custom settings,
 use `cf create-service SERVICE PLAN SERVICE-INSTANCE` with the `-c` flag.

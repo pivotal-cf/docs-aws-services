@@ -8,19 +8,25 @@ This topic describes how to install the <%= vars.product_short %> by configuring
 
 ## <a id="prerequisites"></a> Installation Prerequisites
 
-* Pivotal Cloud Foundry (PCF) v2.3 to v2.9
+* <%= vars.app_runtime_full %> (<%= vars.app_runtime_abbr %>) v2.3 to v2.9
 * An Amazon Web Services (AWS) account
 * MySQL for PCF v2, or an existing MySQL or PostgreSQL database
 
-<p class="note"><strong>Note: </strong>Pivotal Cloud Foundry (PCF) products and tiles released after July 2018 require Ubuntu Xenial stemcells instead of Ubuntu Trusty stemcells.</p>
+<p class="note"><strong>Note: </strong><%= vars.ops_manager %> products and tiles released after July 2018 require Ubuntu Xenial stemcells instead of Ubuntu Trusty stemcells.</p>
 
 ## <a id="setup"></a> Step 1: Set Up AWS
 
 In this step, you configure your AWS account to allow the <%= vars.product_short %> to create and manage AWS resources.
 
-Create a new IAM user for the PCF cluster in the **AWS Identity & Access Management** console by following the procedure below.
+Create a new IAM user for the <%= vars.app_runtime_abbr %> cluster in the **AWS Identity & Access Management** console by following the procedure below.
 
-<p class="note"><strong>Note: </strong>If you have more than one PCF deployment, you must create an IAM user for each deployment. Create a new IAM user in your AWS account. Do not use the same IAM user that installed PCF on AWS becuase it has different policy restrictions.</p>
+<p class="note">
+  <strong>Note:</strong> If you have more than one <%= vars.app_runtime_abbr %>
+  deployment, you must create an IAM user for each deployment.
+  Create a new IAM user in your AWS account.
+  Do not use the same IAM user that installed <%= vars.app_runtime_abbr %> on
+  AWS becuase it has different policy restrictions.
+</p>
 
 1. Select **Policies** and click **Create Policy**.
 
@@ -363,7 +369,7 @@ The setup in Step 1 must be successfully completed before beginning this configu
 
 1. Click **Save**.
 
-<p class='note'><strong>Note:</strong> In the following sections that configure AWS Services, if you do not want to offer that specific service in your PCF Marketplace, disable the <strong>Enable in Marketplace</strong> checkbox.</p>
+<p class='note'><strong>Note:</strong> In the following sections that configure AWS Services, if you do not want to offer that specific service in your <%= vars.app_runtime_abbr %> Marketplace, disable the <strong>Enable in Marketplace</strong> checkbox.</p>
 
 ### <a id="dynamodb-config"></a> DynamoDB Config
 

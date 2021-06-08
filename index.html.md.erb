@@ -4,7 +4,7 @@ title: VMware Tanzu Service Broker for AWS
 ---
 
 The [<%= vars.product_full %>](https://network.pivotal.io/products/pcf-service-broker-for-aws) provides
-[Pivotal Cloud Foundry](https://network.pivotal.io/products/pivotal-cf) users with the ability
+[<%= vars.app_runtime_full %>](https://network.pivotal.io/products/pivotal-cf) users with the ability
 to create and manage Amazon Web Services (AWS) resources from the Cloud Foundry Command Line Interface (cf CLI).
 
 ##<a id="overview"></a>Overview
@@ -13,7 +13,7 @@ The <%= vars.product_short %> is installed once and exposes the selected AWS ser
 App developers can then create and manage a service instance by using the cf CLI commands `create service`,
 `bind service`, `unbind service`, and `delete service`.
 After obtaining a service key using the `create-service-key` command,
-developers can use the key with the AWS CLI to perform additional operations as permitted by their PCF operator.
+developers can use the key with the AWS CLI to perform additional operations as permitted by their operator.
 
 AWS Services currently supported include:
 
@@ -48,7 +48,7 @@ The following table provides version and version-support information about Servi
         <td>2.3–2.9</td>
     </tr>
     <tr>
-        <td>Compatible Pivotal Application Service (PAS) versions</td>
+        <td>Compatible <%= vars.app_runtime_full %> versions</td>
         <td>2.3–2.9</td>
     </tr>
     <tr>
