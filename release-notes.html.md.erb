@@ -7,6 +7,36 @@ title: Release Notes
 
 <%= partial "upgrade-planner" %>
 
+## <a id="1-4-18"></a> 1.4.18
+
+**Release Date: July 28, 2021**
+
+### Features
+New features and changes in this release:
+
+* Extra binding URI parameters can be configured on MySQL, MariaDB, Aurora, and Postgres plans. These parameters can be used as hints for application DB connectors that aren't properly connecting.
+
+### Resolved Issues
+This release fixes the following issue:
+
+* Aurora MySQL 5.7+ instances can be provisioned, as long as you specify "aurora-mysql" as the engine name. AWS changed the name of the aurora engine starting in 5.7 compatible versions.
+
+* Postgres 10+ instances can be provisioned. AWS changed the naming convention of the parameter group family starting in PG10.
+
+* Fixed a bug where SQL server instances can no longer be bound, when the broker is pushed into a TAS with newer golang buildpacks due to changes in go/sql standard libraries.
+
+### Maintenance Changes
+
+Maintenance changes in this release:
+
+* Bump versions of all database driver libraries. These dependencies require a TAS foundation with a golang 1.14+ buildpack. Given that go 1.14 is already out of general support we do not consider this a breaking change.
+
+* Extended End of General Support (EOGS) to February 28, 2022.
+
+###Known Issues
+This release has the following issue:
+<%= partial "postgresql-role-issue" %>
+
 ## <a id="1-4-17"></a> 1.4.17
 
 **Release Date: June 8, 2021**
