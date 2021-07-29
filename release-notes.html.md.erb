@@ -12,28 +12,39 @@ title: Release Notes
 **Release Date: July 29, 2021**
 
 ### Features
+
 New features and changes in this release:
 
-* Extra binding URI parameters can be configured on MySQL, MariaDB, Aurora, and Postgres plans. These parameters can be used as hints for application DB connectors that aren't properly connecting.
+* You can configure extra binding URI parameters on MySQL, MariaDB, Aurora, and Postgres plans.
+You can use these parameters as hints for application database connectors that are not properly connecting.
 
 ### Resolved Issues
+
 This release fixes the following issue:
 
-* Aurora MySQL 5.7+ instances can be provisioned, as long as you specify "aurora-mysql" as the engine name. AWS changed the name of the aurora engine starting in 5.7 compatible versions.
+* You can now provision Aurora MySQL v5.7 and later instances.
+You must specify "aurora-mysql" as the engine name.
+AWS changed the name of the aurora engine starting in v5.7 compatible versions.
 
-* Postgres 10+ instances can be provisioned. AWS changed the naming convention of the parameter group family starting in PG10.
+* You can now provision Postgres v10 and later instances.
+AWS changed the naming convention of the parameter group family starting in Postgres v10.
 
-* Fixed a bug where SQL server instances can no longer be bound, when the broker is pushed into a TAS with newer golang buildpacks due to changes in go/sql standard libraries.
+* Fixed an issue where you could no longer bind to SQL server instances.
+This issue occurred when the broker was pushed to a <%= vars.app_runtime_abbr %>
+with newer golang buildpacks, and was due to changes in `go/sql` standard libraries.
 
 ### Maintenance Changes
 
 Maintenance changes in this release:
 
-* Bump versions of all database driver libraries. These dependencies require a TAS foundation with a golang 1.14+ buildpack. Given that go 1.14 is already out of general support we do not consider this a breaking change.
+* Upgrades versions of all database driver libraries.
+These dependencies require a <%= vars.app_runtime_abbr %> foundation with a golang v1.14 and later buildpack.
+This is not considered to be a breaking change because Go v1.14 is already out of general support.
 
 * Extended End of General Support (EOGS) to February 28, 2022.
 
-###Known Issues
+### Known Issues
+
 This release has the following issue:
 <%= partial "postgresql-role-issue" %>
 
@@ -56,7 +67,8 @@ Maintenance changes in this release:
   including the long-term support (LTS) versions.
 
 
-###Known Issues
+### Known Issues
+
 This release has the following issue:
 <%= partial "postgresql-role-issue" %>
 
