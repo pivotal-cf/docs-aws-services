@@ -48,7 +48,8 @@ This is not considered to be a breaking change because Go v1.14 is already out o
 
 This release has the following issues:
 
-* The help text for the RDS Aurora engine field suggests using `aurora_mysql` when the correct name is `aurora-mysql`.
+* The help text for the RDS Aurora engine field incorrectly suggests using `aurora_mysql` with an underscore.
+The correct name is `aurora-mysql` with a hyphen.
 
 <%= partial "postgresql-role-issue" %>
 
