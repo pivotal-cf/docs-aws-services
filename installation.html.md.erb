@@ -423,8 +423,8 @@ The setup in Step 1 must be successfully completed before beginning this configu
     - **Multi AZ**: Whether to automatically run in multiple Availability Zones.
     - The **Enable Storage Encryption** setting is disabled by default. If you have not enabled it globally, you can configure it per service plan.
     - For flexibility, the **User Privileges** allows configuration of database user privileges by service plan. Use this to secure the privileges you want for your developers or apps.
-    - **Require SSL for communication**: Reject connections without TLS
-    - **Additional custom query params on binding URI**: A comma separated list of a additional key=value pairs which are added to binding credentials. This feature is useful to provide hints to application database connector libraries, such as `enabledTLSProtocols=TLSv1.2`.
+    - **Require SSL for communication**: Select this checkbox to reject connections without TLS.
+    - **Additional custom query params on binding URI**: A comma separated list of additional key-value pairs that are added to binding credentials. This feature is useful to provide hints to application database connector libraries, such as `enabledTLSProtocols=TLSv1.2`.
     - **DB Parameter Group Name** allows you to associate an existing DB Parameter Group Name with this service plan. Use the AWS Console to create the DB Parameter Group.
 
     <%= image_tag("images/aws-sb-addplan.png") %><%# Images require alt text that describes the image in detail. %>
