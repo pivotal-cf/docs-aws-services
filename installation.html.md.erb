@@ -330,7 +330,8 @@ To install the <%= vars.product_short %> tile in <%= vars.ops_manager %>, do the
 The setup in Step 1 must be successfully completed before beginning this configuration. You need the AWS and database parameters from that step to successfully configure the broker.
 
 1. Click **AWS Config**.
-    <%= image_tag("images/aws-sb-awsconfig.png") %><%# Images require alt text that describes the image in detail. %>
+    <%= image_tag("images/aws-sb-awsconfig.png", :alt => "A screenshot of the AWS
+    Config tab. The configurable fields are described in the following steps.") %>
 
 1. Enter the **AWS Access Key ID** and the **Secret Access Key** from [Step 1](#setup).
 
@@ -349,7 +350,8 @@ The setup in Step 1 must be successfully completed before beginning this configu
 ### <a id="broker-config"></a> Broker Config
 
 1. Click **Broker Config**.
-    <%= image_tag("images/aws-sb-brokerconfig.png") %><%# Images require alt text that describes the image in detail. %>
+    <%= image_tag("images/aws-sb-brokerconfig.png", :alt => "A screenshot of the Broker
+    Config tab. The configurable fields are described in the following steps.") %>
 
 1. For **App Instances**, enter the number of instances of the service broker you want to run. The default is `2`.
 
@@ -374,14 +376,16 @@ The setup in Step 1 must be successfully completed before beginning this configu
 ### <a id="dynamodb-config"></a> DynamoDB Config
 
 1. Click **DynamoDB Config**.
-    <%= image_tag("images/aws-sb-dynamodbconfig.png") %><%# Images require alt text that describes the image in detail. %>
+    <%= image_tag("images/aws-sb-dynamodbconfig.png", :alt => "A screenshot of the DynamoDB
+    Config tab. The configurable fields are described in the following steps.") %>
 
 1. Under **Override Default AWS Region**, select the default AWS region.
 
 ### <a id="rds-config"></a> RDS Config
 
 1. Click **RDS Config**.
-    <%= image_tag("images/aws-sb-rdsconfig.png") %><%# Images require alt text that describes the image in detail. %>
+    <%= image_tag("images/aws-sb-rdsconfig.png", :alt => "A screenshot of the RDS
+    Config tab. The configurable fields are described in the following steps.") %>
 
 1. Under **Override Default AWS Region**, select the default AWS region.
 
@@ -404,7 +408,8 @@ The setup in Step 1 must be successfully completed before beginning this configu
     * **enterprise**: For a large database (multi-AZ, 8 vCPU, 32&nbsp;GB).
 
 1. You can view and edit the configuration of existing plans by clicking the arrow next to their names.
-    <%= image_tag("images/aws-sb-editplan.png") %><%# Images require alt text that describes the image in detail. %>
+    <%= image_tag("images/aws-sb-editplan.png", :alt => "A screenshot of the PostgreSQL Plans section of the RDS
+    Config tab. The standard plan is selected.") %>
     <p class="note"><strong>Note:</strong> If you edit an existing service plan, only future instances of that services plan are changed. Ask your admin to modify existing instances.</p>
 
 1. You can also create a new custom plan by clicking **Add** and completing the following fields:
@@ -427,14 +432,16 @@ The setup in Step 1 must be successfully completed before beginning this configu
     - **Additional custom query params on binding URI**: A comma separated list of additional key-value pairs that are added to binding credentials. This feature is useful to provide hints to application database connector libraries, such as `enabledTLSProtocols=TLSv1.2`.
     - **DB Parameter Group Name** allows you to associate an existing DB Parameter Group Name with this service plan. Use the AWS Console to create the DB Parameter Group.
 
-    <%= image_tag("images/aws-sb-addplan.png") %><%# Images require alt text that describes the image in detail. %>
+    <%= image_tag("images/aws-sb-addplan.png", :alt => "A screenshot of the PostgreSQL Plans section of the RDS
+    Config tab with the custom plan selected. The configurable fields are described in the previous step.") %>
 
 1. Click **Save**.
 
 ### <a id="s3-config"></a> S3 Config
 
 1. Click **S3 Config**.
-    <%= image_tag("images/aws-sb-s3config.png") %><%# Images require alt text that describes the image in detail. %>
+    <%= image_tag("images/aws-sb-s3config.png", :alt => "A screenshot of the S3
+    Config tab. The configurable fields are described in the following steps.") %>
 
 1. Under **Override Default AWS Region**, select the default AWS region for this service.
 
@@ -447,7 +454,8 @@ The setup in Step 1 must be successfully completed before beginning this configu
 1. Enter the **Bucket Prefix**, a short name to prefix all bucket names.
 
 1. S3 has one default plan called `standard`, but in <%= vars.product_short %> v1.4 and later, you can add more. A service plan can require an S3 bucket to be encrypted by creating an AWS KMS Key (see AWS SSE-KMS) and entering the KMS key ARN in the service plan configuration.
-	    <%= image_tag("images/aws-sb-s3plans.png") %><%# Images require alt text that describes the image in detail. %>
+	    <%= image_tag("images/aws-sb-s3plans.png," :alt => "A screenshot of the S3 Plans section of the S3
+      Config tab. The standard plan is selected.") %>
 
 1. Click **Save** to store the changed settings.
 
@@ -455,7 +463,8 @@ The setup in Step 1 must be successfully completed before beginning this configu
 ### <a id="sqs-config"></a> SQS Config
 
 1. Click **SQS Config**.
-    <%= image_tag("images/aws-sb-sqsconfig.png") %><%# Images require alt text that describes the image in detail. %>
+    <%= image_tag("images/aws-sb-sqsconfig.png", :alt => "A screenshot of the SQS
+    Config tab. The configurable fields are described in the following steps.") %>
 
 1. Under **Override Default AWS Region**, select the default AWS region for this service.
 
@@ -497,7 +506,9 @@ For more information about AWS SQS queue properties, see [AWS::SQS::Queue](http:
 <p class="note"><strong>Note:</strong> The <%= vars.product_short %> installs an app named <code>aws-services-broker</code> in the <code>iaas-brokers</code> space of the <code>system</code> org. Like other Cloud Foundry apps, you can view the application logs through the cf CLI by connecting to that org and space with the correct permissions.</p>
 
 1. After <%= vars.ops_manager %> finishes the installation, the **<%= vars.product_short %>** appears as a green tile in the **Installation Dashboard**.
-    <%= image_tag("images/aws-sb-install.png") %><%# Images require alt text that describes the image in detail. %>
+    <%= image_tag("images/aws-sb-install.png", :alt => "A screenshot of the Installation Dashboard
+    showing the BOSH Director, Tanzu Application Service, and Service Broker for AWS tiles.") %>
 
 1. In Apps Manager, all orgs and spaces show the new services in the Marketplace. Users can create instances of these services through Apps Manager or through the cf CLI. For more information, see [Creating and Managing Service Instances](creating.html).
-    <%= image_tag("images/aws-sb-marketplace.png") %><%# Images require alt text that describes the image in detail. %>
+    <%= image_tag("images/aws-sb-marketplace.png", :alt => "A screenshot of the marketplace
+    in the Apps Manager UI. It shows tiles for 10 installed services.") %>
