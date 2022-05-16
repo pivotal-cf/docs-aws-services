@@ -418,7 +418,11 @@ For example, service key credentials for an S3 bucket returns the following:
 }
 </pre>
 
-<p class="note"><strong>Note:</strong> When creating a service key, a new IAM user is created with a policy defined by the operator. This policy can be configured to optionally time out after a time period specified by the operator.
+<p class="note">
+  <strong>Note:</strong> When creating a service key, a new IAM user is created
+  with a policy defined by the operator. This policy can be configured to optionally
+  time out after a time period specified by the operator.
+</p>
 
 App developers can use these keys to perform one-off tasks
 (creating RDS Snapshots, modifying parameter groups, adding permissions, etc.)
