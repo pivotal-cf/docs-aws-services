@@ -160,7 +160,7 @@ Follow these steps to migrate your data.
 
     For example:
 
-    ```bash
+    <pre class="terminal">
     $ cf mysql-tools migrate aws-broker-db db-small
     2018/06/06 09:11:53 Creating new service instance "aws-broker-db-new" for service p.mysql using plan db-small
     2018/06/06 09:16:05 Unpacking assets for migration to /var/folders/qn/bxc0sm8j5dgcx260_4r3vr7w0000gn/T/migrate_app_335236385
@@ -172,22 +172,29 @@ Follow these steps to migrate your data.
     2018/06/06 09:16:18 Starting migration app
     2018/06/06 09:16:33 Started to run migration task
     2018/06/06 09:16:37 Migration completed successfully
-    ```
+    </pre>
 
     <p class="note"><strong>Note</strong>: Take note of the <code>Migration completed successfully</code> message in the above example.
              This is the best available indication that the migration was successful.
              This message does not appear if the migration process was not successful.</p>
 
-3. The migration tool gives the old database the name `SERVICE-INSTANCE-NAME-old`:
+3. List the service instances by running:
 
-    ```bash
+    ```
+    cf services
+    ```
+
+    The migration tool gives the old database the name `SERVICE-INSTANCE-NAME-old`, for example:
+
+    <pre class=terminal>
     $ cf services
+
     Getting services in org system / space iaas-brokers as admin...
 
     name                service   plan       bound apps            last operation
     aws-broker-db-old   p-mysql   100mb                            update succeeded
     aws-broker-db       p.mysql   db-small                         update succeeded
-    ```
+    </pre>
 
 ## <a id="bind-new-db"></a> Bind the New Database
 
