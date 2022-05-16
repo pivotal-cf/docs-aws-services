@@ -8,8 +8,8 @@ This topic provides basic troubleshooting techniques and FAQs for <%= vars.produ
 ##<a id="token-op"></a> Problem: Invalid Token (Operator)
 As an operator, when deploying the tile by clicking **Apply Changes**,
 I get the following error:
-"A client error (InvalidClientTokenId) occurred when calling the GetUser operation:
-The security token included in the request is invalid."
+`A client error (InvalidClientTokenId) occurred when calling the GetUser operation:
+The security token included in the request is invalid.`
 
 ### Reason
 The AWS credentials are not valid. Recheck them or re-create the credentials.
@@ -23,7 +23,7 @@ For more information, see [AWS Config](./installation.html#aws-config).
 
 ##<a id="brokers"></a> Problem: Cannot Remove Brokers
 As an operator, when deleting the product tile, I get the following error:
-"Can not remove brokers that have associated service instances".
+`Can not remove brokers that have associated service instances.`
 
 ### Reason
 Your service broker currently has service instances that are active.
@@ -36,8 +36,8 @@ For more information, see [Delete a Service Instance](./creating.html#delete).
 
 ##<a id="token-dev"></a> Problem: Invalid Token (Developer)
 As a developer, when trying to create a service, I get the following error:
-"Service broker error: InvalidClientTokenId:
-The security token included in the request is invalid."
+`Service broker error: InvalidClientTokenId:
+The security token included in the request is invalid.`
 
 ### Reason
 The AWS credentials are not valid.

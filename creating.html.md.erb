@@ -38,8 +38,14 @@ a developer must be logged in to the <%= vars.app_runtime_abbr %> deployment thr
 
 ## <a id="view"></a> View Services
 
-1. List available Marketplace Services with `cf marketplace` to show information
-about the <%= vars.product_short %> services.
+1. List available Marketplace Services to show information about the <%= vars.product_short %> services by running:
+
+    ```
+    cf marketplace
+    ```
+
+    For example:
+
     <pre class="terminal">
     $ cf marketplace
     Getting services from marketplace in org system / space iaas-brokers as admin...
@@ -58,8 +64,15 @@ about the <%= vars.product_short %> services.
     </pre>
     <p class="note"><strong>Note:</strong> These service plans have an associated cost. Creating a service instance incurs this cost.</p>
 
-1. View descriptions for the plans of a service with `cf marketplace -s SERVICE`.
-<pre class="terminal">
+1. View descriptions for the plans of a service by running:
+
+    ```
+    cf marketplace -s SERVICE
+    ```
+
+    For example:
+
+    <pre class="terminal">
     $ cf marketplace -s aws-rds-postgres
     Getting service plan information for service aws-rds-postgres as admin...
     OK
@@ -69,7 +82,7 @@ about the <%= vars.product_short %> services.
     standard       For a small production database, multi-AZ, 2vCPU, 7.55&nbsp;GB free
     premium        For a mid-sized database, multi-AZ, 4 vCPU, 15GB          free
     enterprise     For a large database, multi-AZ, 8 vCPU, 32GB              free
-</pre>
+    </pre>
 
 
 ## <a id="create"></a> Create Service Instances
@@ -328,28 +341,46 @@ to the RDS database or S3 bucket,
 and provides credentials in the environment variables.
 The access permissions are set at the least privilege required.
 
-Run the following command to bind a service instance to an app:
-<pre class="terminal">$ cf bind-service YOUR-APP YOUR-SERVICE-INSTANCE</pre>
+### <a id="bind-an-instance"></a> Bind a Service Instance
+
+To bind a service instance to an app, run:
+
+```
+cf bind-service YOUR-APP YOUR-SERVICE-INSTANCE
+```
 
 <p class="note"><strong>Note:</strong> When binding to an RDS database, a new user and password is created for the binding. Oracle is an exception to this rule, where bound apps are provided with the master username and password. </p>
+
+### <a id="unbind-an-instance"></a> Unbind a Service Instance
 
 Unbinding a service instance from an app removes access to the database and
 removes database credentials from the environment variables.
 
-Run the following command to unbind a service instance to an app:
-<pre class="terminal">$ cf unbind-service YOUR-APP YOUR-SERVICE-INSTANCE</pre>
+To unbind a service instance to an app, run:
+
+```
+cf unbind-service YOUR-APP YOUR-SERVICE-INSTANCE
+```
 
 
 ## <a id="delete"></a> Delete a Service Instance
 
 <p class="note"><strong>Note:</strong> Before deleting a service instance, ensure there are no apps bound to the service instance.</p>
 
-Run the following command to delete a service instance:
-<pre class="terminal">$ cf delete-service YOUR-SERVICE-INSTANCE
-Really delete the service YOUR-SERVICE-INSTANCE> y
-Deleting service YOUR-SERVICE-INSTANCE in org system / space dev1 as appdev1...
+To delete a service instance, run:
+
+```
+cf delete-service YOUR-SERVICE-INSTANCE
+```
+
+For example:
+
+<pre class="terminal">
+cf delete-service my-instance
+Really delete the service my-instance y
+Deleting service my-instance in org system / space dev1 as appdev1...
 OK
-Delete in progress. Use 'cf services' or 'cf service YOUR-SERVICE-INSTANCE' to check operation status.
+Delete in progress. Use 'cf services' or 'cf service my-instance' to check operation status.
 </pre>
 
 
@@ -358,17 +389,27 @@ Delete in progress. Use 'cf services' or 'cf service YOUR-SERVICE-INSTANCE' to c
 Creating service keys for a service instance gives app developers to perform
 additional operations against the underlying resources in AWS.
 
-Run the following command to create a service key for a service instance:
-<pre class="terminal">$ cf create-service-key YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME</pre>
+### <a id="create-key"></a> Create a Service Key
 
-This command creates a service key for "YOUR-SERVICE-INSTANCE" named "SERVICE-KEY-NAME".
+To create a service key for a service instance, run:
 
-To view the corresponding credentials, run the following command:
-<pre class="terminal">$ cf service-key YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME</pre>
+```
+cf create-service-key YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME
+```
+
+This command creates a service key for `YOUR-SERVICE-INSTANCE` named `SERVICE-KEY-NAME`.
+
+## <a id="view-key"></a> View Service Key Credentials
+
+To view the corresponding credentials, run:
+
+```
+cf service-key YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME
+```
 
 This returns credentials in JSON format, containing the Access Key ID and Secret,
 and the ARN for the underlying resource in AWS.
-For example, service key credentials for an S3 bucket would return the following:
+For example, service key credentials for an S3 bucket returns the following:
 <pre class="terminal">
 {
  "access_key_id": "AKIAIOSFODNN7EXAMPLE",
@@ -384,8 +425,13 @@ App developers can use these keys to perform one-off tasks
 against the underlying resource using the AWS CLI.
 The actions permitted are defined by the operator using service key policy templates.
 
-Run the following command to delete the service key:
-<pre class="terminal">$ cf delete-service-key YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME</pre>
+## <a id="delete-key"></a> Delete a Service Key
 
 Deleting a service key removes access to the service instance,
 and deletes the underlying IAM user.
+
+To delete the service key, run:
+
+```
+cf delete-service-key YOUR-SERVICE-INSTANCE SERVICE-KEY-NAME
+```

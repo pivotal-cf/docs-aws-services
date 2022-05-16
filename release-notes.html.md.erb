@@ -75,6 +75,7 @@ Maintenance changes in this release:
 ### Known Issues
 
 This release has the following issue:
+
 <%= partial "postgresql-role-issue" %>
 
 
@@ -83,6 +84,7 @@ This release has the following issue:
 **Release Date: February 3, 2020**
 
 ### Resolved Issues
+
 This release fixes the following issue:
 
 * Fixes an issue where the **Engine** field on the **RDS Config** pane did not appear in
@@ -90,8 +92,10 @@ This release fixes the following issue:
 in <%= vars.ops_manager %> v2.6 and earlier, the prior behavior is restored.
 However, you must not modify the **Engine** field because it is not supported.
 
-###Known Issues
+### Known Issues
+
 This release has the following issue:
+
 <%= partial "postgresql-role-issue" %>
 
 
@@ -106,12 +110,15 @@ upgrade to a supported version.
 **Release Date: January 31, 2020**
 
 ### Resolved Issues
+
 This release fixes the following issue:
 
 * Fixes an issue where service plan fields did not appear in <%= vars.ops_manager %> v2.7 and later.
 
-###Known Issues
+### Known Issues
+
 This release has the following issue:
+
 <%= partial "postgresql-role-issue" %>
 <%= partial "ki-engine-field" %>
 
@@ -126,13 +133,16 @@ upgrade to a supported version.
 **Release Date: November 14, 2019**
 
 ### Features
+
 New features and changes in this release:
 
 * Added Amazon RDS 2019 Certificate Authority (CA) certificates.
 For instructions on how to update your CA certificates, see the [AWS RDS documentation](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL-certificate-rotation.html).
 
-###Known Issues
+### Known Issues
+
 This release has the following issue:
+
 <%= partial "postgresql-role-issue" %>
 <%= partial "ki-service-plan-fields" %>
 <%= partial "ki-engine-field" %>
@@ -148,12 +158,15 @@ upgrade to a supported version.
 **Release Date: July 22, 2019**
 
 ### Features
+
 New features and changes in this release:
 
 * Updates <%= vars.product_old %> to use Cloud Foundry Command Line Interface (cf CLI) tool v6.45.0.
 
-###Known Issues
+### Known Issues
+
 This release has the following issue:
+
 <%= partial "postgresql-role-issue" %>
 <%= partial "ki-service-plan-fields" %>
 <%= partial "ki-engine-field" %>
@@ -170,6 +183,7 @@ upgrade to a supported version.
 **Release Date: May 10, 2019**
 
 ### Features
+
 New features and changes in this release:
 
 * Updates <%= vars.product_old %> to use Xenial stemcells.
@@ -178,8 +192,8 @@ Trusty stemcells are no longer supported.
 ### Known Issues
 
 This release has the following issue:
-<%= partial "postgresql-role-issue" %>
 
+<%= partial "postgresql-role-issue" %>
 
 
 ## <a id="1-4-11"></a> 1.4.11 - End of General Support
@@ -193,14 +207,16 @@ upgrade to a supported version.
 **Release Date: April 17, 2019**
 
 ### Resolved Issues
+
 This release fixes the following issue:
 
 * Fixes an issue where using the latest Go buildpacks caused deployment of the broker to fail.
 
-###Known Issues
-This release has the following issue:
-<%= partial "postgresql-role-issue" %>
+### Known Issues
 
+This release has the following issue:
+
+<%= partial "postgresql-role-issue" %>
 
 
 ## <a id="1-4-10"></a> 1.4.10 - End of General Support
@@ -214,14 +230,16 @@ upgrade to a supported version.
 **Release Date: November 28, 2018**
 
 ### Resolved Issues
+
 This release fixes the following issue:
 
 * Fixes [CVE-2018-15759: On Demand Services SDK Timing Attack Vulnerability](https://pivotal.io/security/cve-2018-15759)
 
 ### Known Issues
-This release has the following issue:
-<%= partial "postgresql-role-issue" %>
 
+This release has the following issue:
+
+<%= partial "postgresql-role-issue" %>
 
 
 ## <a id="1-4-9"></a> 1.4.9 - End of General Support
@@ -235,6 +253,7 @@ upgrade to a supported version.
 **Release Date: August 3, 2018**
 
 ### Resolved Issues
+
 This release fixes the following issue:
 
 * Fixes an issue when creating service keys with a `Temporary Credentials Timeout`
@@ -242,10 +261,11 @@ during AWS configuration of the tile in <%= vars.ops_manager %>.
 If `Temporary Credentials Timeout` was a non-zero value,
 the timeout did not work because of changes in Amazon's validation logic.
 
-###Known Issues
-This release has the following issue:
-<%= partial "postgresql-role-issue" %>
+### Known Issues
 
+This release has the following issue
+
+<%= partial "postgresql-role-issue" %>
 
 
 ## <a id="1-4-8"></a> 1.4.8 - End of General Support
@@ -259,13 +279,16 @@ upgrade to a supported version.
 **Release Date: June 8, 2018**
 
 ### Features
+
 New features and changes in this release:
 
 * The broker uses MySQL for PCF v2 when creating a backing store.
 Existing v1 databases are untouched and require manual migration
 
 ### Known Issues
+
 This release has the following issue:
+
 <%= partial "postgresql-role-issue" %>
 
 
@@ -281,6 +304,7 @@ upgrade to a supported version.
 **Release Date: April 3, 2018**
 
 ### Features
+
 New features and changes in this release:
 
 * Adds support for partition lookup when using custom endpoints.json
@@ -288,9 +312,10 @@ New features and changes in this release:
 * Updates minimum stemcell version to 3468
 
 ### Known Issues
-This release has the following issue:
-<%= partial "postgresql-role-issue" %>
 
+This release has the following issue:
+
+<%= partial "postgresql-role-issue" %>
 
 
 ## <a id="1-4-6"></a> 1.4.6 - End of General Support
@@ -304,13 +329,16 @@ upgrade to a supported version.
 **Release Date: February 13, 2018**
 
 ### Resolved Issues
+
 This release fixes the following issues:
 
 * Fixes Oracle DB binding issue
 * Fixes Aurora DB instances not being created in specified VPC and subnets
 
 ### Known Issues
+
 This release has the following issue:
+
 <%= partial "postgresql-role-issue" %>
 
 
