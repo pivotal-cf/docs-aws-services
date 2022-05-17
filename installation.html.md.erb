@@ -150,69 +150,69 @@ log in to the AWS console and do the following:
 
 1. Repeat steps 1&ndash;6 for `PCFAppDeveloperPolicy-sqs`, `PCFAppDeveloperPolicy-dynamodb`, and `PCFAppDeveloperPolicy-rds`, using or modifying the examples below.
 
-<strong>Example:`PCFAppDeveloperPolicy-sqs` </strong>
+    <strong>Example:`PCFAppDeveloperPolicy-sqs` </strong>
 
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "Stmt1471890189000",
-            "Effect": "Allow",
-            "Action": [
-                "sqs:ListQueues",
-                "sqs:PurgeQueue",
-                "sqs:ReceiveMessage",
-                "sqs:SendMessage"
-            ],
-            "Resource": [
-                "arn:aws:broker:resource::*"
-            ]
-        }
-    ]
-}
-```
+    ```
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Sid": "Stmt1471890189000",
+                "Effect": "Allow",
+                "Action": [
+                    "sqs:ListQueues",
+                    "sqs:PurgeQueue",
+                    "sqs:ReceiveMessage",
+                    "sqs:SendMessage"
+                ],
+                "Resource": [
+                    "arn:aws:broker:resource::*"
+                ]
+            }
+        ]
+    }
+    ```
 
-<strong>Example: `PCFAppDeveloperPolicy-dynamodb`</strong>
+    <strong>Example: `PCFAppDeveloperPolicy-dynamodb`</strong>
 
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "Stmt1471873911000",
-            "Effect": "Allow",
-            "Action": [
-                "dynamodb:*"
-            ],
-            "Resource": [
-                "arn:aws:broker:resource::*"
-            ]
-        }
-    ]
-}
-```
+    ```
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Sid": "Stmt1471873911000",
+                "Effect": "Allow",
+                "Action": [
+                    "dynamodb:*"
+                ],
+                "Resource": [
+                    "arn:aws:broker:resource::*"
+                ]
+            }
+        ]
+    }
+    ```
 
-<strong>Example: `PCFAppDeveloperPolicy-rds`</strong>
+    <strong>Example: `PCFAppDeveloperPolicy-rds`</strong>
 
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "Stmt1471636048000",
-            "Effect": "Allow",
-            "Action": [
-                "rds:ListTagsForResource",
-                "rds:DescribeDbInstances"
-            ],
-            "Resource": [
-                "arn:aws:broker:resource::*"
-            ]
-        }
-    ]
-}
-```
+    ```
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Sid": "Stmt1471636048000",
+                "Effect": "Allow",
+                "Action": [
+                    "rds:ListTagsForResource",
+                    "rds:DescribeDbInstances"
+                ],
+                "Resource": [
+                    "arn:aws:broker:resource::*"
+                ]
+            }
+        ]
+    }
+    ```
 
 
 ## <a id="create-database"></a> Step 2: Create Service Broker Database
