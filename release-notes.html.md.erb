@@ -7,7 +7,7 @@ title: Release Notes
 
 <%= partial "upgrade-planner" %>
 
-## <a id="1-4-18"></a> 1.4.19
+## <a id="1-4-19"></a> 1.4.19
 
 **Release Date: July 27, 2022**
 
@@ -15,8 +15,15 @@ title: Release Notes
 
 This release fixes the following issue:
 
-* Updates the RDS CA bundles for new regions and cloud offerings. The updated bundle includes all RDS CAs
-from AWS Commercial, AWS Gov, and AWS China regions.
+* Updates the Amazon Relational Database Service (RDS) Certificate Authority (CA) bundles for new regions and cloud offerings. 
+The updated bundle includes all RDS CAs from AWS Commercial, AWS Gov, and AWS China regions.
+
+### Known Issues
+
+This release has the following issues:
+
+* The help text for the RDS Aurora engine field incorrectly suggests using `aurora_mysql` with an underscore.
+The correct name is `aurora-mysql` with a hyphen.
 
 <%= partial "postgresql-role-issue" %>
 
