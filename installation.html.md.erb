@@ -335,7 +335,7 @@ The setup in Step 1 must be successfully completed before beginning this configu
 
 1. Enter the **AWS Access Key ID** and the **Secret Access Key** from [Step 1](#setup).
 
-1. Enter the **Temporary Credentials Timeout** value in minutes. This is the time after which service key credentials expire. To disable expiry of the credentials, enter `0`.
+1. Enter the **Temporary Credentials Timeout** value in minutes. This is the time after which service key credentials expire. To deactivate expiry of the credentials, enter `0`.
 
 1. Modify the **AWS Endpoint** <strong>only</strong> if you are using Amazon's Commercial Cloud Service. Otherwise, leave it set to the default.
 
@@ -371,7 +371,7 @@ The setup in Step 1 must be successfully completed before beginning this configu
 
 1. Click **Save**.
 
-<p class='note'><strong>Note:</strong> In the following sections that configure AWS Services, if you do not want to offer that specific service in your <%= vars.app_runtime_abbr %> Marketplace, disable the <strong>Enable in Marketplace</strong> checkbox.</p>
+<p class='note'><strong>Note:</strong> In the following sections that configure AWS Services, if you do not want to offer that specific service in your <%= vars.app_runtime_abbr %> Marketplace, clear the <strong>Enable in Marketplace</strong> checkbox.</p>
 
 ### <a id="dynamodb-config"></a> DynamoDB Config
 
@@ -397,7 +397,7 @@ The setup in Step 1 must be successfully completed before beginning this configu
 
 1. The **Networking** section allows you to configure whether to use the Default VPC or a Custom VPC, and whether the instance is publicly accessible. For a Custom VPC, enter the DB Subnet Group Name and the VPC Security Group(s).
 
-1. The **Enable Storage Encryption** setting is disabled by default. You can enable RDS encryption for a database instance. However, not all regions and database instance classes support encryption. If you enable this setting, you must change the default plans to remove those that do not support encryption. For more information, see [http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Encryption.html#d0e21710](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Encryption.html#d0e21710).
+1. The **Enable Storage Encryption** setting is deactivated by default. You can enable RDS encryption for a database instance. However, not all regions and database instance classes support encryption. If you enable this setting, you must change the default plans to remove those that do not support encryption. For more information, see [http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Encryption.html#d0e21710](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Encryption.html#d0e21710).
 
 1. Select the checkboxes of the RDS Services you want to show in the Marketplace.
 
@@ -426,7 +426,7 @@ The setup in Step 1 must be successfully completed before beginning this configu
     - **Preferred Backup Window**: When to back up. Must be at least a 30-minute window (e.g. 13:00-14:00).
     - **Copy Tags to Snapshot**: Whether to tag the database snapshots.
     - **Multi AZ**: Whether to automatically run in multiple Availability Zones.
-    - The **Enable Storage Encryption** setting is disabled by default. If you have not enabled it globally, you can configure it per service plan.
+    - The **Enable Storage Encryption** setting is deactivated by default. If you have not enabled it globally, you can configure it per service plan.
     - For flexibility, the **User Privileges** allows configuration of database user privileges by service plan. Use this to secure the privileges you want for your developers or apps.
     - **Require SSL for communication**: Select this checkbox to reject connections without TLS.
     - **Additional custom query params on binding URI**: A comma separated list of additional key-value pairs that are added to binding credentials. This feature is useful to provide hints to application database connector libraries, such as `enabledTLSProtocols=TLSv1.2`.
@@ -449,7 +449,7 @@ The setup in Step 1 must be successfully completed before beginning this configu
 
 1. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy earlier in [Set Up AWS](#setup).
 
-1. The **Quota Limit** limits the total number of instances. Setting it to `0` disables it.
+1. The **Quota Limit** limits the total number of instances. Setting it to `0` deactivates it.
 
 1. Enter the **Bucket Prefix**, a short name to prefix all bucket names.
 
@@ -472,7 +472,7 @@ The setup in Step 1 must be successfully completed before beginning this configu
 
 1. The **Service Key Policy Name** has a default setting. Do not change this unless you created a custom policy earlier in [Set Up AWS](#setup).
 
-1. The **Quota Limit** limits the total number of instances. Setting it to `0` disables it.
+1. The **Quota Limit** limits the total number of instances. Setting it to `0` deactivates it.
 
 1. For **Queue Prefix**, enter the queue name prefix that is used for filtering list results.
 
