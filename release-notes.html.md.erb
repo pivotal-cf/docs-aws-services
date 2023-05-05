@@ -7,6 +7,26 @@ title: Release Notes
 
 <%= partial "upgrade-planner" %>
 
+## <a id="1-4-20"></a> 1.4.20
+
+**Release Date: May 04, 2023**
+
+### Resolved Issues
+
+This release fixes the following issue:
+
+* No longer attempts to add an ACL to newly created S3 buckets, because this behavior has been blocked by AWS.
+  This has the side-effect that the log delivery group is no longer added to the ACL.
+
+### Known Issues
+
+This release has the following issues:
+
+* The help text for the RDS Aurora engine field incorrectly suggests using `aurora_mysql` with an underscore.
+The correct name is `aurora-mysql` with a hyphen.
+
+<%= partial "postgresql-role-issue" %>
+
 ## <a id="1-4-19"></a> 1.4.19
 
 **Release Date: July 27, 2022**
