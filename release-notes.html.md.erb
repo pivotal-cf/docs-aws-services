@@ -7,16 +7,16 @@ title: Release Notes
 
 <%= partial "upgrade-planner" %>
 
-## <a id="1-4-20"></a> 1.4.20
+## <a id="1-4-20"></a> v1.4.20
 
-**Release Date: May 04, 2023**
+**Release Date: May 4, 2023**
 
 ### Resolved Issues
 
 This release fixes the following issue:
 
-* No longer attempts to add an ACL to newly created S3 buckets, because this behavior has been blocked by AWS.
-  This has the side-effect that the log delivery group is no longer added to the ACL.
+* There are no longer attempts to add an ACL to newly created S3 buckets, because AWS has blocked this
+  behavior. As a side effect, the log delivery group is no longer added to the ACL.
 
 ### Known Issues
 
@@ -27,7 +27,7 @@ The correct name is `aurora-mysql` with a hyphen.
 
 <%= partial "postgresql-role-issue" %>
 
-## <a id="1-4-19"></a> 1.4.19
+## <a id="1-4-19"></a> v1.4.19
 
 **Release Date: July 27, 2022**
 
@@ -35,7 +35,7 @@ The correct name is `aurora-mysql` with a hyphen.
 
 This release fixes the following issue:
 
-* Updates the Amazon Relational Database Service (RDS) Certificate Authority (CA) bundles for new regions and cloud offerings. 
+* Updates the Amazon Relational Database Service (RDS) Certificate Authority (CA) bundles for new regions and cloud offerings.
 The updated bundle includes all RDS CAs from AWS Commercial, AWS Gov, and AWS China regions.
 
 ### Known Issues
@@ -47,7 +47,7 @@ The correct name is `aurora-mysql` with a hyphen.
 
 <%= partial "postgresql-role-issue" %>
 
-## <a id="1-4-18"></a> 1.4.18
+## <a id="1-4-18"></a> v1.4.18
 
 **Release Date: July 29, 2021**
 
@@ -93,7 +93,7 @@ The correct name is `aurora-mysql` with a hyphen.
 
 <%= partial "postgresql-role-issue" %>
 
-## <a id="1-4-17"></a> 1.4.17
+## <a id="1-4-17"></a> v1.4.17
 
 **Release Date: June 8, 2021**
 
@@ -111,15 +111,13 @@ Maintenance changes in this release:
 * Validated compatibility with newer versions of <%= vars.ops_manager %> and <%= vars.app_runtime_full %>
   including the long-term support (LTS) versions.
 
-
 ### Known Issues
 
 This release has the following issue:
 
 <%= partial "postgresql-role-issue" %>
 
-
-## <a id="1-4-16"></a> 1.4.16
+## <a id="1-4-16"></a> v1.4.16
 
 **Release Date: February 3, 2020**
 
@@ -138,8 +136,7 @@ This release has the following issue:
 
 <%= partial "postgresql-role-issue" %>
 
-
-## <a id="1-4-15"></a> 1.4.15 - End of General Support
+## <a id="1-4-15"></a> v1.4.15 - End of General Support
 
 <p class="note warning"><strong>Warning:</strong> This release is no longer supported
 because it has reached the End of General Support (EOGS) phase.
@@ -162,7 +159,7 @@ This release has the following issue:
 <%= partial "postgresql-role-issue" %>
 <%= partial "ki-engine-field" %>
 
-## <a id="1-4-14"></a> 1.4.14 - End of General Support
+## <a id="1-4-14"></a> v1.4.14 - End of General Support
 
 <p class="note warning"><strong>Warning:</strong> This release is no longer supported
 because it has reached the End of General Support (EOGS) phase.
@@ -187,7 +184,7 @@ This release has the following issue:
 <%= partial "ki-service-plan-fields" %>
 <%= partial "ki-engine-field" %>
 
-## <a id="1-4-13"></a> 1.4.13 - End of General Support
+## <a id="1-4-13"></a> v1.4.13 - End of General Support
 
 <p class="note warning"><strong>Warning:</strong> This release is no longer supported
 because it has reached the EOGS phase.
@@ -211,8 +208,7 @@ This release has the following issue:
 <%= partial "ki-service-plan-fields" %>
 <%= partial "ki-engine-field" %>
 
-
-## <a id="1-4-12"></a> 1.4.12 - End of General Support
+## <a id="1-4-12"></a> v1.4.12 - End of General Support
 
 <p class="note warning"><strong>Warning:</strong> This release is no longer supported
 because it has reached the EOGS phase.
@@ -235,8 +231,7 @@ This release has the following issue:
 
 <%= partial "postgresql-role-issue" %>
 
-
-## <a id="1-4-11"></a> 1.4.11 - End of General Support
+## <a id="1-4-11"></a> v1.4.11 - End of General Support
 
 <p class="note warning"><strong>Warning:</strong> This release is no longer supported
 because it has reached the EOGS phase.
@@ -258,8 +253,7 @@ This release has the following issue:
 
 <%= partial "postgresql-role-issue" %>
 
-
-## <a id="1-4-10"></a> 1.4.10 - End of General Support
+## <a id="1-4-10"></a> v1.4.10 - End of General Support
 
 <p class="note warning"><strong>Warning:</strong> This release is no longer supported
 because it has reached the EOGS phase.
@@ -281,8 +275,7 @@ This release has the following issue:
 
 <%= partial "postgresql-role-issue" %>
 
-
-## <a id="1-4-9"></a> 1.4.9 - End of General Support
+## <a id="1-4-9"></a> v1.4.9 - End of General Support
 
 <p class="note warning"><strong>Warning:</strong> This release is no longer supported
 because it has reached the EOGS phase.
@@ -307,8 +300,7 @@ This release has the following issue
 
 <%= partial "postgresql-role-issue" %>
 
-
-## <a id="1-4-8"></a> 1.4.8 - End of General Support
+## <a id="1-4-8"></a> v1.4.8 - End of General Support
 
 <p class="note warning"><strong>Warning:</strong> This release is no longer supported
 because it has reached the EOGS phase.
@@ -331,9 +323,7 @@ This release has the following issue:
 
 <%= partial "postgresql-role-issue" %>
 
-
-
-## <a id="1-4-7"></a> 1.4.7 - End of General Support
+## <a id="1-4-7"></a> v1.4.7 - End of General Support
 
 <p class="note warning"><strong>Warning:</strong> This release is no longer supported
 because it has reached the EOGS phase.
@@ -357,8 +347,7 @@ This release has the following issue:
 
 <%= partial "postgresql-role-issue" %>
 
-
-## <a id="1-4-6"></a> 1.4.6 - End of General Support
+## <a id="1-4-6"></a> v1.4.6 - End of General Support
 
 <p class="note warning"><strong>Warning:</strong> This release is no longer supported
 because it has reached the EOGS phase.
@@ -381,9 +370,7 @@ This release has the following issue:
 
 <%= partial "postgresql-role-issue" %>
 
-
-
-## <a id="1-4-5"></a> 1.4.5 - End of General Support
+## <a id="1-4-5"></a> v1.4.5 - End of General Support
 
 <p class="note warning"><strong>Warning:</strong> This release is no longer supported
 because it has reached the EOGS phase.
@@ -402,8 +389,7 @@ incorrect ARN format
 * Added RDS CA certificates for ca-central-1, us-east-2, eu-west-2, ap-south-1, us-gov-west-1,
 and cn-north-1
 
-
-## <a id="1-4-3"></a> 1.4.3 - End of General Support
+## <a id="1-4-3"></a> v1.4.3 - End of General Support
 
 <p class="note warning"><strong>Warning:</strong> This release is no longer supported
 because it has reached the EOGS phase.
@@ -415,8 +401,7 @@ upgrade to a supported version.
 
 * Fixed Service Broker deployment issue when using MySQL v5.6.x
 
-
-## <a id="1-4-2"></a> 1.4.2 - End of General Support
+## <a id="1-4-2"></a> v1.4.2 - End of General Support
 
 <p class="note warning"><strong>Warning:</strong> This release is no longer supported
 because it has reached the EOGS phase.
@@ -433,8 +418,7 @@ Note: This version requires Go Buildpack v1.8.3 or later and stemcell 3363.29 or
 * Added region for GovCloud
 * Updated Regions dropdown for new regions
 
-
-## <a id="1-4-0"></a> 1.4.0 - End of General Support
+## <a id="1-4-0"></a> v1.4.0 - End of General Support
 
 <p class="note warning"><strong>Warning:</strong> This release is no longer supported
 because it has reached the EOGS phase.
