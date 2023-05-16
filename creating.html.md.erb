@@ -214,7 +214,7 @@ provide custom settings for the following elements:
 
 The following example shows the syntax for each setting.
 You can omit settings that you do not want to explicitly set:
-<pre class="terminal">$ cf create-service aws-rds-sqlserver basic sqlserverdb2 -c '{ "CreateDbInstance": { "EngineVersion": "12.00.4422.0.v1", "MultiAZ": true, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
+<pre class="terminal">$ cf create-service aws-rds-sqlserver basic sqlserverdb2 -c '{ "CreateDbInstance": { "EngineVersion": "12.00.4422.0.v1", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
 </pre>
 
 <p class="note"><strong>Note:</strong> For SQL Server setting Multi-AZ to true enables Multi-AZ database mirroring. See the AWS documentation on <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_SQLServerMultiAZ.html">Multi-AZ Deployments for Microsoft SQL Server with Database Mirroring</a> for more details.</p>
