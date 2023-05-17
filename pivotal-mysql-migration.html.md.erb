@@ -1,11 +1,13 @@
 ---
 breadcrumb: PCF Services
-title: Migrating to a VMware Tanzu SQL with MySQL for VMs Database
+title: Migrating to a MySQL Database for VMware Tanzu Service Broker for AWS
 ---
 
-This topic explains how to perform the migration from a MySQL for PCF v1 database to a VMware Tanzu SQL with MySQL for VMs database.
+This topic tells you how to migrate from a MySQL for PCF v1 database to a VMware SQL with MySQL for Tanzu Application Service v2.x database for your <%= vars.product_full %>.
 
-If your AWS Services Broker is configured to use the MySQL for PCF v1 tile, VMware recommends migrating your data to a VMware Tanzu SQL with MySQL for VMs database. Doing this migration reduces dependency on v1 as users move to v2, and prepares you to use TLS (encryption) for  AWS services.
+If your <%= vars.product_short %> is configured to use the MySQL for PCF v1 tile, VMware recommends migrating your data to a VMware SQL with MySQL for Tanzu Application Service database.
+
+Doing this migration reduces dependency on v1 as users move to v2, and prepares you to use TLS (encryption) for AWS services.
 
 ## <a id="prerequisites"></a> Prerequisites
 
@@ -13,7 +15,7 @@ To perform the database migration, you must have the following:
 
 * The latest [Cloud Foundry CLI](https://docs.pivotal.io/pivotalcf/cf-cli/install-go-cli.html)
 
-* Cloud Foundry credentials to access the org and space of the AWS Services Broker
+* Cloud Foundry credentials to access the org and space of the <%= vars.product_short %>
 
 ## <a id="install-mysql-plugin"></a> Install the MysqlTools Plugin
 

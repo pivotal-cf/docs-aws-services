@@ -1,9 +1,9 @@
 ---
 breadcrumb: PCF Services
-title: Known Issue with RDS for PostgreSQL
+title: Known Issue with RDS for PostgreSQL with VMware Tanzu Service Broker for AWS
 ---
 
-This topic describes an issue with object ownership for PostgreSQL.
+This topic describes an issue with object ownership for PostgreSQL when you use <%= vars.product_full %>.
 
 ## <a id="overview"></a> Overview
 
@@ -14,7 +14,7 @@ distinct roles are members of a group named `binding_group`.
 Members of this group have full privileges to objects created by other members.
 However, this does not include the ability to `DROP` or `ALTER` objects.
 
-For more information about defining access priviledges,
+For more information about defining access privileges,
 see [GRANT](https://www.postgresql.org/docs/9.6/sql-grant.html)
 in the PostgreSQL documentation.
 
