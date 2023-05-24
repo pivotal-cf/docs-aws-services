@@ -15,7 +15,7 @@ In this README:
 
 | Branch name | Use for… | Protected? | Currently lives…
 |-------------| ------| ------| ------|
-| master      | Currently the published 1.4.8 docs. Contains all changes for v1.4. | Yes | https://docs.vmware.com/en/VMware-Tanzu-Service-Broker-for-AWS/1.4/documentation/GUID-index.html |
+| main      | Currently the published 1.4.8 docs. Contains all changes for v1.4. | Yes | https://docs.vmware.com/en/VMware-Tanzu-Service-Broker-for-AWS/1.4/documentation/GUID-index.html |
 | 1.5         | Obsolete. Okay to delete this branch. Service Broker for AWS is no longer supported. There is no plan to release v1.5. | Yes | not published |
 
 
