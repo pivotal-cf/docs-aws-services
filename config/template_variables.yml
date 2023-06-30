@@ -5,8 +5,8 @@ template_variables:
   title: <span class="title-deemph">Pivotal</span> Documentation
   title_image: images/icon-p-green.jpg
   hero_text: "Detailed documentation to help you install, understand, and succeed with Pivotal's enterprise-grade software."
-  product_url: https://network.pivotal.io/products/pivotal-cf
-  product_link: <div class="header-item"><a href="https://network.pivotal.io/products/pivotal-cf">Back to Product Page</a></div>
+  product_url: https://network.tanzu.vmware.com/products/pivotal-cf
+  product_link: <div class="header-item"><a href="https://network.tanzu.vmware.com/products/pivotal-cf">Back to Product Page</a></div>
   support_link: <a href="http://tanzu.vmware.com/support" target="_blank">Support</a>
   support_call_to_action: <a href="http://tanzu.vmware.com/support" target="_blank">Need Support?</a>
   support_url: http://tanzu.vmware.com/support
