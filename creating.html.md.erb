@@ -62,9 +62,11 @@ a developer must be logged in to the <%= vars.app_runtime_abbr %> deployment thr
     aws-s3              standard\*                                  Create and manage Amazon S3 buckets
     aws-sqs             standard\*                                  Create and manage Amazon SQS queues
     </pre>
-    <p class="note"><strong>Note:</strong> These service plans have an associated cost. Creating a service instance incurs this cost.</p>
 
-1. View descriptions for the plans of a service by running:
+    >**Note**
+    >These service plans have an associated cost. Creating a service instance incurs this cost.
+
+2. View descriptions for the plans of a service by running:
 
     ```
     cf marketplace -s SERVICE
@@ -87,13 +89,15 @@ a developer must be logged in to the <%= vars.app_runtime_abbr %> deployment thr
 
 ## <a id="create"></a> Create Service Instances
 
-<p class="note"><strong>Note:</strong> When <a href="installation.html">installing</a> the <%= vars.product_short %>, the operator sets up an IAM account and policy and provides credentials to the Service Broker. Developers do not need access to the credentials to create service instances.</p>
+>**Note**
+>When [installing](installation.html.md.erb) the <%= vars.product_short %>, the operator sets up an IAM account and policy and provides credentials to the Service Broker. Developers do not need access to the credentials to create service instances.
+
 
 ### <a id="rds"></a> RDS for PostgreSQL
 
-<p class="note warning"><strong>Warning:</strong> The <%= vars.product_short %> does not support PostgreSQL 15. Whilst PostgreSQL 15 instances can be created by specifying the corresponding version in a plan, bindings will fail to work due to 
-changes in the permission model for the Public schema in PostgreSQL 15</a>.
-</p>
+>**Caution**
+>The <%= vars.product_short %> does not support PostgreSQL 15. Though PostgreSQL 15 instances can be created by specifying the corresponding version in a plan, bindings fail to work due to
+changes in the permission model for the Public schema in PostgreSQL 15.
 
 To create a service instance of the RDS for PostgreSQL service, use `cf create-service`
 to create an instance of `aws-rds-postgres` with or without custom settings.
@@ -119,8 +123,9 @@ You can omit settings that you do not want to explicitly set:
 <pre class="terminal">$ cf create-service aws-rds-postgres basic postgresdb -c '{ "CreateDbInstance": { "EngineVersion": "9.4.1", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 10, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
 </pre>
 
-<p class="note warning"><strong>Warning:</strong> When creating an object with PostgreSQL, you must first assign the group's role. For more information about this issue with object ownership, see <a href="./postgres.html">Known Issue with RDS for PostgreSQL</a>.
-</p>
+>**Important**
+>When creating an object with PostgreSQL, you must first assign the group's role. For more information about this issue with object ownership, see [Known Issue with RDS for PostgreSQL](postgres.html.md.erb).
+
 
 ### <a id="rds-mysql"></a> RDS for MySQL
 
@@ -221,7 +226,7 @@ You can omit settings that you do not want to explicitly set:
 <pre class="terminal">$ cf create-service aws-rds-sqlserver basic sqlserverdb2 -c '{ "CreateDbInstance": { "EngineVersion": "12.00.4422.0.v1", "MultiAZ": false, "StorageType": "gp2", "AllocatedStorage": 20, "AvailabilityZone": "us-east-1a", "Tags": [{"Key": "owner", "Value": "operations"}, {"Key": "Env", "Value": "staging"} ] } }'
 </pre>
 
-<p class="note"><strong>Note:</strong> For SQL Server setting Multi-AZ to true enables Multi-AZ database mirroring. See the AWS documentation on <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_SQLServerMultiAZ.html">Multi-AZ Deployments for Microsoft SQL Server with Database Mirroring</a> for more details.</p>
+For more information on SQL Server setting Multi-AZ to true enables Multi-AZ database mirroring, see the [AWS documentation](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_SQLServerMultiAZ.html).
 
 ### <a id="rds-for-oracle-db"></a> RDS for Oracle Database
 
@@ -306,7 +311,8 @@ The following example creates an instance named `bucket1` with the `standard` pl
 <pre class="terminal">$ cf create-service aws-s3 standard bucket1
 </pre>
 
-<p class="note"><strong>Note:</strong> S3 service instances use default region and tags settings configured by the operator during the installation of the <%= vars.product_short %>.</p>
+>**Note**
+>S3 service instances use default region and tags settings configured by the operator during the installation of the <%= vars.product_short %>.
 
 To create an S3 bucket with custom settings,
 use `cf create-service SERVICE PLAN SERVICE-INSTANCE` with the `-c` flag.
@@ -315,7 +321,7 @@ to lower latency for users.
 The following example  creates a bucket in the Tokyo region with tag values k1=v1:
 <pre class="terminal">$ cf cs aws-s3 standard tokyobucket -c '{ "CreateBucket": { "CreateBucketConfiguration": { "LocationConstraint": "ap-northeast-1"} }, "PutBucketTagging": { "Tagging":{ "TagSet": [ {"Key" : "k1", "Value": "v1"}]}} }'</pre>
 
-<p class="note"><strong>Note:</strong> Developers can supply additional configuration parameters to service instances at update and bind times.</p>
+Developers can supply additional configuration parameters to service instances at update and bind times.
 
 ### <a id="sqs"></a> SQS
 
@@ -328,7 +334,8 @@ The following example creates an instance named `queue1` with the `standard` pla
 <pre class="terminal">$ cf create-service aws-sqs standard queue1
 </pre>
 
-<p class="note"><strong>Note:</strong> SQS queue instances use default region and property settings configured by the operator during the installation of the <%= vars.product_short %>.</p>
+>**Note**
+>SQS queue instances use default region and property settings configured by the operator during the installation of the <%= vars.product_short %>.
 
 To create an SQS queue with custom settings,
 use `cf create-service SERVICE PLAN SERVICE-INSTANCE` with the `-c` flag.
@@ -353,7 +360,8 @@ To bind a service instance to an app, run:
 cf bind-service YOUR-APP YOUR-SERVICE-INSTANCE
 ```
 
-<p class="note"><strong>Note:</strong> When binding to an RDS database, a new user and password is created for the binding. Oracle is an exception to this rule, where bound apps are provided with the main username and password. </p>
+>**Note**
+>When binding to an RDS database, a new user and password is created for the binding. Oracle is an exception to this rule, where bound apps are provided with the main user name and password.
 
 ### <a id="unbind-an-instance"></a> Unbind a Service Instance
 
@@ -369,7 +377,9 @@ cf unbind-service YOUR-APP YOUR-SERVICE-INSTANCE
 
 ## <a id="delete"></a> Delete a Service Instance
 
-<p class="note"><strong>Note:</strong> Before deleting a service instance, ensure there are no apps bound to the service instance.</p>
+>**Important**
+>Before deleting a service instance, verify that there are no apps bound to the service instance.
+
 
 To delete a service instance, run:
 
@@ -422,11 +432,9 @@ For example, service key credentials for an S3 bucket returns the following:
 }
 </pre>
 
-<p class="note">
-  <strong>Note:</strong> When creating a service key, a new IAM user is created
-  with a policy defined by the operator. This policy can be configured to optionally
-  time out after a time period specified by the operator.
-</p>
+When creating a service key, a new IAM user is created with a policy defined by
+the operator. This policy can be configured to optionally time out after a time
+period specified by the operator.
 
 App developers can use these keys to perform one-off tasks
 (creating RDS Snapshots, modifying parameter groups, adding permissions, etc.)
