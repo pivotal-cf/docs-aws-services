@@ -91,6 +91,10 @@ a developer must be logged in to the <%= vars.app_runtime_abbr %> deployment thr
 
 ### <a id="rds"></a> RDS for PostgreSQL
 
+<p class="note warning"><strong>Warning:</strong> The <%= vars.product_short %> does not support PostgreSQL 15. Whilst PostgreSQL 15 instances can be created by specifying the corresponding version in a plan, bindings will fail to work due to 
+changes in the permission model for the Public schema in PostgreSQL 15</a>.
+</p>
+
 To create a service instance of the RDS for PostgreSQL service, use `cf create-service`
 to create an instance of `aws-rds-postgres` with or without custom settings.
 
