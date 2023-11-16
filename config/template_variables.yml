@@ -27,8 +27,8 @@ template_variables:
   k8s_runtime_abbr: TKGI
   windows_runtime_full: VMware Tanzu Application Service for VMs &#91;Windows&#93;
   windows_runtime_abbr: TAS for VMs &#91;Windows&#93;
-  ops_manager_full: Operations Manager
-  ops_manager: Ops Manager
+  ops_manager_full: VMware Tanzu Operations Manager
+  ops_manager: Tanzu Operations Manager
   product_network: VMware Tanzu Network
 
 

@@ -5,7 +5,6 @@ title: Known Issue with RDS for PostgreSQL with VMware Tanzu Service Broker for 
 
 This topic describes an issue with object ownership for PostgreSQL when you use <%= vars.product_full %>.
 
-## <a id="overview"></a> Overview
 
 When a developer binds a PostgreSQL service instance to an application, the broker
 creates a distinct role with unique credentials. The broker ensures that all the
@@ -18,7 +17,7 @@ For more information about defining access privileges,
 see [GRANT](https://www.postgresql.org/docs/9.6/sql-grant.html)
 in the PostgreSQL documentation.
 
-## <a id="create-object"></a> Create an Object using the binding_group Role
+## <a id="create-object"></a> Create an object using the binding_group role
 
 So that members of `binding_group` can `ALTER` or `DROP` an object,
 you must assign the group's role before creating an object.
@@ -40,7 +39,7 @@ To do this, do the following:
     \# CREATE TABLE data
     </pre>
 
-After this is done, you can continue with your actions to modify the object.
+After this is complete, you can continue with your actions to modify the object.
 
 For more information about setting the current user identifier of the current session,
 see [SET ROLE](https://www.postgresql.org/docs/9.6/sql-set-role.html)

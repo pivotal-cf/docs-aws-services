@@ -5,7 +5,7 @@ title: Troubleshooting VMware Tanzu Service Broker for AWS
 
 This topic gives you basic troubleshooting techniques and FAQs for <%= vars.product_full %>.
 
-##<a id="token-op"></a> Problem: Invalid Token (Operator)
+## <a id="token-op"></a> Problem: Invalid Token (Operator)
 As an operator, when deploying the tile by clicking **Apply Changes**,
 I get the following error:
 `A client error (InvalidClientTokenId) occurred when calling the GetUser operation:
@@ -15,13 +15,13 @@ The security token included in the request is invalid.`
 The AWS credentials are not valid. Recheck them or re-create the credentials.
 
 ### Solution
-Verify or re-create the credentials found on the **AWS Config** pane
+Verify or recreate the credentials found on the **AWS Config** pane
 in the **Access Key ID** and **Secret Access Key** fields.
 
 For more information, see [AWS Config](./installation.html#aws-config).
 
 
-##<a id="brokers"></a> Problem: Cannot Remove Brokers
+## <a id="brokers"></a> Problem: Cannot remove brokers
 As an operator, when deleting the product tile, I get the following error:
 `Can not remove brokers that have associated service instances.`
 
@@ -34,7 +34,7 @@ Delete active service instances and try again to delete the tile.
 For more information, see [Delete a Service Instance](./creating.html#delete).
 
 
-##<a id="token-dev"></a> Problem: Invalid Token (Developer)
+## <a id="token-dev"></a> Problem: Invalid token (Developer)
 As a developer, when trying to create a service, I get the following error:
 `Service broker error: InvalidClientTokenId:
 The security token included in the request is invalid.`
@@ -46,12 +46,12 @@ The AWS credentials are not valid.
 Ask your operator to verify or re-create the AWS credentials.
 
 
-##<a id="cannot-modify"></a> Problem: Cannot Modify an Object
+## <a id="cannot-modify"></a> Problem: Cannot modify an object
 As a developer, I cannot modify an object when using `ALTER` or `DROP`.
 
 ### Reason
 When the object was created, the role was not `binding_group`.
 
 ### Solution
-To resolve this, your operator must contact support.
-For more information, see [Global Support Contacts](https://pivotal.io/support/contact).
+To resolve this, you must contact support.
+For more information, see [Global support contacts](https://tanzu.vmware.com/support/contact).

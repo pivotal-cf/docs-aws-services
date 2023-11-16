@@ -11,29 +11,29 @@ Doing this migration reduces dependency on v1 as users move to v2, and prepares 
 
 ## <a id="prerequisites"></a> Prerequisites
 
-To perform the database migration, you must have the following:
+To complete a database migration, you must have the following:
 
-* The latest [Cloud Foundry CLI](https://docs.pivotal.io/pivotalcf/cf-cli/install-go-cli.html)
+* The latest [Cloud Foundry CLI](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/5.0/tas-for-vms/install-go-cli.html)
 
 * Cloud Foundry credentials to access the org and space of the <%= vars.product_short %>
 
-## <a id="install-mysql-plugin"></a> Install the MysqlTools Plugin
+## <a id="install-mysql-plugin"></a> Install the MysqlTools Plug-in
 
-You can use the MysqlTools plugin to migrate your data.
+You can use the MysqlTools plug-in to migrate your data.
 
-1. Install the `MysqlTools` plugin using the following command:
+1. Install the `MysqlTools` plug-in using the following command:
 
     ```bash
     cf install-plugin -f -r CF-Community "MysqlTools"
     ```
 
-2. Verify that the plugin is installed using the following command:
+2. Verify that the plug-in is installed using the following command:
 
     ```bash
     cf mysql-tools -h
     ```
 
-## <a id="check-broker-status"></a> Check the Status of the Broker
+## <a id="check-broker-status"></a> Check the status of the broker
 
 1. Log in to your Cloud Foundry deployment:
 
@@ -87,7 +87,7 @@ You can use the MysqlTools plugin to migrate your data.
     #1   running   2018-06-05T18:47:39Z   0.0%   12.5M of 64M   47.4M of 1G
     </pre>
 
-1. You should also see your MySQL for PCF v1 database instance bound to the broker.
+1. You might also see your MySQL for PCF v1 database instance bound to the broker.
 
     ```bash
     cf services
@@ -102,9 +102,9 @@ You can use the MysqlTools plugin to migrate your data.
     aws-broker-db   p-mysql   100mb   aws-services-broker   create succeeded
     </pre>
 
-## <a id="stop-broker"></a> Stop the Broker
+## <a id="stop-broker"></a> Stop the broker
 
-After verifying the state of the broker, you can safely stop it and unbind the database.
+After you verify the state of the broker, you can safely stop it and unbind the database.
 
 1. Stop the broker:
 
@@ -132,7 +132,7 @@ After verifying the state of the broker, you can safely stop it and unbind the d
     $ cf unbind-service aws-services-broker aws-broker-db
     </pre>
 
-## <a id="migrate-data"></a> Migrate Your Data
+## <a id="migrate-data"></a> Migrate your data
 
 Follow these steps to migrate your data.
 
@@ -175,10 +175,10 @@ Follow these steps to migrate your data.
     2018/06/06 09:16:33 Started to run migration task
     2018/06/06 09:16:37 Migration completed successfully
     </pre>
-
-    <p class="note"><strong>Note</strong>: Take note of the <code>Migration completed successfully</code> message in the above example.
-             This is the best available indication that the migration was successful.
-             This message does not appear if the migration process was not successful.</p>
+    <p class="note">
+    <span class="note__title">Note</span> Take note of the <code>Migration completed successfully</code> message in the above example.
+    This is the best available indication that the migration was successful.
+    This message does not appear if the migration process was not successful.
 
 3. List the service instances by running:
 
@@ -197,7 +197,7 @@ Follow these steps to migrate your data.
     aws-broker-db       p.mysql   db-small                         update succeeded
     </pre>
 
-## <a id="bind-new-db"></a> Bind the New Database
+## <a id="bind-new-db"></a> Bind the new database
 
 After migrating your data, bind the new database to the broker.
 
@@ -244,7 +244,7 @@ After migrating your data, bind the new database to the broker.
     #1   running   2018-06-06T14:26:49Z   0.0%   11.8M of 64M   47.4M of 1G
     </pre>
 
-## <a id="delete-old-db"></a> Delete the Old Database
+## <a id="delete-old-db"></a> Delete the old database
 
 1. Before deleting the old database instance, confirm that the broker behaves
 correctly by creating some new AWS service instances.
@@ -264,7 +264,7 @@ Try binding these services to the v2 database. (You can delete these service ins
     OK
     </pre>
 
-## <a id="update-tile"></a>(Optional) Update the Tile to Reflect Changes
+## <a id="update-tile"></a>(Optional) Update the Tile to reflect changes
 
 Update the plan name in the `Broker Config` section of your tile to be consistent
 with the changes you made during migration.
