@@ -21,7 +21,7 @@ In this step, you configure your AWS account to allow the <%= vars.product_short
 Create a new IAM user for the <%= vars.app_runtime_abbr %> cluster in the **AWS Identity & Access Management** console by following the procedure below.
 
 <p class="note">
-  <strong>Note:</strong> If you have more than one <%= vars.app_runtime_abbr %>
+<span class="note__title">Note</span> If you have more than one <%= vars.app_runtime_abbr %>
   deployment, you must create an IAM user for each deployment.
   Create a new IAM user in your AWS account.
   Do not use the same IAM user that installed <%= vars.app_runtime_abbr %> on
@@ -260,7 +260,8 @@ This service is deployed as an application to the `iaas-brokers` space in the `s
 |---                |---         |---        |---
 |`AWS_IP_RANGE`     |443, 5432, 1521, 1433, 3306         |tcp        |This service accesses RDS/S3
 
-<p class="note"><strong>Note:</strong> The AWS IP range is available from <a href="http://docs.aws.amazon.com/general/latest/gr/aws-ip-ranges.html#aws-ip-download">Amazon</a>. You might choose to use <a href="https://curl.haxx.se/">curl</a> and <a href="https://stedolan.github.io/jq/">jq</a> to convert the IP range as downloaded from Amazon into ASG rules:</p>
+<p class="note">
+<span class="note__title">Note</span> The AWS IP range is available from <a href="http://docs.aws.amazon.com/general/latest/gr/aws-ip-ranges.html#aws-ip-download">Amazon</a>. You might choose to use <a href="https://curl.haxx.se/">curl</a> and <a href="https://stedolan.github.io/jq/">jq</a> to convert the IP range as downloaded from Amazon into ASG rules:</p>
 
 ```
     curl -s https://ip-ranges.amazonaws.com/ip-ranges.json | \
@@ -274,7 +275,8 @@ This service is deployed as an application to the `iaas-brokers` space in the `s
 
 ```
 
-<p class="note"><strong>Note:</strong> This creates a configuration which allows traffic for all AWS Regions.
+<p class="note">
+<span class="note__title">Note</span> This creates a configuration which allows traffic for all AWS Regions.
   You can further filter the list of entries in the Application Security Group config
   to a specific set of AWS Regions by adding additional
   <code>jq</code> <code>map(select(.region == "REGION_NAME"))</code>
@@ -410,7 +412,8 @@ The setup in Step 1 must be successfully completed before beginning this configu
 1. You can view and edit the configuration of existing plans by clicking the arrow next to their names.
     <%= image_tag("images/aws-sb-editplan.png", :alt => "A screenshot of the PostgreSQL Plans section of the RDS
     Config tab. The standard plan is selected.") %>
-    <p class="note"><strong>Note:</strong> If you edit an existing service plan, only future instances of that services plan are changed. Ask your admin to modify existing instances.</p>
+    <p class="note">
+<span class="note__title">Note</span> If you edit an existing service plan, only future instances of that services plan are changed. Ask your admin to modify existing instances.</p>
 
 1. You can also create a new custom plan by clicking **Add** and completing the following fields:
     - **Plan Name**: The name of the plan in the Marketplace.
