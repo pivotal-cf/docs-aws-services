@@ -78,13 +78,13 @@ You can use the MysqlTools plug-in to migrate your data.
     instances:         2/2
     usage:             64M x 2 instances
     routes:            aws-services-broker.sys.my-domain.com
-    last uploaded:     Tue 05 Jun 14:46:50 EDT 2018
+    last uploaded:     Wed 17 Jul 22:57:04 UTC 2024
     stack:             cflinuxfs3
     buildpack:         go_buildpack
 
-         state     since                  cpu    memory         disk          details
-    #0   running   2018-06-05T18:47:39Z   0.0%   12.4M of 64M   47.4M of 1G
-    #1   running   2018-06-05T18:47:39Z   0.0%   12.5M of 64M   47.4M of 1G
+         state     since                  cpu    memory         disk          logging         cpu entitlement   details
+    #0   running   2024-07-17T22:57:22Z   0.0%   12.4M of 64M   47.4M of 1G   0B/s of 16K/s   2.4%
+    #1   running   2024-07-17T22:57:22Z   0.0%   12.5M of 64M   47.4M of 1G   0B/s of 16K/s   2.4%
     </pre>
 
 1. You might also see your MySQL for PCF v1 database instance bound to the broker.
@@ -234,14 +234,14 @@ After migrating your data, bind the new database to the broker.
     instances:         2/2
     usage:             64M x 2 instances
     routes:            aws-services-broker.my-domain.com
-    last uploaded:     Wed 06 Jun 10:23:12 EDT 2018
+    last uploaded:     Wed 17 Jul 22:57:04 UTC 2024
     stack:             cflinuxfs3
     buildpack:         go_buildpack
     start command:     bin/aws-services-broker
 
-         state     since                  cpu    memory         disk          details
-    #0   running   2018-06-06T14:26:48Z   0.0%   11.7M of 64M   47.4M of 1G
-    #1   running   2018-06-06T14:26:49Z   0.0%   11.8M of 64M   47.4M of 1G
+         state     since                  cpu    memory         disk          logging         cpu entitlement   details
+    #0   running   2024-07-17T22:57:22Z   0.0%   12.4M of 64M   47.4M of 1G   0B/s of 16K/s   2.4%
+    #1   running   2024-07-17T22:57:22Z   0.0%   12.5M of 64M   47.4M of 1G   0B/s of 16K/s   2.4%
     </pre>
 
 ## <a id="delete-old-db"></a> Delete the old database
