@@ -70,21 +70,21 @@ You can use the MysqlTools plugin to migrate your data.
 	$ cf app aws-services-broker
 	Showing health and status for app aws-services-broker in org system / space iaas-brokers as admin...
 
-	name:              aws-services-broker
-	requested state:   started
-	instances:         2/2
-	usage:             64M x 2 instances
-	routes:            aws-services-broker.sys.my-domain.com
-	last uploaded:     Tue 05 Jun 14:46:50 EDT 2018
-	stack:             cflinuxfs2
-	buildpack:         go_buildpack
+    name:              aws-services-broker
+    requested state:   started
+    instances:         2/2
+    usage:             64M x 2 instances
+    routes:            aws-services-broker.sys.my-domain.com
+    last uploaded:     Wed 17 Jul 22:57:04 UTC 2024
+    stack:             cflinuxfs3
+    buildpack:         go_buildpack
 
-	     state     since                  cpu    memory         disk          details
-	#0   running   2018-06-05T18:47:39Z   0.0%   12.4M of 64M   47.4M of 1G
-	#1   running   2018-06-05T18:47:39Z   0.0%   12.5M of 64M   47.4M of 1G
-	</pre>
+         state     since                  cpu    memory         disk          logging         cpu entitlement   details
+    #0   running   2024-07-17T22:57:22Z   0.0%   12.4M of 64M   47.4M of 1G   0B/s of 16K/s   2.4%
+    #1   running   2024-07-17T22:57:22Z   0.0%   12.5M of 64M   47.4M of 1G   0B/s of 16K/s   2.4%
+    </pre>
 
-4. View your MySQL for PCF v1 database instance bound to the broker by running the command:
+4. You might also see your MySQL for PCF v1 database instance bound to the broker.
 
     ```bash
     cf services
@@ -222,20 +222,20 @@ After migrating your data, bind the new database to the broker.
 
 	Waiting for app to start...
 
-	name:              aws-services-broker
-	requested state:   started
-	instances:         2/2
-	usage:             64M x 2 instances
-	routes:            aws-services-broker.my-domain.com
-	last uploaded:     Wed 06 Jun 10:23:12 EDT 2018
-	stack:             cflinuxfs2
-	buildpack:         go_buildpack
-	start command:     bin/aws-services-broker
+    name:              aws-services-broker
+    requested state:   started
+    instances:         2/2
+    usage:             64M x 2 instances
+    routes:            aws-services-broker.my-domain.com
+    last uploaded:     Wed 17 Jul 22:57:04 UTC 2024
+    stack:             cflinuxfs3
+    buildpack:         go_buildpack
+    start command:     bin/aws-services-broker
 
-	     state     since                  cpu    memory         disk          details
-	#0   running   2018-06-06T14:26:48Z   0.0%   11.7M of 64M   47.4M of 1G
-	#1   running   2018-06-06T14:26:49Z   0.0%   11.8M of 64M   47.4M of 1G
-	</pre>
+         state     since                  cpu    memory         disk          logging         cpu entitlement   details
+    #0   running   2024-07-17T22:57:22Z   0.0%   12.4M of 64M   47.4M of 1G   0B/s of 16K/s   2.4%
+    #1   running   2024-07-17T22:57:22Z   0.0%   12.5M of 64M   47.4M of 1G   0B/s of 16K/s   2.4%
+    </pre>
 
 ## <a id="delete-old-db"></a> Delete the Old Database
 
